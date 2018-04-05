@@ -2,8 +2,11 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    string BMessage = "Hey";
 }
 
 <h1>Hello group 14</h1>
 <div>Now deployed through github</div>
 <h2>Adam's Header</h2>
+    <p>@Model.AMessage</p>
+    <p>@BMessage</p>
