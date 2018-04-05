@@ -11,6 +11,8 @@ namespace zooproject.Pages
 {
     public class IndexModel : PageModel
     {
+        public string AMessage { get; set; }
+
         IConfiguration _config;
         string connection_string;
 
@@ -24,6 +26,8 @@ namespace zooproject.Pages
 
         public void OnGet()
         {
+            AMessage = "Test Message";
+
             SqlConnection conn = new SqlConnection(connection_string);
             try
             {
@@ -49,5 +53,6 @@ namespace zooproject.Pages
                 Console.WriteLine(e.Message);
             }
         }
+
     }
 }
