@@ -12,6 +12,8 @@ namespace zooproject.Pages
     public class IndexModel : PageModel
     {
         public string AMessage { get; set; }
+        public string BMessage { get; set; }
+        public int AInt { get; set; }
 
         IConfiguration _config;
         string connection_string;
@@ -26,32 +28,66 @@ namespace zooproject.Pages
 
         public void OnGet()
         {
-            AMessage = "Test Message";
+            AMessage = "nothing";
+            AInt = 0;
+            InsertInto();
+            Select();
+            
+        }
 
+        public void InsertInto()
+        {
+            //connection
             SqlConnection conn = new SqlConnection(connection_string);
+            conn.Open();
+            AMessage = "Successfully opened an sql connection";
+
+
+            //Insertion of Title_Type
+            SqlCommand cmd2 = new SqlCommand()
+            {
+                Connection = conn,
+                CommandText = "INSERT INTO [dbo].[TITLE_TYPE](ID, Title) VALUES(@param1, @param2)"
+            };
+            cmd2.Parameters.AddWithValue("@param1", 14);
+            cmd2.Parameters.AddWithValue("@param2", "Monkey Man");
+
             try
             {
-                // Connect to database 
-                conn.Open();
-                Console.WriteLine("Successfully opened an sql connection");
-                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.ANIMAL", conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                // Print names of all animals
-                while (reader.Read())
-                {
-                    Console.WriteLine(reader.GetValue(1));
-                }
-
-                // Cleanup
-                reader.Close();
-                cmd.Dispose();
-                conn.Close();
-
-            }catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
+                cmd2.ExecuteNonQuery();
+                BMessage = "Executed insert";
             }
+            catch (SqlException e)
+            {
+                BMessage = "Failed to execute insert";
+            }
+
+            //cleanup
+            conn.Close();
+            cmd2.Dispose();
+
+        }
+
+        public void Select()
+        {
+            // Connect to database 
+            SqlConnection conn = new SqlConnection("Data Source=(local);Initial Catalog=Zoo;Integrated Security=SSPI");
+            conn.Open();
+
+            // Prints last Title_type
+            SqlCommand cmd = new SqlCommand("SELECT ID, Title FROM [dbo].[TITLE_TYPE]", conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                AMessage = reader.GetString(1);
+                AInt = reader.GetInt32(0);
+            }
+
+            // Cleanup
+            reader.Close();
+            cmd.Dispose();
+            conn.Close();
         }
 
     }
