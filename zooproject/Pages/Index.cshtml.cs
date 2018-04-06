@@ -71,7 +71,7 @@ namespace zooproject.Pages
         public void Select()
         {
             // Connect to database 
-            SqlConnection conn = new SqlConnection("Data Source=(local);Initial Catalog=Zoo;Integrated Security=SSPI");
+            SqlConnection conn = new SqlConnection(connection_string);
             conn.Open();
 
             // Prints last Title_type
