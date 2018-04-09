@@ -7,5 +7,11 @@
 <h1>Hello group 14</h1>
 <div>Now deployed through github</div>
 <h2>Adam's Header</h2>
-    <p>@Model.AInt @Model.AMessage</p>
-    <p>@Model.BMessage</p>
+<p>@Model.AInt @Model.AMessage</p>
+<p>@Model.BMessage</p>
+@{
+    while (Model.animals.Read())
+    {
+        <p>@Model.animals.GetInt32(0)</p>
+    }
+}

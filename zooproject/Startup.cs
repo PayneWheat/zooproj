@@ -11,9 +11,12 @@ namespace zooproject
 {
     public class Startup
     {
+        Database ZooDatabase;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ZooDatabase = new Database(configuration.GetSection("Data").GetSection("ConnectionString").Value);
         }
 
         public IConfiguration Configuration { get; }
@@ -24,6 +27,7 @@ namespace zooproject
             services.AddMvc();
 
             services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton<Database>(ZooDatabase);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

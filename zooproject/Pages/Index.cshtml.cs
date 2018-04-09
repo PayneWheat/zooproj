@@ -14,14 +14,17 @@ namespace zooproject.Pages
         public string AMessage { get; set; }
         public string BMessage { get; set; }
         public int AInt { get; set; }
+        public SqlDataReader animals { get; set; }
 
         IConfiguration _config;
+        Database _database;
         string connection_string;
 
-        public IndexModel(IConfiguration iconfiguration)
+        public IndexModel(IConfiguration iconfiguration, Database ZooDatabase)
         {
             // Get database connection string from appsettings.Development.json
             _config = iconfiguration;
+            _database = ZooDatabase;
             connection_string = _config.GetSection("Data").GetSection("ConnectionString").Value;
 
         }
@@ -31,8 +34,25 @@ namespace zooproject.Pages
             AMessage = "nothing";
             AInt = 0;
             InsertInto();
-            Select();
+            //Select();
+            Test();
             
+        }
+
+        public void Test()
+        {
+            //connection
+            _database.connect();
+
+            //Insertion of Title_Type
+            SqlCommand cmd2 = new SqlCommand()
+            {
+                Connection = _database.Connection,
+                CommandText = "SELECT ID FROM [dbo].ANIMAL"
+            };
+
+            animals = _database.Select(cmd2);
+
         }
 
         public void InsertInto()
