@@ -47,7 +47,7 @@ namespace zooproject.Pages
         {
             //connection
             //"Data Source=(local);Initial Catalog=Zoo;Integrated Security=SSPI"
-            SqlConnection conn = new SqlConnection("Data Source=(local);Initial Catalog=Zoo;Integrated Security=SSPI");
+            SqlConnection conn = new SqlConnection(connection_string);
             conn.Open();
             AMessage = "Successfully opened an sql connection";
 
@@ -79,7 +79,7 @@ namespace zooproject.Pages
         public void Select()
         {
             // Connect to database 
-            SqlConnection conn = new SqlConnection("Data Source=(local);Initial Catalog=Zoo;Integrated Security=SSPI");
+            SqlConnection conn = new SqlConnection(connection_string);
             conn.Open();
 
             //Adds all IDs and Titles to Model.listname
