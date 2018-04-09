@@ -2,3 +2,21 @@
 @model InsertModel
 @{
 }
+
+<h1>Insert Data</h1>
+<h2>Select a table</h2>
+<select id="entities">
+    <option selected disbaled="true"> -- select an entity --</option>
+    <option value="TITLE_TYPE">TITLE_TYPE</option>
+    <option value="EMPLOYEE">EMPLOYEE</option>
+</select><br><br />
+<button onclick="EntitySelect()">Select</button><br><br />
+<p>Selected Value:</p>
+<p id="selection"></p>
+<p></p>
+<script>
+    function EntitySelect() {
+        document.getElementById("selection").innerHTML =
+            document.getElementById("entities").value;
+    }
+</script>

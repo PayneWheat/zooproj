@@ -16,6 +16,13 @@ namespace zooproject.Pages
         public int AInt { get; set; }
         public SqlDataReader animals { get; set; }
 
+        public string insertType;
+        public int insertID;
+
+        //Lists to store types and IDs
+        public List<string> TypeResults = new List<string>();
+        public List<int> IDResults = new List<int>();
+
         IConfiguration _config;
         Database _database;
         string connection_string;
@@ -36,7 +43,8 @@ namespace zooproject.Pages
             InsertInto();
             //Select();
             Test();
-            
+            //InsertInto();
+            Select();
         }
 
         public void Test()
@@ -58,10 +66,10 @@ namespace zooproject.Pages
         public void InsertInto()
         {
             //connection
+            //"Data Source=(local);Initial Catalog=Zoo;Integrated Security=SSPI"
             SqlConnection conn = new SqlConnection(connection_string);
             conn.Open();
             AMessage = "Successfully opened an sql connection";
-
 
             //Insertion of Title_Type
             SqlCommand cmd2 = new SqlCommand()
@@ -69,8 +77,8 @@ namespace zooproject.Pages
                 Connection = conn,
                 CommandText = "INSERT INTO [dbo].[TITLE_TYPE](ID, Title) VALUES(@param1, @param2)"
             };
-            cmd2.Parameters.AddWithValue("@param1", 14);
-            cmd2.Parameters.AddWithValue("@param2", "Monkey Man");
+            cmd2.Parameters.AddWithValue("@param1", AInt);
+            cmd2.Parameters.AddWithValue("@param2", AMessage);
 
             try
             {
@@ -94,14 +102,14 @@ namespace zooproject.Pages
             SqlConnection conn = new SqlConnection(connection_string);
             conn.Open();
 
-            // Prints last Title_type
-            SqlCommand cmd = new SqlCommand("SELECT ID, Title FROM [dbo].[TITLE_TYPE]", conn);
+            //Adds all IDs and Titles to Model.listname
+            SqlCommand cmd = new SqlCommand("SELECT ID FROM [dbo].ANIMAL", conn);
             SqlDataReader reader = cmd.ExecuteReader();
-
+            
             while (reader.Read())
             {
-                AMessage = reader.GetString(1);
-                AInt = reader.GetInt32(0);
+                IDResults.Add(reader.GetInt32(0));
+                //TypeResults.Add(reader.GetString(1));
             }
 
             // Cleanup
