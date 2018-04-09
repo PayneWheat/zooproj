@@ -6,6 +6,48 @@
 
 <h1>Hello group 14</h1>
 <div>Now deployed through github</div>
-<h2>Adam's Header</h2>
+<h2>Printing all tuples in Title_Type</h2>
+
+<!-- Table for results of Title_type-->
+<table style="width:100%">
+    <!-- Column Names-->
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+    </tr>
+
+    <!-- Column Values-->
+    @for (int i = 0; i < Model.IDResults.Count - 1; i++)
+    {
+    <tr>
+        <th>@Model.IDResults[i]</th> 
+        <th>@Model.TypeResults[i]</th>
+    </tr>
+    }
+</table>
+
+<br /><br />
     <p>@Model.AInt @Model.AMessage</p>
     <p>@Model.BMessage</p>
+
+<!-- trying to figure out a way to insert based on value in inputs-->
+    
+    <input id ="iID" type="text" value="ID"><br>
+    <input id="iType" type="text" value="Type"><br>
+    <input type="submit" value="Submit" onclick="InsertValues()">
+    
+
+<p id="myID"></p>
+<p id="myType"></p>
+
+<script>
+
+    function InsertValues() {
+        document.getElementById("myID").innerHTML = document.getElementById("iID").value;
+        document.getElementById("myType").innerHTML = document.getElementById("iType").value;
+
+       @Model.AMessage;
+    }
+    
+
+</script>
