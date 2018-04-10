@@ -11,6 +11,8 @@ namespace zooproject.Pages
 {
     public class IndexModel : PageModel
     {
+        //a
+
         public string AMessage { get; set; }
         public string BMessage { get; set; }
         public int AInt { get; set; }
