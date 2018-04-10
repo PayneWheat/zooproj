@@ -125,5 +125,27 @@ namespace zooproject.Pages
             database.disconnect();
         }
 
+
+        public void Delete()
+        {
+            database.connect();
+
+            SqlCommand cmd = new SqlCommand("DELETE FROM [dbo].[TITLE_TYPE] " +
+                "WHERE ID = 10", database.Connection);
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+                BMessage = "Executed delete";
+            }
+            catch (SqlException e)
+            {
+                BMessage = "Failed to execute delete";
+            }
+
+            cmd.Dispose();
+            database.disconnect();
+        }
+
     }
 }
