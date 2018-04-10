@@ -22,16 +22,17 @@ namespace zooproject.Pages
         //Lists to store types and IDs
         public List<string> TypeResults = new List<string>();
         public List<int> IDResults = new List<int>();
+        public List<int> AnimalIDs = new List<int>();
 
         IConfiguration _config;
-        Database _database;
+        Database database;
         string connection_string;
 
         public IndexModel(IConfiguration iconfiguration, Database ZooDatabase)
         {
             // Get database connection string from appsettings.Development.json
             _config = iconfiguration;
-            _database = ZooDatabase;
+            database = ZooDatabase;
             connection_string = _config.GetSection("Data").GetSection("ConnectionString").Value;
 
         }
@@ -40,26 +41,32 @@ namespace zooproject.Pages
         {
             AMessage = "nothing";
             AInt = 0;
-            InsertInto();
-            //Select();
-            Test();
             //InsertInto();
-            Select();
+            //Select();
+            //Test();
+            //InsertInto();
+            //Select();
         }
 
         public void Test()
         {
             //connection
-            _database.connect();
+            database.connect();
 
-            //Insertion of Title_Type
-            SqlCommand cmd2 = new SqlCommand()
+            SqlCommand cmd = new SqlCommand()
             {
-                Connection = _database.Connection,
+                Connection = database.Connection,
                 CommandText = "SELECT ID FROM [dbo].ANIMAL"
             };
 
-            animals = _database.Select(cmd2);
+            SqlDataReader reader;
+
+            animals = cmd.ExecuteReader();
+            while (animals.Read())
+            {
+                AnimalIDs.Add(animals.GetInt32(0));
+            }
+            database.disconnect();
 
         }
 
@@ -67,14 +74,13 @@ namespace zooproject.Pages
         {
             //connection
             //"Data Source=(local);Initial Catalog=Zoo;Integrated Security=SSPI"
-            SqlConnection conn = new SqlConnection(connection_string);
-            conn.Open();
+            database.connect();
             AMessage = "Successfully opened an sql connection";
 
             //Insertion of Title_Type
             SqlCommand cmd2 = new SqlCommand()
             {
-                Connection = conn,
+                Connection = database.Connection,
                 CommandText = "INSERT INTO [dbo].[TITLE_TYPE](ID, Title) VALUES(@param1, @param2)"
             };
             cmd2.Parameters.AddWithValue("@param1", AInt);
@@ -91,19 +97,18 @@ namespace zooproject.Pages
             }
 
             //cleanup
-            conn.Close();
             cmd2.Dispose();
+            database.disconnect();
 
         }
 
         public void Select()
         {
             // Connect to database 
-            SqlConnection conn = new SqlConnection(connection_string);
-            conn.Open();
+            database.connect();
 
             //Adds all IDs and Titles to Model.listname
-            SqlCommand cmd = new SqlCommand("SELECT ID FROM [dbo].ANIMAL", conn);
+            SqlCommand cmd = new SqlCommand("SELECT ID FROM [dbo].ANIMAL", database.Connection);
             SqlDataReader reader = cmd.ExecuteReader();
             
             while (reader.Read())
@@ -115,7 +120,7 @@ namespace zooproject.Pages
             // Cleanup
             reader.Close();
             cmd.Dispose();
-            conn.Close();
+            database.disconnect();
         }
 
     }

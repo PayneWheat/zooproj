@@ -10,9 +10,10 @@
 <p>@Model.AInt @Model.AMessage</p>
 <p>@Model.BMessage</p>
 @{
-    while (Model.animals.Read())
+
+    for (int i = 0; i < Model.AnimalIDs.Count - 1; i++)
     {
-        <p>@Model.animals.GetInt32(0)</p>
+        <p>@Model.AnimalIDs[i]</p>
     }
 }
 
@@ -61,4 +62,3 @@
     
 
 </script>
->>>>>>> b637831f139ce8fe38b6c3c097cdba2301c39dcc

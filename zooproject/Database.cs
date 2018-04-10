@@ -30,14 +30,5 @@ namespace zooproject
         {
             conn.Close();
         }
-
-        public SqlDataReader Select(SqlCommand cmd)
-        {
-            SqlDataReader reader;
-
-            reader = cmd.ExecuteReader();
-
-            return reader;
-        }
     }
 }
