@@ -1,5 +1,59 @@
 ﻿@page
 @model ProductCatalogModel
 @{
+    ViewData["Title"] = "Product Catalog Page";
 }
-<h1>This is the product catalog</h1>
+
+<style>
+    #products {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #products td, #products th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #products tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #products tr:hover {
+            background-color: #ddd;
+        }
+
+        #products th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+</style>
+
+<h1>Attraction Info</h1>
+<p>This page will display all the attractions for the customer</p>
+
+<!-- Table for results of Attraction-->
+<table id="products">
+    <!-- Column Names-->
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+    </tr>
+
+    <!-- Column Values-->
+    @for (int i = 0; i < Model.IDResults.Count; i++)
+    {
+        <tr>
+            <td>@Model.IDResults[i]</td>
+            <td>@Model.NameResults[i]</td>
+            <td>$@Model.PriceResults[i]</td>
+            <td>@Model.DescriptionResults[i]</td>
+        </tr>
+    }
+</table>

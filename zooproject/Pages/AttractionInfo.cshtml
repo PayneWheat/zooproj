@@ -4,5 +4,56 @@
     ViewData["Title"] = "Attraction Info Page";
 }
 
+<style>
+    #attractions {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #attractions td, #attractions th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #attractions tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #attractions tr:hover {
+            background-color: #ddd;
+        }
+
+        #attractions th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+</style>
+
 <h1>Attraction Info</h1>
 <p>This page will display all the attractions for the customer</p>
+
+<!-- Table for results of Attraction-->
+<table id="attractions" style="width:100%; border:1px solid black; padding:15px">
+    <!-- Column Names-->
+    <tr>
+        <th>Name</th>
+        <th>Open</th>
+        <th>Description</th>
+        <th>Animal Info</th>
+    </tr>
+
+    <!-- Column Values-->
+    @for (int i = 0; i < Model.IDResults.Count; i++)
+    {
+        <tr>
+            <td>@Model.NameResults[i]</td>
+            <td>@Model.OpenResults[i]</td>
+            <td>@Model.DescriptionResults[i]</td>
+            <td>Info about the animals who live here(species, count, etc)</td>
+        </tr>
+    }
+</table>
