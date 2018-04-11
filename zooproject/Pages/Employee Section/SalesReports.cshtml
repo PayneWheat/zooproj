@@ -2,3 +2,48 @@
 @model SalesReportsModel
 @{
 }
+
+<style>
+    #sales {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #sales td, #sales th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #sales tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #sales tr:hover {
+            background-color: #ddd;
+        }
+
+        #sales th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+</style>
+
+<h1>Sales's Report Page</h1>
+<table id="sales" style="width:100%; border:1px solid black; padding:15px">
+    <!-- Column Names-->
+    <tr>
+        <th>Date</th>
+        <th>Total Revenue</th>
+        <th>#Purchases</th>
+    </tr>
+
+    <!-- Column Values-->
+    @for (int i = 0; i < Model.PurchaseReciptList.Count; i++)
+    {
+
+    }
+</table>

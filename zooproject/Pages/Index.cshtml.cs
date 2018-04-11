@@ -26,7 +26,7 @@ namespace zooproject.Pages
         public List<int> IDResults = new List<int>();
         public List<int> AnimalIDs = new List<int>();
 
-        IConfiguration _config;
+        IConfiguration _config; 
         Database database;
         string connection_string;
 
