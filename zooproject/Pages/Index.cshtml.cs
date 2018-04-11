@@ -43,8 +43,8 @@ namespace zooproject.Pages
         {
             AMessage = "nothing";
             AInt = 0;
-            //InsertInto();
-            //Select();
+            InsertInto();
+            Select();
             //Test();
             //InsertInto();
             //Select();
@@ -83,10 +83,10 @@ namespace zooproject.Pages
             SqlCommand cmd2 = new SqlCommand()
             {
                 Connection = database.Connection,
-                CommandText = "INSERT INTO [dbo].[TITLE_TYPE](ID, Title) VALUES(@param1, @param2)"
+                CommandText = "INSERT INTO [dbo].[TITLE_TYPE](ID, Title) VALUES(20, 'Boss Man')"
             };
-            cmd2.Parameters.AddWithValue("@param1", AInt);
-            cmd2.Parameters.AddWithValue("@param2", AMessage);
+            //cmd2.Parameters.AddWithValue("@param1", 16);
+            //scmd2.Parameters.AddWithValue("@param2", "Boss Man");
 
             try
             {
@@ -110,13 +110,13 @@ namespace zooproject.Pages
             database.connect();
 
             //Adds all IDs and Titles to Model.listname
-            SqlCommand cmd = new SqlCommand("SELECT ID FROM [dbo].ANIMAL", database.Connection);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM [dbo].[TITLE_TYPE]", database.Connection);
             SqlDataReader reader = cmd.ExecuteReader();
             
             while (reader.Read())
             {
                 IDResults.Add(reader.GetInt32(0));
-                //TypeResults.Add(reader.GetString(1));
+                TypeResults.Add(reader.GetString(1));
             }
 
             // Cleanup
