@@ -43,7 +43,7 @@ namespace zooproject.Pages
         {
             AMessage = "nothing";
             AInt = 0;
-            InsertInto();
+            //InsertInto();
             Select();
             //Test();
             //InsertInto();
