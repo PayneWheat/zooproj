@@ -30,6 +30,22 @@
         background-color: #4CAF50;
         color: white;
     }
+    #attributeType{
+        width:800px;
+        font-size:12pt;
+    }
+    #entityType {
+        width: 800px;
+        font-size: 12pt;
+    }
+    #whereType {
+        width: 800px;
+        font-size: 12pt;
+    }
+    #otherType {
+        width: 800px;
+        font-size: 12pt;
+    }
 </style>
 
 <br />
@@ -40,15 +56,19 @@
     <form method="post">
         <div>
             <label for="Attributes">SELECT which attributes?</label>
-            <input type="text" name="attributeType" value="@Model.whichAttributes" />
+            <input id ="attributeType" type="text" name="attributeType" value="@Model.whichAttributes" />
             <br />
             <label for="Entity">Entity to Search FROM</label>
-            <input type="text" name="entityType" value="@Model.whichEntity" />
+            <input id ="entityType" type="text" name="entityType" value="@Model.whichEntity" />
             <br />
             <label for="Where">Enter WHERE parameters</label>
-            <input type="text" name="whereType" value="@Model.whichWhere" />
+            <input id ="whereType" type="text" name="whereType" value="@Model.whichWhere" />
             <br />
-            <input type="submit" value="Search" /><br />
+            <label for="Other">Other Parameters</label>
+            <input id ="otherType" type="text" name="otherType" value="@Model.whichOther" />
+            <br />
+            <input type="submit" value="Search" />
+            <br />
             Enter * for all atributes, comma seperate multiple attributes (ID, Title)<br />
             Leave blank for no WHERE condition<br />
         </div>

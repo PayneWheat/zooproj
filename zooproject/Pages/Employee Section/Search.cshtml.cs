@@ -17,17 +17,13 @@ namespace zooproject.Pages.Employee_Section
 
         public SqlDataReader reader;
 
-        public List<string> TypeResults = new List<string>();
-        public List<int> IDResults = new List<int>();
-
         public List<List<string>> Results = new List<List<string>>();
         public List<string> ColumnNames = new List<string>();
-        public List<string> Results1 = new List<string>();
-        public List<string> Results2 = new List<string>();
 
         public string whichEntity = "";
         public string whichAttributes = "";
         public string whichWhere = "";
+        public string whichOther = "";
 
         public string dbCommand = "";
 
@@ -56,6 +52,7 @@ namespace zooproject.Pages.Employee_Section
             whichEntity = Request.Form["entityType"];
             whichAttributes = Request.Form["attributeType"];
             whichWhere = Request.Form["whereType"];
+            whichOther = Request.Form["otherType"];
 
             if(whichEntity != "" && whichAttributes != "")
             {
@@ -66,7 +63,7 @@ namespace zooproject.Pages.Employee_Section
                 if (whichWhere == "")
                 {
                     dbCommand = "SELECT " + whichAttributes + " FROM "+
-                        whichEntity + ";";
+                        whichEntity + " " + whichOther + ";";
 
                     cmd.CommandText = dbCommand;
                     cmd.Connection = database.Connection;
