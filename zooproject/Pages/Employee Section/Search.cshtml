@@ -34,6 +34,9 @@
 
 <br />
 <br />
+
+<h1>Works for everything but null values</h1>
+
 @{
     <form method="post">
         <div>
@@ -57,22 +60,31 @@
 @{
     if (Model.whichEntity != "" && Model.whichAttributes != "")
     {
+        <!--if (Model.whichAttributes == "*")
+        {-->
         <!-- Table for results of Title_type-->
         <table id="results" style="width:100%; border:1px solid black; padding:15px">
             <!-- Column Names-->
             <tr>
-                <th>ID</th>
-                <th>Type</th>
+                @for (int i = 0; i < Model.AInt; i++){
+                    <th>@Model.ColumnNames[i]</th>
+                }
             </tr>
 
             <!-- Column Values-->
-            @for (int i = 0; i < Model.IDResults.Count; i++)
+
+            @for (int i = 0; i < Model.Results[0].Count; i++)
             {
                 <tr>
-                    <td>@Model.IDResults[i]</td>
-                    <td>@Model.TypeResults[i]</td>
+                    @for (int j = 0; j < Model.AInt; j++)
+                    {
+                        <td>@Model.Results[j][i]</td>
+                    }
                 </tr>
             }
         </table>
+        <!--}-->
     }
+    <p>@Model.AMessage</p>
+    <p>@Model.AInt</p>
 }

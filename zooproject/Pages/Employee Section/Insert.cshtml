@@ -52,6 +52,7 @@
     {
         <p>TITLE_TYPE CHOSEN</p>
         <form>
+            
             <div>
                 <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
                     <!-- Column Names-->
@@ -71,4 +72,40 @@
             </div>
         </form>
     }
+
+    if(Model.whichEntity == "ATTRACTION")
+    {
+        <p>Attraction Chosen</p>
+        <form>
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Open</th>
+                        <th>Open Date</th>
+                        <th>ManagerID</th>
+                        <th>Manager Start Date</th>
+                        <th>Description</th>
+                    </tr>
+
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertID" value="ID" /></td>
+                        <td><input type="text" name="insertType" value="Type" /></td>
+                        <td><input type="text" name="OpenType" value="Open/Closed" /></td>
+                        <td><input type="text" name="OpenType" value="Open Date" /></td>
+                        <td><input type="text" name="ManagerType" value="ManagerID" /></td>
+                        <td><input type="text" name="ManagerDateType" value="Manager Start Date" /></td>
+                        <td><input type="text" name="DescriptionType" value="Description" /></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        </form>
+
+    }
 }
+<p>@Model.AMessage</p>

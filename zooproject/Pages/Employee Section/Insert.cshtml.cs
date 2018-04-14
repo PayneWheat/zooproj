@@ -29,6 +29,15 @@ namespace zooproject.Pages.Employee_Section
         {
             AMessage = "posted";
             whichEntity = Request.Form["entityType"];
+
+            if (whichEntity == "TITLE_TYPE")
+            {
+                //AMessage = "controller recognized TITLE_TYPE";
+                AMessage = Request.Form["insertID"];
+            }
+
+            if (whichEntity == "ATTRACTION")
+                AMessage = "controller recogznied ATTRACTION";
         }
         
     }
