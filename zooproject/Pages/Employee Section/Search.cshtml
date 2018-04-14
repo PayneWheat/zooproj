@@ -3,6 +3,34 @@
 @{
 }
 
+<style>
+    #results {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #results td, #results th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #results tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #results tr:hover {
+        background-color: #ddd;
+    }
+
+    #results th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
 
 <br />
 <br />
@@ -28,7 +56,7 @@
 <h2>@Model.whichEntity</h2>
 
 <!-- Table for results of Title_type-->
-<table style="width:100%">
+<table id="results" style="width:100%; border:1px solid black; padding:15px">
     <!-- Column Names-->
     <tr>
         <th>ID</th>
@@ -39,8 +67,8 @@
     @for (int i = 0; i < Model.IDResults.Count; i++)
     {
         <tr>
-            <th>@Model.IDResults[i]</th>
-            <th>@Model.TypeResults[i]</th>
+            <td>@Model.IDResults[i]</td>
+            <td>@Model.TypeResults[i]</td>
         </tr>
     }
 </table>

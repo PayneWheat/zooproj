@@ -12,7 +12,7 @@ namespace zooproject.Pages.Employee_Section
 {
     public class InsertModel : PageModel
     {
-        public string AMessage = "2";
+        public string AMessage = "";
         public void OnGet()
         {
            
@@ -21,6 +21,11 @@ namespace zooproject.Pages.Employee_Section
         public void OnInsert()
         {
             AMessage = "Inserted";
+        }
+
+        public void OnPost()
+        {
+            AMessage = "posted";
         }
         
     }

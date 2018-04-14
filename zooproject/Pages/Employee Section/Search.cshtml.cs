@@ -42,8 +42,6 @@ namespace zooproject.Pages.Employee_Section
             whichAttributes = Request.Form["attributeType"];
             whichWhere = Request.Form["whereType"];
 
-            
-
             if(whichEntity != "" && whichAttributes != "")
             {
                 database.connect();
