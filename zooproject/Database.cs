@@ -14,8 +14,8 @@ namespace zooproject
         //"Data Source=(local);Initial Catalog=Zoo;Integrated Security=SSPI"
         public Database(string connection_string)
         {
-            _connection_string = connection_string;
-            //_connection_string = "Data Source=(local);Initial Catalog=Zoo;Integrated Security=SSPI";
+            //_connection_string = connection_string;
+            _connection_string = "Data Source=(local);Initial Catalog=Zoo;Integrated Security=SSPI";
         }
         public SqlConnection Connection
         {

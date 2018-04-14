@@ -2,3 +2,51 @@
 @model SearchModel
 @{
 }
+
+
+<br />
+<br />
+@{
+    <p>Searching the Employee Table</p>
+    <form method="post">
+        <div>
+            <label for="Entity">Entity to Input</label>
+            <input type="text" name="entityType" value="@Model.whichEntity" />
+
+            <label for="Attributes">Select which attributes?</label>
+            <input type="text" name="attributeType" value="@Model.whichAttributes" />
+
+            <label for="Where">Selecet WHERE parameters?</label>
+            <input type="text" name="whereType" value="@Model.whichWhere" />
+
+            <input type="submit" value="Submit" /><br />
+            Enter * for all atributes, comma seperate multiple attributes<br />
+            Leave blank for no WHERE condition<br />
+        </div>
+    </form>
+
+    <p>@Model.whichEntity</p>
+    <p>@Model.whichAttributes</p>
+    <p>@Model.whichWhere</p>
+    
+}
+
+<h2>Printing all tuples in Title_Type</h2>
+
+<!-- Table for results of Title_type-->
+<table style="width:100%">
+    <!-- Column Names-->
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+    </tr>
+
+    <!-- Column Values-->
+    @for (int i = 0; i < Model.IDResults.Count; i++)
+    {
+        <tr>
+            <th>@Model.IDResults[i]</th>
+            <th>@Model.TypeResults[i]</th>
+        </tr>
+    }
+</table>
