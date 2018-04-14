@@ -2,3 +2,88 @@
 @model SearchModel
 @{
 }
+
+<style>
+    #results {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #results td, #results th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #results tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #results tr:hover {
+        background-color: #ddd;
+    }
+
+    #results th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+
+<br />
+<br />
+
+
+@{
+    <form method="post">
+        <div>
+            <label for="Attributes">SELECT which attributes?</label>
+            <input type="text" name="attributeType" value="@Model.whichAttributes" />
+            <br />
+            <label for="Entity">Entity to Search FROM</label>
+            <input type="text" name="entityType" value="@Model.whichEntity" />
+            <br />
+            <label for="Where">Enter WHERE parameters</label>
+            <input type="text" name="whereType" value="@Model.whichWhere" />
+            <br />
+            <input type="submit" value="Search" /><br />
+            Enter * for all atributes, comma seperate multiple attributes (ID, Title)<br />
+            Leave blank for no WHERE condition<br />
+        </div>
+    </form>
+}
+
+<h2>@Model.whichEntity</h2>
+@{
+    if (Model.whichEntity != "" && Model.whichAttributes != "")
+    {
+        <!--if (Model.whichAttributes == "*")
+        {-->
+        <!-- Table for results of Title_type-->
+        <table id="results" style="width:100%; border:1px solid black; padding:15px">
+            <!-- Column Names-->
+            <tr>
+                @for (int i = 0; i < Model.AInt; i++){
+                    <th>@Model.ColumnNames[i]</th>
+                }
+            </tr>
+
+            <!-- Column Values-->
+
+            @for (int i = 0; i < Model.Results[0].Count; i++)
+            {
+                <tr>
+                    @for (int j = 0; j < Model.AInt; j++)
+                    {
+                        <td>@Model.Results[j][i]</td>
+                    }
+                </tr>
+            }
+        </table>
+        <!--}-->
+    }
+    <p>@Model.AMessage</p>
+    <p>@Model.AInt</p>
+}
