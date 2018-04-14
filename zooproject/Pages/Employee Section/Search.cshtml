@@ -7,31 +7,25 @@
 <br />
 <br />
 @{
-    <p>Searching the Employee Table</p>
     <form method="post">
         <div>
-            <label for="Entity">Entity to Input</label>
-            <input type="text" name="entityType" value="@Model.whichEntity" />
-
-            <label for="Attributes">Select which attributes?</label>
+            <label for="Attributes">SELECT which attributes?</label>
             <input type="text" name="attributeType" value="@Model.whichAttributes" />
-
-            <label for="Where">Selecet WHERE parameters?</label>
+            <br />
+            <label for="Entity">Entity to Search FROM</label>
+            <input type="text" name="entityType" value="@Model.whichEntity" />
+            <br />
+            <label for="Where">Enter WHERE parameters</label>
             <input type="text" name="whereType" value="@Model.whichWhere" />
-
-            <input type="submit" value="Submit" /><br />
-            Enter * for all atributes, comma seperate multiple attributes<br />
+            <br />
+            <input type="submit" value="Search" /><br />
+            Enter * for all atributes, comma seperate multiple attributes (ID, Title)<br />
             Leave blank for no WHERE condition<br />
         </div>
     </form>
-
-    <p>@Model.whichEntity</p>
-    <p>@Model.whichAttributes</p>
-    <p>@Model.whichWhere</p>
-    
 }
 
-<h2>Printing all tuples in Title_Type</h2>
+<h2>@Model.whichEntity</h2>
 
 <!-- Table for results of Title_type-->
 <table style="width:100%">

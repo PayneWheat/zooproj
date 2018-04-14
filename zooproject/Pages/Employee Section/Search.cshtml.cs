@@ -22,6 +22,8 @@ namespace zooproject.Pages.Employee_Section
         public string whichAttributes = "";
         public string whichWhere = "";
 
+        public string dbCommand = "";
+
         public SearchModel(IConfiguration iconfiguration, Database ZooDatabase)
         {
             // Get database connection string from appsettings.Development.json
@@ -40,28 +42,30 @@ namespace zooproject.Pages.Employee_Section
             whichAttributes = Request.Form["attributeType"];
             whichWhere = Request.Form["whereType"];
 
+            
+
             if(whichEntity != "" && whichAttributes != "")
             {
                 database.connect();
 
                 SqlCommand cmd = new SqlCommand();
-                //Adds all IDs and Titles to Model.listname
+
                 if (whichWhere == "")
                 {
-                    cmd.CommandText = "SELECT @attributes FROM @entity;";
+                    dbCommand = "SELECT " + whichAttributes + " FROM [dbo].[" +
+                        whichEntity + "];";
+
+                    cmd.CommandText = dbCommand;
                     cmd.Connection = database.Connection;
-                    cmd.Parameters.AddWithValue("@attributes", whichAttributes);
-                    string entityValue = "[dbo].[" + whichEntity + "]";
-                    cmd.Parameters.AddWithValue("@entity", entityValue);
                 }
                 else
                 {
-                    cmd.CommandText = "SELECT * FROM TITLE_TYPE";
+                    dbCommand = "SELECT " + whichAttributes + " FROM [dbo].[" +
+                        whichEntity + "] WHERE " + whichWhere + ";";
+                    cmd.CommandText = dbCommand;
                     cmd.Connection = database.Connection;
                 }
-                //cmd.Parameters.AddWithValue("@entity", whichEntity);
-                //cmd.Parameters.AddWithValue("@att", whichAttributes);
-                //cmd.Parameters.AddWithValue("@where", whichWhere);
+
                 SqlDataReader reader = cmd.ExecuteReader();
                 
                 while (reader.Read())
