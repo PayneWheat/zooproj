@@ -2,3 +2,73 @@
 @model InsertModel
 @{
 }
+
+<style>
+    #insertion {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #insertion td, #insertion th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #insertion tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #insertion tr:hover {
+        background-color: #ddd;
+    }
+
+    #insertion th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+
+
+<br />
+<br />
+
+@{
+    <form method="post">
+        <div>
+            <label for="Entity">Entity to INSERT INTO</label>
+            <input type="text" name="entityType" value="@Model.whichEntity" />
+            <br />
+            <input type="submit" value="Choose" /><br />
+        </div>
+    </form>
+}
+
+@{
+    if (Model.whichEntity == "TITLE_TYPE")
+    {
+        <p>TITLE_TYPE CHOSEN</p>
+        <form>
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                    </tr>
+
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertID" value="ID" /></td>
+                        <td><input type="text" name="insertTYpe" value="Type" /></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        </form>
+    }
+}

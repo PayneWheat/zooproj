@@ -13,6 +13,8 @@ namespace zooproject.Pages.Employee_Section
     public class InsertModel : PageModel
     {
         public string AMessage = "";
+        public string whichEntity = "";
+
         public void OnGet()
         {
            
@@ -26,6 +28,7 @@ namespace zooproject.Pages.Employee_Section
         public void OnPost()
         {
             AMessage = "posted";
+            whichEntity = Request.Form["entityType"];
         }
         
     }
