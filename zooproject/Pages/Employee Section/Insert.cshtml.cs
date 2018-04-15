@@ -195,6 +195,56 @@ namespace zooproject.Pages.Employee_Section
                 cmd.Dispose();
                 database.disconnect();
             }
+
+            if (whichEntity == "ANIMAL")
+            {
+                AMessage = "controller recogznied ANIMAL";
+
+                database.connect();
+
+                string insertID = Request.Form["insertID"];
+                string insertName = Request.Form["insertName"];
+                string insertSpecies = Request.Form["insertSpecies"];
+                string insertTaxology = Request.Form["insertTaxology"];
+                string insertBirthLocation = Request.Form["insertBirthLocation"];
+                string insertBirthDate = Request.Form["insertBirthDate"];
+                string insertState = Request.Form["insertState"];
+                string insertStatus_date = Request.Form["insertStatus_date"];
+                string insertGender = Request.Form["insertGender"];
+                string insertHeight = Request.Form["insertHeight"];
+                string insertWeight = Request.Form["insertWeight"];
+                string insertHealth = Request.Form["insertHealth"];
+                string insertHealth_date = Request.Form["insertHealth_date"];
+                string insertAttraction = Request.Form["insertAttraction"];
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = database.Connection;
+                dbCommand = "INSERT INTO " + whichEntity + "(ID, [Name], Species, Taxology, " +
+                    "[Birth Location], [Birth Date], Status, Status_date, Gender, Weight, Height, " +
+                    "Health, Health_date, Attraction) " +
+                    "VALUES(" + insertID + ", '" + insertName + "', '" + insertSpecies +
+                     "', '" + insertTaxology + "', '" + insertBirthLocation + "', '" +
+                     insertBirthDate + "', '" + insertState + "', '" + insertStatus_date +
+                     "', " + insertGender + ", " + insertHeight + ", " + insertWeight +
+                     ", '" + insertHealth + "', '" + insertHealth_date + "', " + insertAttraction + 
+                     ");";
+
+                cmd.CommandText = dbCommand;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    EMessage = "Insert successful";
+                }
+
+                catch (SqlException e)
+                {
+                    EMessage = "Failed to execute insert";
+                }
+
+                cmd.Dispose();
+                database.disconnect();
+            }
         }
         
     }

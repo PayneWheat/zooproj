@@ -166,7 +166,53 @@
                     <td><input type="text" name="insertPhone#" value="Phone#" /></td>
                     <td><input type="text" name="insertGender" value="Gender" /></td>
                     <td><input type="text" name="insertStore" value="Store>" /></td>
-                    <td><input type="text" name="insertAttraction" value="Attraction"</td>
+                    <td><input type="text" name="insertAttraction" value="Attraction" /></td>
+                </tr>
+            </table>
+            <br />
+            <input type="submit" value="Insert" />
+        </div>
+    }
+
+    @if (Model.whichEntity == "ANIMAL")
+    {
+        <p>Employee Chosen</p>
+        <div>
+            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                <!-- Column Names-->
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Species</th>
+                    <th>Taxology</th>
+                    <th>Birth Location</th>
+                    <th>Birth Date</th>
+                    <th>Status</th>
+                    <th>Status_date</th>
+                    <th>Gender</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>Health</th>
+                    <th>Health_date</th>
+                    <th>Attraction</th>
+                </tr>
+
+                <!-- Column Values-->
+                <tr>
+                    <td><input type="text" name="insertID" value="ID" /></td>
+                    <td><input type="text" name="insertName" value="Name" /></td>
+                    <td><input type="text" name="insertSpecies" value="Species" /></td>
+                    <td><input type="text" name="insertTaxology" value="Taxology" /></td>
+                    <td><input type="text" name="insertBirthLocation" value="Birth Location" /></td>
+                    <td><input type="text" name="insertBirthDate" value="Birth Date" /></td>
+                    <td><input type="text" name="insertStatus" value="Status" /></td>
+                    <td><input type="text" name="insertStatus_date" value="Status_date" /></td>
+                    <td><input type="text" name="insertGender" value="Gender" /></td>
+                    <td><input type="text" name="insertHeight" value="Height" /></td>
+                    <td><input type="text" name="insertWeight" value="Weight" /></td>
+                    <td><input type="text" name="insertHealth" value="Health" /></td>
+                    <td><input type="text" name="insertHealth_date" value="Health_date" /></td>
+                    <td><input type="text" name="insertAttraction" value="Attraction" /></td>    
                 </tr>
             </table>
             <br />
