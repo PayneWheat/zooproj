@@ -47,58 +47,86 @@
 
     @if (Model.whichEntity == "TITLE_TYPE")
     {
-    <p>TITLE_TYPE CHOSEN</p>
+        <p>TITLE_TYPE CHOSEN</p>
 
-    <div>
-        <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-            <!-- Column Names-->
-            <tr>
-                <th>ID</th>
-                <th>Type</th>
-            </tr>
+        <div>
+            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                <!-- Column Names-->
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                </tr>
 
-            <!-- Column Values-->
-            <tr>
-                <td><input type="text" name="insertID" value="ID" /></td>
-                <td><input type="text" name="insertTYpe" value="Type" /></td>
-            </tr>
-        </table>
-        <br />
-        <input type="submit" value="Insert" />
-    </div>
+                <!-- Column Values-->
+                <tr>
+                    <td><input type="text" name="insertID" value="ID" /></td>
+                    <td><input type="text" name="insertTYpe" value="Type" /></td>
+                </tr>
+            </table>
+            <br />
+            <input type="submit" value="Insert" />
+        </div>
     }
 
-    @if(Model.whichEntity == "ATTRACTION")
+    @if (Model.whichEntity == "ATTRACTION")
     {
-    <p>Attraction Chosen</p>
-    <div>
-        <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-            <!-- Column Names-->
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Open</th>
-                <th>Open Date</th>
-                <th>ManagerID</th>
-                <th>Manager Start Date</th>
-                <th>Description</th>
-            </tr>
+        <p>Attraction Chosen</p>
+        <div>
+            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                <!-- Column Names-->
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Open</th>
+                    <th>Open Date</th>
+                    <th>ManagerID</th>
+                    <th>Manager Start Date</th>
+                    <th>Description</th>
+                </tr>
 
-            <!-- Column Values-->
-            <tr>
-                <td><input type="text" name="insertID" value="ID" /></td>
-                <td><input type="text" name="insertType" value="Type" /></td>
-                <td><input type="text" name="OpenType" value="Open/Closed" /></td>
-                <td><input type="text" name="OpenType" value="Open Date" /></td>
-                <td><input type="text" name="ManagerType" value="ManagerID" /></td>
-                <td><input type="text" name="ManagerDateType" value="Manager Start Date" /></td>
-                <td><input type="text" name="DescriptionType" value="Description" /></td>
-            </tr>
-        </table>
-        <br />
-        <input type="submit" value="Insert" />
-    </div>
+                <!-- Column Values-->
+                <tr>
+                    <td><input type="text" name="insertID" value="ID" /></td>
+                    <td><input type="text" name="insertType" value="Type" /></td>
+                    <td><input type="text" name="insertOpen" value="Open/Closed" /></td>
+                    <td><input type="text" name="insertOpenDate" value="Open Date" /></td>
+                    <td><input type="text" name="insertManager" value="ManagerID" /></td>
+                    <td><input type="text" name="insertManagerDate" value="Manager Start Date" /></td>
+                    <td><input type="text" name="insertDescription" value="Description" /></td>
+                </tr>
+            </table>
+            <br />
+            <input type="submit" value="Insert" />
+        </div>
     }
+
+    @if (Model.whichEntity == "PRODUCT")
+    {
+        <p>Product Chosen</p>
+        <div>
+            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                <!-- Column Names-->
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                </tr>
+
+                <!-- Column Values-->
+                <tr>
+                    <td><input type="text" name="insertID" value="ID" /></td>
+                    <td><input type="text" name="insertType" value="Type" /></td>
+                    <td><input type="text" name="insertPrice" value="Price" /></td>
+                    <td><input type="text" name="insertDescription" value="Desecription" /></td>
+                </tr>
+            </table>
+            <br />
+            <input type="submit" value="Insert" />
+        </div>
+    }
+
+
 </form>
 }
 <p>@Model.AMessage</p>

@@ -38,11 +38,6 @@ namespace zooproject.Pages.Employee_Section
         {   
         }
 
-        public void OnInsert()
-        {
-            AMessage = "Inserted";
-        }
-
         public void OnPost()
         {
             AMessage = "posted";
@@ -80,7 +75,77 @@ namespace zooproject.Pages.Employee_Section
             }
 
             if (whichEntity == "ATTRACTION")
+            {
                 AMessage = "controller recogznied ATTRACTION";
+
+                database.connect();
+
+                string insertID = Request.Form["insertID"];
+                string insertType = Request.Form["insertType"];
+                string insertOpen = Request.Form["insertOpen"];
+                string insertOpenDate = Request.Form["insertOpenDate"];
+                string insertManager = Request.Form["insertManager"];
+                string insertManagerDate = Request.Form["insertManagerDate"];
+                string insertDescription = Request.Form["insertDescription"];
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = database.Connection;
+                dbCommand = "INSERT INTO " + whichEntity + "(ID, Name, Open_closed, " +
+                    "Open_closed_date, Manager, Manager_date, Description) " +
+                    "VALUES(" + insertID + ", '" + insertType + "', " + insertOpen +
+                     ", '" + insertOpenDate + "', " + insertManager + ", '" + 
+                     insertManagerDate + "', '" + insertDescription + "');";
+
+                cmd.CommandText = dbCommand;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    EMessage = "Insert successful";
+                }
+
+                catch (SqlException e)
+                {
+                    EMessage = "Failed to execute insert";
+                }
+
+                cmd.Dispose();
+                database.disconnect();
+            }
+
+            if(whichEntity == "PRODUCT")
+            {
+                AMessage = "controller recogznied PRODUCT";
+
+                database.connect();
+
+                string insertID = Request.Form["insertID"];
+                string insertType = Request.Form["insertType"];
+                string insertPrice = Request.Form["insertPrice"];
+                string insertDescription = Request.Form["insertDescription"];
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = database.Connection;
+                dbCommand = "INSERT INTO " + whichEntity + "(ID, Name, Price, Description) " +
+                    "VALUES(" + insertID + ", '" + insertType + "', " + insertPrice +
+                     ", '" + insertDescription + "');";
+
+                cmd.CommandText = dbCommand;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    EMessage = "Insert successful";
+                }
+
+                catch (SqlException e)
+                {
+                    EMessage = "Failed to execute insert";
+                }
+
+                cmd.Dispose();
+                database.disconnect();
+            }
         }
         
     }
