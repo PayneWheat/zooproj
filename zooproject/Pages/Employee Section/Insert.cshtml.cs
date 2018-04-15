@@ -146,6 +146,55 @@ namespace zooproject.Pages.Employee_Section
                 cmd.Dispose();
                 database.disconnect();
             }
+
+            if (whichEntity == "EMPLOYEE")
+            {
+                AMessage = "controller recogznied EMPLOYEE";
+
+                database.connect();
+
+                string insertID = Request.Form["insertID"];
+                string insertFname = Request.Form["insertFname"];
+                string insertMname = Request.Form["insertMname"];
+                string insertLname = Request.Form["insertLname"];
+                string insertTitle = Request.Form["insertTitle"];
+                string insertHire_Date = Request.Form["insertHire_Date"];
+                string insertStreet = Request.Form["insertStreet"];
+                string insertCity = Request.Form["insertCity"];
+                string insertZip = Request.Form["insertZip"];
+                string insertState = Request.Form["insertState"];
+                string insertEmail = Request.Form["insertEmail"];
+                string insertPhone = Request.Form["insertPhone#"];
+                string insertGender = Request.Form["insertGender"];
+                string insertStore = Request.Form["insertStore"];
+                string insertAttraction = Request.Form["insertAttraction"];
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = database.Connection;
+                dbCommand = "INSERT INTO " + whichEntity + "(ID, Fname, Mname, Lname, [Title]," +
+                    " Hire_Date, Street, City, Zip, [State], Email, Phone#, Gender, Store, Attraction) " +
+                    "VALUES(" + insertID + ", '" + insertFname + "', '" + insertMname +
+                     "', '" + insertLname + "', " + insertTitle + ", '" + insertHire_Date + 
+                     "', '" + insertStreet + "', '" + insertCity + "', '" + insertZip + "', '" + 
+                     insertState + "', '" + insertEmail + "', " + insertPhone + ", " + insertGender + 
+                     ", " + insertStore + ", " + insertAttraction + ");";
+
+                cmd.CommandText = dbCommand;
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    EMessage = "Insert successful";
+                }
+
+                catch (SqlException e)
+                {
+                    EMessage = "Failed to execute insert";
+                }
+
+                cmd.Dispose();
+                database.disconnect();
+            }
         }
         
     }

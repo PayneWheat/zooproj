@@ -126,6 +126,54 @@
         </div>
     }
 
+    @if (Model.whichEntity == "EMPLOYEE")
+    {
+        <p>Employee Chosen</p>
+        <div>
+            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                <!-- Column Names-->
+                <tr>
+                    <th>ID</th>
+                    <th>Fname</th>
+                    <th>Mname</th>
+                    <th>Lname</th>
+                    <th>Title</th>
+                    <th>Hire_Date</th>
+                    <th>Street</th>
+                    <th>City</th>
+                    <th>Zip</th>
+                    <th>State</th>
+                    <th>Email</th>
+                    <th>Phone#</th>
+                    <th>Gender</th>
+                    <th>Store</th>
+                    <th>Attraction</th>
+                </tr>
+
+                <!-- Column Values-->
+                <tr>
+                    <td><input type="text" name="insertID" value="ID" /></td>
+                    <td><input type="text" name="insertFname" value="First Name" /></td>
+                    <td><input type="text" name="insertMname" value="Middle Name" /></td>
+                    <td><input type="text" name="insertLname" value="Last Name" /></td>
+                    <td><input type="text" name="insertTitle" value="Title" /></td>
+                    <td><input type="text" name="insertHire_Date" value="Hire Date" /></td>
+                    <td><input type="text" name="insertStreet" value="Street" /></td>
+                    <td><input type="text" name="insertCity" value="City" /></td>
+                    <td><input type="text" name="insertZip" value="Zip" /></td>
+                    <td><input type="text" name="insertState" value="State" /></td>
+                    <td><input type="text" name="insertEmail" value="Email" /></td>
+                    <td><input type="text" name="insertPhone#" value="Phone#" /></td>
+                    <td><input type="text" name="insertGender" value="Gender" /></td>
+                    <td><input type="text" name="insertStore" value="Store>" /></td>
+                    <td><input type="text" name="insertAttraction" value="Attraction"</td>
+                </tr>
+            </table>
+            <br />
+            <input type="submit" value="Insert" />
+        </div>
+    }
+
 
 </form>
 }
