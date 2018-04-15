@@ -1,7 +1,7 @@
 ﻿@page
-@model AttractionInfoModel
+@model PurchaseInfoModel
 @{
-    ViewData["Title"] = "Attraction Info Page";
+    ViewData["Title"] = "Purchase Info Page";
     var idSum = 0;
 }
 
@@ -34,28 +34,29 @@
         }
 </style>
 
-<h1>Attraction Info</h1>
+<h1>Purchase Information</h1>
 <h2>Henry's testing shit out</h2>
-<p>This page will display all the attractions for the customer</p>
+<p>This page will display anything that a customer purchases</p>
 
-<!-- Table for results of Attraction-->
+<!-- Table for results of Purchase-->
 <table id="attractions" style="width:100%; border:1px solid black; padding:15px">
     <!-- Column Names-->
     <tr>
-        <th>Name</th>
-        <th>Open</th>
-        <th>Description</th>
-        <th>Animal Info</th>
+        <th>Receipt ID</th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
     </tr>
 
     <!-- Column Values-->
-    @for (int i = 0; i < Model.IDResults.Count; i++)
+    @for (int i = 0; i < Model.receiptID.Count; i++)    //Need  to create a purchaseinfomodel
     {
-        <tr>
-            <td>@Model.NameResults[i]</td>
-            <td>@Model.OpenResults[i]</td>
-            <td>@Model.DescriptionResults[i]</td>
-            <td>Info about the animals who live here(species, count, etc)</td>
-        </tr>
+    <tr>
+        <td>@Model.receiptID[i]</td>
+        <td>@Model.product[i]</td>
+        <td>@Model.quantity[i]</td>
+        <td>@Model.price[i]</td>
+        <td>Info about the animals who live here(species, count, etc)</td>
+    </tr>
     }
 </table>
