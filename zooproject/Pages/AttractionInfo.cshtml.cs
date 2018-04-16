@@ -22,6 +22,9 @@ namespace zooproject.Pages
         public List<DateTime> ManagerDateResults = new List<DateTime>();
         public List<string> DescriptionResults = new List<string>();
 
+        public string AttractionChoice;
+        public string dbCommand;
+
         IConfiguration _config;
         Database database;
         string connection_string;
@@ -60,6 +63,13 @@ namespace zooproject.Pages
             reader.Close();
             cmd.Dispose();
             database.disconnect();
+
+            AttractionChoice = Request.Query["Animals"];
+
+            dbCommand = "SELECT DISTINCT Species FROM [dbo].[ANIMAL] WHERE ID = " +
+                AttractionChoice + ";";
+            cmd = new SqlCommand(dbCommand, database.Connection);
+
         }
     }
 }

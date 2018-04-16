@@ -54,7 +54,13 @@
             <td>@Model.NameResults[i]</td>
             <td>@Model.OpenResults[i]</td>
             <td>@Model.DescriptionResults[i]</td>
-            <td>Info about the animals who live here(species, count, etc)</td>
+            <td>
+                <form method="get">
+                   <input type="submit" name ="Animals" value="@Model.IDResults[i]" /> 
+                </form>
+            </td>
         </tr>
     }
 </table>
+
+<p>@Model.AttractionChoice</p>
