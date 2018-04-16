@@ -93,7 +93,7 @@ namespace zooproject.Pages.Employee_Section
                 database.disconnect();
             }
 
-            if (whichEntity == "ATTRACTION")
+            else if (whichEntity == "ATTRACTION")
             {
                 AMessage = "controller recogznied ATTRACTION";
 
@@ -132,7 +132,7 @@ namespace zooproject.Pages.Employee_Section
                 database.disconnect();
             }
 
-            if (whichEntity == "CUSTOMER")
+            else if (whichEntity == "CUSTOMER")
             {
                 AMessage = "controller recognized CUSTOMER";
 
@@ -179,7 +179,7 @@ namespace zooproject.Pages.Employee_Section
                 database.disconnect();
             }
 
-            if (whichEntity == "EMPLOYEE")
+            else if (whichEntity == "EMPLOYEE")
             {
                 AMessage = "controller recogznied EMPLOYEE";
 
@@ -228,7 +228,7 @@ namespace zooproject.Pages.Employee_Section
                 database.disconnect();
             }
 
-            if (whichEntity == "GENDER_TYPE")
+            else if (whichEntity == "GENDER_TYPE")
             {
                 AMessage = "controller recognized GENDER_TYPE";
 
@@ -259,7 +259,7 @@ namespace zooproject.Pages.Employee_Section
                 database.disconnect();
             }
 
-            if (whichEntity == "MEMBERSHIP_TYPE")
+            else if (whichEntity == "MEMBERSHIP_TYPE")
             {
                 AMessage = "controller recognized MEMBERSHIP_TYPE";
 
@@ -290,7 +290,7 @@ namespace zooproject.Pages.Employee_Section
                 database.disconnect();
             }
 
-            if (whichEntity == "PAY_TYPE")
+            else if (whichEntity == "PAY_TYPE")
             {
                 AMessage = "controller recognized PAY_TYPE";
 
@@ -321,7 +321,7 @@ namespace zooproject.Pages.Employee_Section
                 database.disconnect();
             }
 
-            if (whichEntity == "PRODUCT")
+            else if (whichEntity == "PRODUCT")
             {
                 AMessage = "controller recogznied PRODUCT";
 
@@ -355,7 +355,7 @@ namespace zooproject.Pages.Employee_Section
                 database.disconnect();
             }
 
-            if (whichEntity == "PURCHASE")
+            else if (whichEntity == "PURCHASE")
             {
                 AMessage = "controller recognized PURCHASE";
 
@@ -394,7 +394,7 @@ namespace zooproject.Pages.Employee_Section
                 database.disconnect();
             }
 
-            if (whichEntity == "PURCHASE_INFO")
+            else if (whichEntity == "PURCHASE_INFO")
             {
                 AMessage = "controller recognized PURCHASE_INFO";
 
@@ -429,7 +429,7 @@ namespace zooproject.Pages.Employee_Section
                 database.disconnect();
             }
 
-            if (whichEntity == "STORE")
+            else if (whichEntity == "STORE")
             {
                 AMessage = "controller recognized STORE";
 
@@ -465,7 +465,7 @@ namespace zooproject.Pages.Employee_Section
                 database.disconnect();
             }
 
-            if (whichEntity == "STORE_TYPE")
+            else if (whichEntity == "STORE_TYPE")
             {
                 AMessage = "controller recognized STORE_TYPE";
 
@@ -496,7 +496,7 @@ namespace zooproject.Pages.Employee_Section
                 database.disconnect();
             }
 
-            if (whichEntity == "TITLE_TYPE")
+            else if (whichEntity == "TITLE_TYPE")
             {
                 AMessage = "controller recognized TITLE_TYPE";
 
@@ -526,6 +526,7 @@ namespace zooproject.Pages.Employee_Section
                 cmd.Dispose();
                 database.disconnect();
             }
+            else { EMessage = "Could not find entity type."; }
             
         }
         
