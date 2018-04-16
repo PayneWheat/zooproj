@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web
+using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -17,16 +17,15 @@ namespace zooproject.Pages
         }
         public void OnPost()
         {
-            NameValueCollection nvc = Request.Form;
             string userName, password;
-            if (!string.IsNullOrEmpty(nvc["Username"]))
+            if (!string.IsNullOrEmpty(Request.Form["Username"]))
             {
-                userName = nvc["Username"];
+                userName = Request.Form["Username"];
             }
 
-            if (!string.IsNullOrEmpty(nvc["Password"]))
+            if (!string.IsNullOrEmpty(Request.Form["Password"]))
             {
-                password = nvc["Password"];
+                password = Request.Form["Password"];
             }
 
             //Process login
