@@ -2,7 +2,6 @@
 @model AttractionInfoModel
 @{
     ViewData["Title"] = "Attraction Info Page";
-    var idSum = 0;
 }
 
 <style>
@@ -35,7 +34,6 @@
 </style>
 
 <h1>Attraction Info</h1>
-<p>This page will display all the attractions for the customer</p>
 
 <!-- Table for results of Attraction-->
 <table id="attractions" style="width:100%; border:1px solid black; padding:15px">
@@ -45,7 +43,6 @@
         <th>Open</th>
         <th>Description</th>
         <th>Animal Info</th>
-        <th>Manager</th>
     </tr>
 
     <!-- Column Values-->
@@ -55,7 +52,23 @@
             <td>@Model.NameResults[i]</td>
             <td>@Model.OpenResults[i]</td>
             <td>@Model.DescriptionResults[i]</td>
-            <td>Info about the animals who live here(species, count, etc)</td>
+            <td>
+                @{if (@Model.AttractionChoice != Model.IDResults[i].ToString())
+                    {
+                    <form method="get">
+                        <input type="submit" name ="Animals" value="@Model.IDResults[i]" /> 
+                    </form>
+                        }
+
+                    else
+                    {
+                        for(int j = 0; j < Model.AnimalList.Count; j++)
+                        {
+                            <p>@Model.AnimalList[j] </p>
+                        }
+                    }
+                }
+            </td>
         </tr>
     }
 </table>
