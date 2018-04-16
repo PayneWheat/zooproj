@@ -2,7 +2,6 @@
 @model AttractionInfoModel
 @{
     ViewData["Title"] = "Attraction Info Page";
-    var idSum = 0;
 }
 
 <style>
@@ -35,7 +34,6 @@
 </style>
 
 <h1>Attraction Info</h1>
-<p>This page will display all the attractions for the customer</p>
 
 <!-- Table for results of Attraction-->
 <table id="attractions" style="width:100%; border:1px solid black; padding:15px">
@@ -64,12 +62,13 @@
 
                     else
                     {
-                        <p>Animal List</p>
+                        for(int j = 0; j < Model.AnimalList.Count; j++)
+                        {
+                            <p>@Model.AnimalList[j] </p>
+                        }
                     }
                 }
             </td>
         </tr>
     }
 </table>
-
-<p>@Model.AttractionChoice</p>

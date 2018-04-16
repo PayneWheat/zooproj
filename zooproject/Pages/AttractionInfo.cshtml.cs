@@ -13,6 +13,7 @@ namespace zooproject.Pages
     public class AttractionInfoModel : PageModel
     {
         public string errorMessage { get; set; }
+        public int Aint = 0;
 
         public List<int> IDResults = new List<int>();
         public List<string> NameResults = new List<string>();
@@ -22,7 +23,7 @@ namespace zooproject.Pages
         public List<DateTime> ManagerDateResults = new List<DateTime>();
         public List<string> DescriptionResults = new List<string>();
 
-        public string AttractionChoice;
+        public string AttractionChoice = "";
         public List<string> AnimalList = new List<string>();
         public string dbCommand;
 
@@ -36,7 +37,6 @@ namespace zooproject.Pages
             _config = iconfiguration;
             database = ZooDatabase;
             connection_string = _config.GetSection("Data").GetSection("ConnectionString").Value;
-
         }
 
         public void OnGet()
@@ -66,19 +66,30 @@ namespace zooproject.Pages
 
             AttractionChoice = Request.Query["Animals"];
 
-            dbCommand = "SELECT DISTINCT Species FROM [dbo].[ANIMAL] WHERE ID = " +
-                AttractionChoice + ";";
-            SqlCommand cmd2 = new SqlCommand(dbCommand, database.Connection);
-            SqlDataReader reader2 = cmd2.ExecuteReader();
-
-            while (reader2.Read())
+            if (AttractionChoice != "")
             {
-                AnimalList.Add(reader2.GetValue(0).ToString());
+                dbCommand = "SELECT DISTINCT Species FROM [dbo].[ANIMAL] WHERE [Attraction] = " + AttractionChoice;
+                
+                try
+                {
+                    SqlCommand cmd2 = new SqlCommand(dbCommand, database.Connection);
+                    SqlDataReader reader2 = cmd2.ExecuteReader();
+
+                    while (reader2.Read())
+                    {
+                        Aint = reader2.FieldCount;
+                        AnimalList.Add(reader2.GetValue(0).ToString());
+                    }
+                    reader2.Close();
+                    cmd2.Dispose();
+                }
+                catch (SqlException e)
+                {
+                    errorMessage = e.ToString();
+                }
+                database.disconnect();
             }
 
-            reader2.Close();
-            cmd2.Dispose();
-            database.disconnect();
         }
     }
 }
