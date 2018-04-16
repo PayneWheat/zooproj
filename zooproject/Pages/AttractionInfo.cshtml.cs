@@ -23,6 +23,7 @@ namespace zooproject.Pages
         public List<string> DescriptionResults = new List<string>();
 
         public string AttractionChoice;
+        public List<string> AnimalList = new List<string>();
         public string dbCommand;
 
         IConfiguration _config;
@@ -62,14 +63,22 @@ namespace zooproject.Pages
             // Cleanup
             reader.Close();
             cmd.Dispose();
-            database.disconnect();
 
             AttractionChoice = Request.Query["Animals"];
 
             dbCommand = "SELECT DISTINCT Species FROM [dbo].[ANIMAL] WHERE ID = " +
                 AttractionChoice + ";";
-            cmd = new SqlCommand(dbCommand, database.Connection);
+            SqlCommand cmd2 = new SqlCommand(dbCommand, database.Connection);
+            SqlDataReader reader2 = cmd2.ExecuteReader();
 
+            while (reader2.Read())
+            {
+                AnimalList.Add(reader2.GetValue(0).ToString());
+            }
+
+            reader2.Close();
+            cmd2.Dispose();
+            database.disconnect();
         }
     }
 }

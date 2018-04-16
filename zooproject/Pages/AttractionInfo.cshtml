@@ -55,9 +55,18 @@
             <td>@Model.OpenResults[i]</td>
             <td>@Model.DescriptionResults[i]</td>
             <td>
-                <form method="get">
-                   <input type="submit" name ="Animals" value="@Model.IDResults[i]" /> 
-                </form>
+                @{if (@Model.AttractionChoice != Model.IDResults[i].ToString())
+                    {
+                    <form method="get">
+                        <input type="submit" name ="Animals" value="@Model.IDResults[i]" /> 
+                    </form>
+                        }
+
+                    else
+                    {
+                        <p>Animal List</p>
+                    }
+                }
             </td>
         </tr>
     }
