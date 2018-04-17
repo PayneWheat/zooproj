@@ -4,32 +4,61 @@
 }
 
 <style>
-    #sales {
+    #sales{
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    #sales td, #sales th{
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    #sales tr:nth-child(even){
+        background-color: #f2f2f2;
+    }
+    #sales tr:hover{
+        background-color: #ddd;
+    }
+    #sales th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+    #sales{
+        float: left;
+    }
+    #StoreInfo {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         width: 100%;
     }
 
-        #sales td, #sales th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
+    #StoreInfos, #StoreInfo th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
 
-        #sales tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+    #StoreInfo tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
 
-        #sales tr:hover {
-            background-color: #ddd;
-        }
+    #StoreInfo tr:hover, #StoreInfo {
+        background-color: #ddd;
+    }
 
-        #sales th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: #4CAF50;
-            color: white;
-        }
+    #StoreInfo th{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    #StoreInfo {
+        float: left;
+    }
 </style>
 <nav class="employee-links">
     <a asp-page="./Insert">Insert</a>
@@ -39,19 +68,57 @@
     <a asp-page="../Login">Logout</a>
 </nav>
 <h1>Sales's Report Page</h1>
-<table id="sales" style="width:100%; border:1px solid black; padding:15px">
+
+<table id="sales" style="width:50%; border:1px solid black; padding:15px">
     <!-- Column Names-->
     <tr>
         <th>Date</th>
         <th>Total Revenue</th>
-        <th>#Purchases</th>
+        <th># of Purchases</th>
+        <th>Aggregate Store Info</th>
     </tr>
 
-    @for (int i = 0; i < Model.PurchaseReciptList.Count; i++)
+    @for (int i = 0; i < Model.PurchaseDateList.Count; i++)
     {
-        <tr>    
-            <td>@Model.PurchaseDateList[i]</td>
-            <td>@Model.PurchaseAmountList[i]</td>
-        </tr>
+        <form method="post">
+            <tr>
+                <td>@Model.PurchaseDateList[i].Month/@Model.PurchaseDateList[i].Day/@Model.PurchaseDateList[i].Year</td>
+                <td>$@decimal.Round(Model.PurchaseAmountList[i], 2, MidpointRounding.AwayFromZero)</td>
+                <td>@Model.PurchaseQuantityList[i]</td>
+                <td>
+                    <select name="storeChoice">
+                        <option value="Ticket Booths, @Model.PurchaseDateList[i]">Ticket Booths</option>
+                        <option value="Restaurants, @Model.PurchaseDateList[i]">Restaurants</option>
+                        <option value="Gift Shops, @Model.PurchaseDateList[i]">Gift Shops</option>
+                    </select>
+                    <input type="submit" value="Select" />
+
+                </td>
+            </tr>
+        </form>
     }
+</table>
+
+@if(Model.secondTableChoice != ""){
+    <table id="StoreInfo" style="width:50%; border:1px solid black; padding:15px">
+
+        <tr>
+            <th>@Model.secondTableStoreChoice</th>
+            <th>#Purchases</th>
+            <th>Total Revenue</th>
+            <th>#Items</th>
+            <th>$Average Purchase</th>
+        </tr>
+        <tr>
+            <td>@Model.secondTableDateChoice</td>
+            <td>@Model.StorePurchaseNum</td>
+            <td>$@decimal.Round(Model.StoreRevenue, 2, MidpointRounding.AwayFromZero)</td>
+            <td>@Model.StoreItems</td>
+            <td>$@decimal.Round(Model.StoreAverage, 2, MidpointRounding.AwayFromZero)</td>
+        </tr>
     </table>
+}
+<p>@Model.secondTableChoice</p>
+<p>@Model.secondTableStoreChoice</p>
+<p>@Model.secondTableDateChoice</p>
+<p>@Model.AMessage</p>

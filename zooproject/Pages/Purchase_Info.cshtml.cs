@@ -34,6 +34,7 @@ namespace zooproject.Pages
 
         public void OnGet()
         {
+            /*
             // Connect to database 
             database.connect();
 
@@ -54,6 +55,7 @@ namespace zooproject.Pages
             reader.Close();
             cmd.Dispose();
             database.disconnect();
+            */
         }
     }
 }

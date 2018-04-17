@@ -11,14 +11,22 @@ namespace zooproject.Pages.Employee_Section
 {
     public class SalesReportsModel : PageModel
     {
-        public List<int> PurchaseReciptList = new List<int>();
-        public List<TimeSpan> PurchaseTimeList = new List<TimeSpan>();
-        public List<decimal> PurchaseAmountList = new List<decimal>();
-        public List<int> PurchasePayTypeList = new List<int>();
-        public List<DateTime> PurchaseDateList = new List<DateTime>();
-        public List<int> PurchaseStoreList = new List<int>();
-        public List<int> PurchaseCustomerList = new List<int>();
+        public string secondTableChoice = "";
+        public string storeChoice = "";
+        public string AMessage = "";
+        public string secondTableStoreChoice = "";
+        public string secondTableDateChoice = "";
 
+        public List<DateTime> PurchaseDateList = new List<DateTime>();
+        public List<decimal> PurchaseAmountList = new List<decimal>();
+        public List<int> PurchaseQuantityList = new List<int>();
+
+        public string StorePurchaseNum;
+        public decimal StoreRevenue;
+        public int StoreItems;
+        public decimal StoreAverage;
+
+        public string dbCommand;
         IConfiguration _config;
         Database database;
         string connection_string;
@@ -36,20 +44,105 @@ namespace zooproject.Pages.Employee_Section
         {
             database.connect();
             
-            SqlCommand cmd = new SqlCommand("SELECT * FROM [dbo].[PURCHASE]", 
+            SqlCommand cmd = new SqlCommand("SELECT Date, SUM(PURCHASE.Amount) AS Revenue, " +
+                "SUM(PURCHASE_INFO.Quantity) AS 'Items Purchased' FROM PURCHASE, PURCHASE_INFO " +
+                " WHERE PURCHASE_INFO.Receipt = PURCHASE.Receipt GROUP BY Date;", 
                 database.Connection);
             SqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
-                PurchaseReciptList.Add(reader.GetInt32(0));
-                PurchaseTimeList.Add(reader.GetTimeSpan(1));
-                PurchaseAmountList.Add(reader.GetDecimal(2));
-                PurchasePayTypeList.Add(reader.GetInt32(3));
-                PurchaseDateList.Add(reader.GetDateTime(4));
-                PurchaseStoreList.Add(reader.GetInt32(5));
-                PurchaseCustomerList.Add(reader.GetInt32(6));
+                PurchaseDateList.Add(reader.GetDateTime(0));
+                PurchaseAmountList.Add(reader.GetDecimal(1));
+                PurchaseQuantityList.Add(reader.GetInt32(2));
             }
+        }
+        public void OnPost()
+        {
+            database.connect();
+
+            SqlCommand cmd = new SqlCommand("SELECT Date, SUM(PURCHASE.Amount) AS Revenue, " +
+                "SUM(PURCHASE_INFO.Quantity) AS 'Items Purchased' FROM PURCHASE, PURCHASE_INFO " +
+                " WHERE PURCHASE_INFO.Receipt = PURCHASE.Receipt GROUP BY Date;",
+                database.Connection);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                PurchaseDateList.Add(reader.GetDateTime(0));
+                PurchaseAmountList.Add(reader.GetDecimal(1));
+                PurchaseQuantityList.Add(reader.GetInt32(2));
+            }
+
+            cmd.Dispose();
+            reader.Close();
+
+            secondTableChoice = Request.Form["storeChoice"];
+
+            if(secondTableChoice != "")
+            {
+                AMessage = "second table chosen";
+                parseTableChoice();
+
+                SqlCommand cmd2 = new SqlCommand();
+                cmd2.Connection = database.Connection;
+                SqlDataReader reader2;
+
+                if (secondTableStoreChoice == "Ticket Booths")
+                    secondTableStoreChoice = "1";
+                if (secondTableStoreChoice == "Restaurants")
+                    secondTableStoreChoice = "2";
+                if (secondTableStoreChoice == "Gift Shops")
+                    secondTableStoreChoice = "3";
+
+                dbCommand = 
+                "SELECT COUNT(P.Receipt) AS '#Purchases', SUM(P.Amount) AS 'Revenue', SUM(I.Quantity) AS '#Items'" +
+                "FROM PURCHASE AS P, STORE AS S, PURCHASE_INFO AS I " +
+                "WHERE S.Type = " + secondTableStoreChoice + " AND P.Store = S.ID AND " +
+                "I.Receipt = P.Receipt AND P.Date = '" + secondTableDateChoice + "'";
+
+                cmd2.CommandText = dbCommand;
+
+                try{
+                    reader2 = cmd2.ExecuteReader();
+
+                    while (reader2.Read())
+                    {
+                        StorePurchaseNum = reader2.GetValue(0).ToString();
+                        StoreRevenue = reader2.GetDecimal(1);
+                        StoreItems = reader2.GetInt32(2);
+                        StoreAverage = StoreRevenue / StoreItems;
+                    }
+                }
+                catch(Exception e)
+                {
+
+                }
+
+                if (secondTableStoreChoice == "1")
+                    secondTableStoreChoice = "Ticket Booths";
+                if (secondTableStoreChoice == "2")
+                    secondTableStoreChoice = "Restaurants";
+                if (secondTableStoreChoice == "3")
+                    secondTableStoreChoice = "Gift Shops";
+
+                database.disconnect();
+            }
+        }
+
+        public void parseTableChoice()
+        {
+            int i = 0;
+            int j = 0;
+
+            while (secondTableChoice[i] != ',')
+                i++;
+            secondTableStoreChoice = string.Concat(secondTableStoreChoice, secondTableChoice.Substring(j, i - j));
+            i += 2;
+            j = i;
+            while (secondTableChoice[i] != ' ')
+                i++;
+            secondTableDateChoice = string.Concat(secondTableDateChoice, secondTableChoice.Substring(j, i - j));
         }
     }
 }
