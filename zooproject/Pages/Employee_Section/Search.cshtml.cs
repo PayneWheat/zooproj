@@ -82,7 +82,6 @@ namespace zooproject.Pages.Employee_Section
                 while (reader.Read())
                 {
                     AInt = reader.FieldCount;
-                    //AMessage = reader.GetValue(1).ToString();
                     for(; j < AInt; j++)
                     {
                         ColumnNames.Add(reader.GetName(j));

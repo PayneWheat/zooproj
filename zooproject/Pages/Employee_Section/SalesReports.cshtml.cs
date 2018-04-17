@@ -113,6 +113,8 @@ namespace zooproject.Pages.Employee_Section
                         StoreItems = reader2.GetInt32(2);
                         StoreAverage = StoreRevenue / StoreItems;
                     }
+
+                    reader2.Close();
                 }
                 catch(Exception e)
                 {
@@ -126,6 +128,7 @@ namespace zooproject.Pages.Employee_Section
                 if (secondTableStoreChoice == "3")
                     secondTableStoreChoice = "Gift Shops";
 
+                cmd2.Dispose();
                 database.disconnect();
             }
         }

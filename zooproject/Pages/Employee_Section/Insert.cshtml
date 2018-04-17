@@ -44,13 +44,14 @@
     <form method="post">
         <div>
             <label for="Entity">Entity to INSERT INTO</label>
-            <!-- <input type="text" name="entityType" value="@Model.whichEntity" /> -->
+            <input type="text" name="entityType" value="@Model.whichEntity" />
             <br />
-            <select name="entityType">
+            <!--
+            <select name="entityType" value="@Model.whichEntity">
                 <option value="ANIMAL">Animal</option>
-                <option value="ATTRACTION">Attraction</option>
+                <option value="ATTRACTION">ATTRACTION</option>
                 <option value="CUSTOMER">Customer</option>
-                <option value="EMPLOYEE">yee</option>
+                <option value="EMPLOYEE">Employee</option>
                 <option value="GENDER_TYPE">Gender Type</option>
                 <option value="MEMBERSHIP_TYPE">Membership Type</option>
                 <option value="PAY_TYPE">Pay Type</option>
@@ -61,6 +62,7 @@
                 <option value="STORE_TYPE">Store Type</option>
                 <option value="TITLE_TYPE">Title Type</option>
             </select>
+                -->
             <input type="submit" value="Choose" /><br />
         </div>
 
@@ -135,7 +137,7 @@
                     <!-- Column Values-->
                     <tr>
                         <td><input type="text" name="insertID" placeholder="ID" /></td>
-                        <td><input type="text" name="insertType" placeholder="Type" /></td>
+                        <td><input type="text" name="insertType" placeholder="Name" /></td>
                         <td><input type="text" name="insertOpen" placeholder="Open/Closed" /></td>
                         <td><input type="text" name="insertOpenDate" placeholder="Open Date" /></td>
                         <td><input type="text" name="insertManager" placeholder="ManagerID" /></td>
