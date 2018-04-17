@@ -45,7 +45,8 @@ namespace zooproject
 
             app.UseStaticFiles();
 
-            app.UseMvc();
+            //app.UseMvc();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

@@ -44,25 +44,116 @@
     <form method="post">
         <div>
             <label for="Entity">Entity to INSERT INTO</label>
-            <input type="text" name="entityType" value="@Model.whichEntity" />
+            <!-- <input type="text" name="entityType" value="@Model.whichEntity" /> -->
             <br />
-            <!--
-            <select name="entityType" value="@Model.whichEntity">
-                <option value="ANIMAL">Animal</option>
-                <option value="ATTRACTION">ATTRACTION</option>
-                <option value="CUSTOMER">Customer</option>
-                <option value="EMPLOYEE">Employee</option>
-                <option value="GENDER_TYPE">Gender Type</option>
-                <option value="MEMBERSHIP_TYPE">Membership Type</option>
-                <option value="PAY_TYPE">Pay Type</option>
-                <option value="PRODUCT">Product</option>
-                <option value="PURCHASE">Purchase</option>
-                <option value="PURCHASE_INFO">Purchase Information</option>v
-                <option value="STORE">Store</option>
-                <option value="STORE_TYPE">Store Type</option>
-                <option value="TITLE_TYPE">Title Type</option>
+
+            <select name="entityType">
+            @if (Model.whichEntity == "ANIMAL")
+            {
+            <option value="ANIMAL" selected>Animal</option>
+            }       
+            else
+            {
+            <option value="ANIMAL">Animal</option>
+            }
+            @if (Model.whichEntity == "ATTRACTION")
+            {
+            <option value="ATTRACTION" selected>Attraction</option>
+            }    
+            else
+            {
+            <option value="ATTRACTION">Attraction</option>
+            }
+            @if (Model.whichEntity == "CUSTOMER")
+            {
+            <option value="CUSTOMER" selected>Customer</option>
+            }
+            else
+            {
+            <option value="CUSTOMER">Customer</option>
+            }
+            @if (Model.whichEntity == "EMPLOYEE")
+            {
+            <option value="EMPLOYEE" selected>Employee</option>
+            }
+            else
+            {
+            <option value="EMPLOYEE">Employee</option>
+            }
+            @if (Model.whichEntity == "GENDER_TYPE")
+            {
+            <option value="GENDER_TYPE" selected>Gender Type</option>
+            }
+            else
+            {
+            <option value="GENDER_TYPE">Gender Type</option>
+            }
+            @if (Model.whichEntity == "MEMBERSHIP_TYPE")
+            {
+            <option value="MEMBERSHIP_TYPE" selected>Membership Type</option>
+            }
+            else
+            {
+            <option value="MEMBERSHIP_TYPE">Membership Type</option>
+            }
+            @if (Model.whichEntity == "PAY_TYPE")
+            {
+                <option value="PAY_TYPE" selected>Pay Type</option>
+            }
+            else
+            {
+            <option value="PAY_TYPE">Pay Type</option>
+            }
+            @if (Model.whichEntity == "PRODUCT")
+            {
+            <option value="PRODUCT" selected>Product</option>
+            }
+            else
+            {
+            <option value="PRODUCT">Product</option>
+            }
+            @if (Model.whichEntity == "PURCHASE")
+            {
+            <option value="PURCHASE" selected>Purchase</option>
+            }
+            else
+            {
+            <option value="PURCHASE">Purchase</option>
+            }
+            @if (Model.whichEntity == "PURCHASE_INFO")
+            {
+            <option value="PURCHASE_INFO" selected>Purchase Information</option>
+            }
+            else
+            {
+            <option value="PURCHASE_INFO">Purchase Information</option>
+            }
+            @if (Model.whichEntity == "STORE")
+            {
+            <option value="STORE" selected>Store</option>
+            }
+            else
+            {
+            <option value="STORE">Store</option>
+            }
+            @if (Model.whichEntity == "STORE_TYPE")
+            {
+            <option value="STORE_TYPE" selected>Store Type</option>
+            }
+            else
+            {
+            <option value="STORE_TYPE">Store Type</option>
+            }
+            @if (Model.whichEntity == "TITLE_TYPE")
+            {
+            <option value="TITLE_TYPE" selected>Title Type</option>
+            }
+            else
+            {
+            <option value="TITLE_TYPE">Title Type</option>
+            }
             </select>
-                -->
+         
             <input type="submit" value="Choose" /><br />
         </div>
 
