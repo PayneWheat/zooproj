@@ -180,7 +180,7 @@
                         <td><input type="text" name="insertSpecies" placeholder="Species" /></td>
                         <td><input type="text" name="insertTaxology" placeholder="Taxology" /></td>
                         <td><input type="text" name="insertBirthLocation" placeholder="Birth Location" /></td>
-                        <td><input type="text" name="insertBirthDate" placeholder="Birth Date" /></td>
+                        <td><input type="text" class="dateSelection" name="insertBirthDate" placeholder="Birth Date" /></td>
                         <td><input type="text" name="insertStatus" placeholder="Status" /></td>
                     </tr>
                 </table>
@@ -195,12 +195,12 @@
                         <th>Attraction</th>
                     </tr>
                     <tr>
-                        <td><input type="text" name="insertStatus_date" placeholder="Status_date" /></td>
+                        <td><input type="text" class="dateSelection" name="insertStatus_date" placeholder="Status_date" /></td>
                         <td><input type="text" name="insertGender" placeholder="Gender" /></td>
                         <td><input type="text" name="insertHeight" placeholder="Height" /></td>
                         <td><input type="text" name="insertWeight" placeholder="Weight" /></td>
                         <td><input type="text" name="insertHealth" placeholder="Health" /></td>
-                        <td><input type="text" name="insertHealth_date" placeholder="Health_date" /></td>
+                        <td><input type="text" class="dateSelection" name="insertHealth_date" placeholder="Health_date" /></td>
                         <td><input type="text" name="insertAttraction" placeholder="Attraction" /></td>
                     </tr>
                 </table>
@@ -230,9 +230,9 @@
                         <td><input type="text" name="insertID" placeholder="ID" /></td>
                         <td><input type="text" name="insertType" placeholder="Name" /></td>
                         <td><input type="text" name="insertOpen" placeholder="Open/Closed" /></td>
-                        <td><input type="text" name="insertOpenDate" placeholder="Open Date" /></td>
+                        <td><input type="text" class="dateSelection" name="insertOpenDate" placeholder="Open Date" /></td>
                         <td><input type="text" name="insertManager" placeholder="ManagerID" /></td>
-                        <td><input type="text" name="insertManagerDate" placeholder="Manager Start Date" /></td>
+                        <td><input type="text" class="dateSelection" name="insertManagerDate" placeholder="Manager Start Date" /></td>
                         <td><input type="text" name="insertDescription" placeholder="Description" /></td>
                     </tr>
                 </table>
@@ -283,7 +283,7 @@
                         <td><input type="text" name="insertPhone" placeholder="Phone" /></td>
                         <td><input type="text" name="insertEmail" placeholder="Email" /></td>
                         <td><input type="text" name="insertMembershipType" placeholder="MembershipType" /></td>
-                        <td><input type="text" name="insertExpirationDate" placeholder="ExpirationDate" /></td>
+                        <td><input type="text" class="dateSelection" name="insertExpirationDate" placeholder="ExpirationDate" /></td>
                     </tr>
                 </table>
                 <br />
@@ -315,7 +315,7 @@
                         <td><input type="text" name="insertMname" placeholder="Middle Name" /></td>
                         <td><input type="text" name="insertLname" placeholder="Last Name" /></td>
                         <td><input type="text" name="insertTitle" placeholder="Title" /></td>
-                        <td><input type="text" name="insertHire_Date" placeholder="Hire Date" /></td>
+                        <td><input type="text" class="dateSelection" name="insertHire_Date" placeholder="Hire Date" /></td>
                         <td><input type="text" name="insertStreet" placeholder="Street" /></td>
                         <td><input type="text" name="insertCity" placeholder="City" /></td>
                     </tr>
@@ -464,7 +464,7 @@
                         <td><input type="text" name="insertTime" placeholder="Time" /></td>
                         <td><input type="text" name="insertAmount" placeholder="Amount" /></td>
                         <td><input type="text" name="insertPay_option" placeholder="Pay_option" /></td>
-                        <td><input type="text" name="insertDate" placeholder="Date" /></td>
+                        <td><input type="text" class="dateSelection" name="insertDate" placeholder="Date" /></td>
                         <td><input type="text" name="insertStore" placeholder="Store" /></td>
                         <td><input type="text" name="insertCustomer" placeholder="Customer" /></td>
                     </tr>
@@ -522,7 +522,7 @@
                         <td><input type="text" name="insertName" placeholder="Name" /></td>
                         <td><input type="text" name="insertType" placeholder="Type" /></td>
                         <td><input type="text" name="insertManager" placeholder="Manager" /></td>
-                        <td><input type="text" name="insertManager_date" placeholder="Manager_date"</td>
+                        <td><input type="text" class="dateSelection" name="insertManager_date" placeholder="Manager_date" /></td>
                     </tr>
                 </table>
                 <br />
@@ -578,6 +578,13 @@
 
     </form>
 }
+<script>
+    //var dateFields = document.querySelectorAll(".dateSelection");
+    $(".dateSelection").each(function () {
+        $(this).datepicker();
+    });
+
+</script>
 <p>@Model.AMessage</p>
 <p>@Model.dbCommand</p>
 <p>@Model.EMessage</p>
