@@ -2,7 +2,19 @@
 @model EmployeeHomeModel
 @{
 }
-<h1>Employee Home Page</h1>
+<style>
+    .employee-links {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
 <p>
-    <a asp-page="../Login">Logout</a>
+    <nav class="employee-links">
+        <a asp-page="./Insert">Insert</a>
+        <a asp-page="./SalesReports">Sales Reports</a>
+        <a asp-page="./Search">Search</a>
+        <a asp-page="./Update">Update</a>
+        <a asp-page="../Login">Logout</a>
+    </nav>
 </p>
+<h1>Employee Home Page</h1>

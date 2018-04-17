@@ -10,62 +10,71 @@
         width: 100%;
     }
 
-    #results td, #results th {
-        border: 1px solid #ddd;
-        padding: 8px;
+        #results td, #results th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #results tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #results tr:hover {
+            background-color: #ddd;
+        }
+
+        #results th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+    #attributeType {
+        width: 800px;
+        font-size: 12pt;
     }
 
-    #results tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    #results tr:hover {
-        background-color: #ddd;
-    }
-
-    #results th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: #4CAF50;
-        color: white;
-    }
-    #attributeType{
-        width:800px;
-        font-size:12pt;
-    }
     #entityType {
         width: 800px;
         font-size: 12pt;
     }
+
     #whereType {
         width: 800px;
         font-size: 12pt;
     }
+
     #otherType {
         width: 800px;
         font-size: 12pt;
     }
 </style>
 
-<br />
-<br />
-
+<nav class="employee-links">
+    <a asp-page="./Insert">Insert</a>
+    <a asp-page="./SalesReports">Sales Reports</a>
+    <a asp-page="./Search">Search</a>
+    <a asp-page="./Update">Update</a>
+    <a asp-page="../Login">Logout</a>
+</nav>
+<h1>Search</h1>
 
 @{
     <form method="post">
         <div>
             <label for="Attributes">SELECT which attributes?</label>
-            <input id ="attributeType" type="text" name="attributeType" value="@Model.whichAttributes" />
+            <input id="attributeType" type="text" name="attributeType" value="@Model.whichAttributes" />
             <br />
             <label for="Entity">Entity to Search FROM</label>
-            <input id ="entityType" type="text" name="entityType" value="@Model.whichEntity" />
+            <input id="entityType" type="text" name="entityType" value="@Model.whichEntity" />
             <br />
             <label for="Where">Enter WHERE parameters</label>
-            <input id ="whereType" type="text" name="whereType" value="@Model.whichWhere" />
+            <input id="whereType" type="text" name="whereType" value="@Model.whichWhere" />
             <br />
             <label for="Other">Other Parameters</label>
-            <input id ="otherType" type="text" name="otherType" value="@Model.whichOther" />
+            <input id="otherType" type="text" name="otherType" value="@Model.whichOther" />
             <br />
             <input type="submit" value="Search" />
             <br />
@@ -85,7 +94,8 @@
         <table id="results" style="width:100%; border:1px solid black; padding:15px">
             <!-- Column Names-->
             <tr>
-                @for (int i = 0; i < Model.AInt; i++){
+                @for (int i = 0; i < Model.AInt; i++)
+                {
                     <th>@Model.ColumnNames[i]</th>
                 }
             </tr>

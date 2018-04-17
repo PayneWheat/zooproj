@@ -2,9 +2,16 @@
 @model UpdateModel
 @{
 }
+<nav class="employee-links">
+    <a asp-page="./Insert">Insert</a>
+    <a asp-page="./SalesReports">Sales Reports</a>
+    <a asp-page="./Search">Search</a>
+    <a asp-page="./Update">Update</a>
+    <a asp-page="../Login">Logout</a>
+</nav>
 <h1>Update</h1>
 <form method="post">
-    <input type="text" name="command" value="" style="width: 800px;"/>
+    <input type="text" name="command" value="" style="width: 800px;" />
     <input type="submit" value="Submit" />
 </form>
 
