@@ -10,476 +10,480 @@
         width: 100%;
     }
 
-    #insertion td, #insertion th {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
+        #insertion td, #insertion th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
 
-    #insertion tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
+        #insertion tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
-    #insertion tr:hover {
-        background-color: #ddd;
-    }
+        #insertion tr:hover {
+            background-color: #ddd;
+        }
 
-    #insertion th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: #4CAF50;
-        color: white;
-    }
+        #insertion th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
 </style>
 
-
-<br />
-<br />
-
+<nav class="employee-links">
+    <a asp-page="./Insert">Insert</a>
+    <a asp-page="./SalesReports">Sales Reports</a>
+    <a asp-page="./Search">Search</a>
+    <a asp-page="./Update">Update</a>
+    <a asp-page="../Login">Logout</a>
+</nav>
+<h1>Insert into database</h1>
 @{
-<form method="post">
-    <div>
-        <label for="Entity">Entity to INSERT INTO</label>
-        <!-- <input type="text" name="entityType" value="@Model.whichEntity" /> -->
-        <br />
-        <select name="entityType">
-            <option value="ANIMAL">Animal</option>
-            <option value="ATTRACTION">Attraction</option>
-            <option value="CUSTOMER">Customer</option>
-            <option value="EMPLOYEE">Employee</option>
-            <option value="GENDER_TYPE">Gender Type</option>
-            <option value="MEMBERSHIP_TYPE">Membership Type</option>
-            <option value="PAY_TYPE">Pay Type</option>
-            <option value="PRODUCT">Product</option>
-            <option value="PURCHASE">Purchase</option>
-            <option value="PURCHASE_INFO">Purchase Information</option>v
-            <option value="STORE">Store</option>
-            <option value="STORE_TYPE">Store Type</option>
-            <option value="TITLE_TYPE">Title Type</option>
-        </select>
-        <input type="submit" value="Choose" /><br />
-    </div>
-
-    @if (Model.whichEntity == "ANIMAL")
-    {
-        <p>Employee Chosen</p>
+    <form method="post">
         <div>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <!-- Column Names-->
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Species</th>
-                    <th>Taxology</th>
-                    <th>Birth Location</th>
-                    <th>Birth Date</th>
-                    <th>Status</th>
-                </tr>
+            <label for="Entity">Entity to INSERT INTO</label>
+            <!-- <input type="text" name="entityType" value="@Model.whichEntity" /> -->
+            <br />
+            <select name="entityType">
+                <option value="ANIMAL">Animal</option>
+                <option value="ATTRACTION">Attraction</option>
+                <option value="CUSTOMER">Customer</option>
+                <option value="EMPLOYEE">yee</option>
+                <option value="GENDER_TYPE">Gender Type</option>
+                <option value="MEMBERSHIP_TYPE">Membership Type</option>
+                <option value="PAY_TYPE">Pay Type</option>
+                <option value="PRODUCT">Product</option>
+                <option value="PURCHASE">Purchase</option>
+                <option value="PURCHASE_INFO">Purchase Information</option>v
+                <option value="STORE">Store</option>
+                <option value="STORE_TYPE">Store Type</option>
+                <option value="TITLE_TYPE">Title Type</option>
+            </select>
+            <input type="submit" value="Choose" /><br />
+        </div>
 
-                <!-- Column Values-->
-                <tr>
-                    <td><input type="text" name="insertID" placeholder="ID" /></td>
-                    <td><input type="text" name="insertName" placeholder="Name" /></td>
-                    <td><input type="text" name="insertSpecies" placeholder="Species" /></td>
-                    <td><input type="text" name="insertTaxology" placeholder="Taxology" /></td>
-                    <td><input type="text" name="insertBirthLocation" placeholder="Birth Location" /></td>
-                    <td><input type="text" name="insertBirthDate" placeholder="Birth Date" /></td>
-                    <td><input type="text" name="insertStatus" placeholder="Status" /></td>
-                </tr>
-            </table>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <tr>
-                    <th>Status_date</th>
-                    <th>Gender</th>
-                    <th>Height</th>
-                    <th>Weight</th>
-                    <th>Health</th>
-                    <th>Health_date</th>
-                    <th>Attraction</th>
-                </tr>
-                <tr>
-                    <td><input type="text" name="insertStatus_date" placeholder="Status_date" /></td>
-                    <td><input type="text" name="insertGender" placeholder="Gender" /></td>
-                    <td><input type="text" name="insertHeight" placeholder="Height" /></td>
-                    <td><input type="text" name="insertWeight" placeholder="Weight" /></td>
-                    <td><input type="text" name="insertHealth" placeholder="Health" /></td>
-                    <td><input type="text" name="insertHealth_date" placeholder="Health_date" /></td>
-                    <td><input type="text" name="insertAttraction" placeholder="Attraction" /></td>
-                </tr>
-            </table>
+        @if (Model.whichEntity == "ANIMAL")
+        {
+            <p>Employee Chosen</p>
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Species</th>
+                        <th>Taxology</th>
+                        <th>Birth Location</th>
+                        <th>Birth Date</th>
+                        <th>Status</th>
+                    </tr>
+
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertID" placeholder="ID" /></td>
+                        <td><input type="text" name="insertName" placeholder="Name" /></td>
+                        <td><input type="text" name="insertSpecies" placeholder="Species" /></td>
+                        <td><input type="text" name="insertTaxology" placeholder="Taxology" /></td>
+                        <td><input type="text" name="insertBirthLocation" placeholder="Birth Location" /></td>
+                        <td><input type="text" name="insertBirthDate" placeholder="Birth Date" /></td>
+                        <td><input type="text" name="insertStatus" placeholder="Status" /></td>
+                    </tr>
+                </table>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <tr>
+                        <th>Status_date</th>
+                        <th>Gender</th>
+                        <th>Height</th>
+                        <th>Weight</th>
+                        <th>Health</th>
+                        <th>Health_date</th>
+                        <th>Attraction</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="insertStatus_date" placeholder="Status_date" /></td>
+                        <td><input type="text" name="insertGender" placeholder="Gender" /></td>
+                        <td><input type="text" name="insertHeight" placeholder="Height" /></td>
+                        <td><input type="text" name="insertWeight" placeholder="Weight" /></td>
+                        <td><input type="text" name="insertHealth" placeholder="Health" /></td>
+                        <td><input type="text" name="insertHealth_date" placeholder="Health_date" /></td>
+                        <td><input type="text" name="insertAttraction" placeholder="Attraction" /></td>
+                    </tr>
+                </table>
                 <br />
                 <input type="submit" value="Insert" />
-        </div>
-    }
+            </div>
+        }
 
-    @if (Model.whichEntity == "ATTRACTION")
-    {
-        <p>Attraction Chosen</p>
-        <div>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <!-- Column Names-->
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Open</th>
-                    <th>Open Date</th>
-                    <th>ManagerID</th>
-                    <th>Manager Start Date</th>
-                    <th>Description</th>
-                </tr>
+        @if (Model.whichEntity == "ATTRACTION")
+        {
+            <p>Attraction Chosen</p>
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Open</th>
+                        <th>Open Date</th>
+                        <th>ManagerID</th>
+                        <th>Manager Start Date</th>
+                        <th>Description</th>
+                    </tr>
 
-                <!-- Column Values-->
-                <tr>
-                    <td><input type="text" name="insertID" placeholder="ID" /></td>
-                    <td><input type="text" name="insertType" placeholder="Type" /></td>
-                    <td><input type="text" name="insertOpen" placeholder="Open/Closed" /></td>
-                    <td><input type="text" name="insertOpenDate" placeholder="Open Date" /></td>
-                    <td><input type="text" name="insertManager" placeholder="ManagerID" /></td>
-                    <td><input type="text" name="insertManagerDate" placeholder="Manager Start Date" /></td>
-                    <td><input type="text" name="insertDescription" placeholder="Description" /></td>
-                </tr>
-            </table>
-            <br />
-            <input type="submit" value="Insert" />
-        </div>
-    }
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertID" placeholder="ID" /></td>
+                        <td><input type="text" name="insertType" placeholder="Type" /></td>
+                        <td><input type="text" name="insertOpen" placeholder="Open/Closed" /></td>
+                        <td><input type="text" name="insertOpenDate" placeholder="Open Date" /></td>
+                        <td><input type="text" name="insertManager" placeholder="ManagerID" /></td>
+                        <td><input type="text" name="insertManagerDate" placeholder="Manager Start Date" /></td>
+                        <td><input type="text" name="insertDescription" placeholder="Description" /></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        }
 
-    @if (Model.whichEntity == "CUSTOMER")
-    {
-        <p>Customer Chosen</p>
-        <div>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <!-- Column Names-->
-                <tr>
-                    <th>ID</th>
-                    <th>Fname</th>
-                    <th>Mname</th>
-                    <th>Lname</th>
-                    <th>StreetAddress</th>
-                    <th>CityAddress</th>
-                </tr>
+        @if (Model.whichEntity == "CUSTOMER")
+        {
+            <p>Customer Chosen</p>
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>ID</th>
+                        <th>Fname</th>
+                        <th>Mname</th>
+                        <th>Lname</th>
+                        <th>StreetAddress</th>
+                        <th>CityAddress</th>
+                    </tr>
 
-                <!-- Column Values-->
-                <tr>
-                    <td><input type="text" name="insertID" placeholder="ID" /></td>
-                    <td><input type="text" name="insertFname" placeholder="Fname" /></td>
-                    <td><input type="text" name="insertMname" placeholder="Mname" /></td>
-                    <td><input type="text" name="insertLname" placeholder="Lname" /></td>
-                    <td><input type="text" name="insertStreetAddress" placeholder="Street" /></td>
-                    <td><input type="text" name="insertCityAddress" placeholder="City" /></td>
-                    
-                </tr>
-            </table>
-            <br />
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <tr>
-                    <th>ZipAddress</th>
-                    <th>StateAddress</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>MembershipType</th>
-                    <th>ExpirationDate</th>
-                </tr>
-                <tr>
-                    <td><input type="text" name="insertZipAddress" placeholder="Zip" /></td>
-                    <td><input type="text" name="insertStateAddress" placeholder="State" /></td>
-                    <td><input type="text" name="insertPhone" placeholder="Phone" /></td>
-                    <td><input type="text" name="insertEmail" placeholder="Email" /></td>
-                    <td><input type="text" name="insertMembershipType" placeholder="MembershipType" /></td>
-                    <td><input type="text" name="insertExpirationDate" placeholder="ExpirationDate" /></td>
-                </tr>
-            </table>
-            <br />
-            <input type="submit" value="Insert" />
-        </div>
-    }
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertID" placeholder="ID" /></td>
+                        <td><input type="text" name="insertFname" placeholder="Fname" /></td>
+                        <td><input type="text" name="insertMname" placeholder="Mname" /></td>
+                        <td><input type="text" name="insertLname" placeholder="Lname" /></td>
+                        <td><input type="text" name="insertStreetAddress" placeholder="Street" /></td>
+                        <td><input type="text" name="insertCityAddress" placeholder="City" /></td>
 
-    @if (Model.whichEntity == "EMPLOYEE")
-    {
-        <p>Employee Chosen</p>
-        <div>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <!-- Column Names-->
-                <tr>
-                    <th>ID</th>
-                    <th>Fname</th>
-                    <th>Mname</th>
-                    <th>Lname</th>
-                    <th>Title</th>
-                    <th>Hire_Date</th>
-                    <th>Street</th>
-                    <th>City</th>
-                </tr>
+                    </tr>
+                </table>
+                <br />
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <tr>
+                        <th>ZipAddress</th>
+                        <th>StateAddress</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>MembershipType</th>
+                        <th>ExpirationDate</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="insertZipAddress" placeholder="Zip" /></td>
+                        <td><input type="text" name="insertStateAddress" placeholder="State" /></td>
+                        <td><input type="text" name="insertPhone" placeholder="Phone" /></td>
+                        <td><input type="text" name="insertEmail" placeholder="Email" /></td>
+                        <td><input type="text" name="insertMembershipType" placeholder="MembershipType" /></td>
+                        <td><input type="text" name="insertExpirationDate" placeholder="ExpirationDate" /></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        }
 
-                <!-- Column Values-->
-                <tr>
-                    <td><input type="text" name="insertID" placeholder="ID" /></td>
-                    <td><input type="text" name="insertFname" placeholder="First Name" /></td>
-                    <td><input type="text" name="insertMname" placeholder="Middle Name" /></td>
-                    <td><input type="text" name="insertLname" placeholder="Last Name" /></td>
-                    <td><input type="text" name="insertTitle" placeholder="Title" /></td>
-                    <td><input type="text" name="insertHire_Date" placeholder="Hire Date" /></td>
-                    <td><input type="text" name="insertStreet" placeholder="Street" /></td>
-                    <td><input type="text" name="insertCity" placeholder="City" /></td>   
-                </tr>
-            </table>
-            <br />
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <tr>
-                    <th>Zip</th>
-                    <th>State</th>
-                    <th>Email</th>
-                    <th>Phone#</th>
-                    <th>Gender</th>
-                    <th>Store</th>
-                    <th>Attraction</th>
-                </tr>
-                <tr>
-                    <td><input type="text" name="insertZip" placeholder="Zip" /></td>
-                    <td><input type="text" name="insertState" placeholder="State" /></td>
-                    <td><input type="text" name="insertEmail" placeholder="Email" /></td>
-                    <td><input type="text" name="insertPhone#" placeholder="Phone#" /></td>
-                    <td><input type="text" name="insertGender" placeholder="Gender" /></td>
-                    <td><input type="text" name="insertStore" placeholder="Store>" /></td>
-                    <td><input type="text" name="insertAttraction" placeholder="Attraction" /></td>
-                </tr>
-            </table>
-            <br />
-            <input type="submit" value="Insert" />
-        </div>
-    }
+        @if (Model.whichEntity == "EMPLOYEE")
+        {
+            <p>Employee Chosen</p>
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>ID</th>
+                        <th>Fname</th>
+                        <th>Mname</th>
+                        <th>Lname</th>
+                        <th>Title</th>
+                        <th>Hire_Date</th>
+                        <th>Street</th>
+                        <th>City</th>
+                    </tr>
 
-    @if (Model.whichEntity == "GENDER_TYPE")
-    {
-        <p>GENDER_TYPE CHOSEN</p>
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertID" placeholder="ID" /></td>
+                        <td><input type="text" name="insertFname" placeholder="First Name" /></td>
+                        <td><input type="text" name="insertMname" placeholder="Middle Name" /></td>
+                        <td><input type="text" name="insertLname" placeholder="Last Name" /></td>
+                        <td><input type="text" name="insertTitle" placeholder="Title" /></td>
+                        <td><input type="text" name="insertHire_Date" placeholder="Hire Date" /></td>
+                        <td><input type="text" name="insertStreet" placeholder="Street" /></td>
+                        <td><input type="text" name="insertCity" placeholder="City" /></td>
+                    </tr>
+                </table>
+                <br />
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <tr>
+                        <th>Zip</th>
+                        <th>State</th>
+                        <th>Email</th>
+                        <th>Phone#</th>
+                        <th>Gender</th>
+                        <th>Store</th>
+                        <th>Attraction</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="insertZip" placeholder="Zip" /></td>
+                        <td><input type="text" name="insertState" placeholder="State" /></td>
+                        <td><input type="text" name="insertEmail" placeholder="Email" /></td>
+                        <td><input type="text" name="insertPhone#" placeholder="Phone#" /></td>
+                        <td><input type="text" name="insertGender" placeholder="Gender" /></td>
+                        <td><input type="text" name="insertStore" placeholder="Store>" /></td>
+                        <td><input type="text" name="insertAttraction" placeholder="Attraction" /></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        }
 
-        <div>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <!-- Column Names-->
-                <tr>
-                    <th>ID</th>
-                    <th>Gender</th>
-                </tr>
+        @if (Model.whichEntity == "GENDER_TYPE")
+        {
+            <p>GENDER_TYPE CHOSEN</p>
 
-                <!-- Column Values-->
-                <tr>
-                    <td><input type="text" name="insertID" placeholder="ID" /></td>
-                    <td><input type="text" name="insertGender" placeholder="Gender" /></td>
-                </tr>
-            </table>
-            <br />
-            <input type="submit" value="Insert" />
-        </div>
-    }
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>ID</th>
+                        <th>Gender</th>
+                    </tr>
 
-    @if (Model.whichEntity == "MEMBERSHIP_TYPE")
-    {
-        <p>MEMBERSHIP_TYPE CHOSEN</p>
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertID" placeholder="ID" /></td>
+                        <td><input type="text" name="insertGender" placeholder="Gender" /></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        }
 
-        <div>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <!-- Column Names-->
-                <tr>
-                    <th>ID</th>
-                    <th>Type</th>
-                </tr>
+        @if (Model.whichEntity == "MEMBERSHIP_TYPE")
+        {
+            <p>MEMBERSHIP_TYPE CHOSEN</p>
 
-                <!-- Column Values-->
-                <tr>
-                    <td><input type="text" name="insertID" placeholder="ID" /></td>
-                    <td><input type="text" name="insertType" placeholder="MembershipType" /></td>
-                </tr>
-            </table>
-            <br />
-            <input type="submit" value="Insert" />
-        </div>
-    }
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                    </tr>
 
-    @if (Model.whichEntity == "PAY_TYPE")
-    {
-        <p>PAY_TYPE CHOSEN</p>
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertID" placeholder="ID" /></td>
+                        <td><input type="text" name="insertType" placeholder="MembershipType" /></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        }
 
-        <div>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <!-- Column Names-->
-                <tr>
-                    <th>ID</th>
-                    <th>PayType</th>
-                </tr>
+        @if (Model.whichEntity == "PAY_TYPE")
+        {
+            <p>PAY_TYPE CHOSEN</p>
 
-                <!-- Column Values-->
-                <tr>
-                    <td><input type="text" name="insertID" placeholder="ID" /></td>
-                    <td><input type="text" name="insertPayType" placeholder="PayType" /></td>
-                </tr>
-            </table>
-            <br />
-            <input type="submit" value="Insert" />
-        </div>
-    }
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>ID</th>
+                        <th>PayType</th>
+                    </tr>
 
-    @if (Model.whichEntity == "PRODUCT")
-    {
-        <p>Product Chosen</p>
-        <div>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <!-- Column Names-->
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Description</th>
-                </tr>
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertID" placeholder="ID" /></td>
+                        <td><input type="text" name="insertPayType" placeholder="PayType" /></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        }
 
-                <!-- Column Values-->
-                <tr>
-                    <td><input type="text" name="insertID" placeholder="ID" /></td>
-                    <td><input type="text" name="insertType" placeholder="Type" /></td>
-                    <td><input type="text" name="insertPrice" placeholder="Price" /></td>
-                    <td><input type="text" name="insertDescription" placeholder="Desecription" /></td>
-                </tr>
-            </table>
-            <br />
-            <input type="submit" value="Insert" />
-        </div>
-    }
+        @if (Model.whichEntity == "PRODUCT")
+        {
+            <p>Product Chosen</p>
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                    </tr>
 
-    @if (Model.whichEntity == "PURCHASE")
-    {
-        <p>PURCHASE CHOSEN</p>
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertID" placeholder="ID" /></td>
+                        <td><input type="text" name="insertType" placeholder="Type" /></td>
+                        <td><input type="text" name="insertPrice" placeholder="Price" /></td>
+                        <td><input type="text" name="insertDescription" placeholder="Desecription" /></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        }
 
-        <div>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <!-- Column Names-->
-                <tr>
-                    <th>Receipt</th>
-                    <th>Time</th>
-                    <th>Amount</th>
-                    <th>Pay_option</th>
-                    <th>Date</th>
-                    <th>Store</th>
-                    <th>Customer</th>
-                </tr>
+        @if (Model.whichEntity == "PURCHASE")
+        {
+            <p>PURCHASE CHOSEN</p>
 
-                <!-- Column Values-->
-                <tr>
-                    <td><input type="text" name="insertReceipt" placeholder="Receipt" /></td>
-                    <td><input type="text" name="insertTime" placeholder="Time" /></td>
-                    <td><input type="text" name="insertAmount" placeholder="Amount" /></td>
-                    <td><input type="text" name="insertPay_option" placeholder="Pay_option" /></td>
-                    <td><input type="text" name="insertDate" placeholder="Date" /></td>
-                    <td><input type="text" name="insertStore" placeholder="Store" /></td>
-                    <td><input type="text" name="insertCustomer" placeholder="Customer" /></td>
-                </tr>
-            </table>
-            <br />
-            <input type="submit" value="Insert" />
-        </div>
-    }
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>Receipt</th>
+                        <th>Time</th>
+                        <th>Amount</th>
+                        <th>Pay_option</th>
+                        <th>Date</th>
+                        <th>Store</th>
+                        <th>Customer</th>
+                    </tr>
 
-    @if (Model.whichEntity == "PURCHASE_INFO")
-    {
-        <p>PURCHASE_INFO CHOSEN</p>
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertReceipt" placeholder="Receipt" /></td>
+                        <td><input type="text" name="insertTime" placeholder="Time" /></td>
+                        <td><input type="text" name="insertAmount" placeholder="Amount" /></td>
+                        <td><input type="text" name="insertPay_option" placeholder="Pay_option" /></td>
+                        <td><input type="text" name="insertDate" placeholder="Date" /></td>
+                        <td><input type="text" name="insertStore" placeholder="Store" /></td>
+                        <td><input type="text" name="insertCustomer" placeholder="Customer" /></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        }
 
-        <div>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <!-- Column Names-->
-                <tr>
-                    <th>Receipt</th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                </tr>
+        @if (Model.whichEntity == "PURCHASE_INFO")
+        {
+            <p>PURCHASE_INFO CHOSEN</p>
 
-                <!-- Column Values-->
-                <tr>
-                    <td><input type="text" name="insertReceipt" placeholder="Receipt" /></td>
-                    <td><input type="text" name="insertProduct" placeholder="Product" /></td>
-                    <td><input type="text" name="insertPrice" placeholder="Price" /></td>
-                    <td><input type="text" name="insertQuantity" placeholder="Quantity" /></td>
-                </tr>
-            </table>
-            <br />
-            <input type="submit" value="Insert" />
-        </div>
-    }
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>Receipt</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                    </tr>
 
-    @if (Model.whichEntity == "STORE")
-    {
-        <p>STORE CHOSEN</p>
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertReceipt" placeholder="Receipt" /></td>
+                        <td><input type="text" name="insertProduct" placeholder="Product" /></td>
+                        <td><input type="text" name="insertPrice" placeholder="Price" /></td>
+                        <td><input type="text" name="insertQuantity" placeholder="Quantity" /></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        }
 
-        <div>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <!-- Column Names-->
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Manager</th>
-                    <th>Manager_date</th>
-                </tr>
+        @if (Model.whichEntity == "STORE")
+        {
+            <p>STORE CHOSEN</p>
 
-                <!-- Column Values-->
-                <tr>
-                    <td><input type="text" name="insertID" placeholder="ID" /></td>
-                    <td><input type="text" name="insertName" placeholder="Name" /></td>
-                    <td><input type="text" name="insertType" placeholder="Type" /></td>
-                    <td><input type="text" name="insertManager" placeholder="Manager" /></td>
-                    <td><input type="text" name="insertManager_date" placeholder="Manager_date"</td>
-                </tr>
-            </table>
-            <br />
-            <input type="submit" value="Insert" />
-        </div>
-    }
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Manager</th>
+                        <th>Manager_date</th>
+                    </tr>
 
-    @if (Model.whichEntity == "STORE_TYPE")
-    {
-        <p>STORE_TYPE CHOSEN</p>
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertID" placeholder="ID" /></td>
+                        <td><input type="text" name="insertName" placeholder="Name" /></td>
+                        <td><input type="text" name="insertType" placeholder="Type" /></td>
+                        <td><input type="text" name="insertManager" placeholder="Manager" /></td>
+                        <td><input type="text" name="insertManager_date" placeholder="Manager_date"</td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        }
 
-        <div>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <!-- Column Names-->
-                <tr>
-                    <th>ID</th>
-                    <th>Type</th>
-                </tr>
+        @if (Model.whichEntity == "STORE_TYPE")
+        {
+            <p>STORE_TYPE CHOSEN</p>
 
-                <!-- Column Values-->
-                <tr>
-                    <td><input type="text" name="insertID" placeholder="ID" /></td>
-                    <td><input type="text" name="insertName" placeholder="Type" /></td>
-                </tr>
-            </table>
-            <br />
-            <input type="submit" value="Insert" />
-        </div>
-    }
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                    </tr>
 
-    @if (Model.whichEntity == "TITLE_TYPE")
-    {
-        <p>TITLE_TYPE CHOSEN</p>
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertID" placeholder="ID" /></td>
+                        <td><input type="text" name="insertName" placeholder="Type" /></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        }
 
-        <div>
-            <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
-                <!-- Column Names-->
-                <tr>
-                    <th>ID</th>
-                    <th>Type</th>
-                </tr>
+        @if (Model.whichEntity == "TITLE_TYPE")
+        {
+            <p>TITLE_TYPE CHOSEN</p>
 
-                <!-- Column Values-->
-                <tr>
-                    <td><input type="text" name="insertID" placeholder="ID" /></td>
-                    <td><input type="text" name="insertTYpe" placeholder="Type" /></td>
-                </tr>
-            </table>
-            <br />
-            <input type="submit" value="Insert" />
-        </div>
-    }
+            <div>
+                <table id="insertion" style="width:100%; border:1px solid black; padding:15px">
+                    <!-- Column Names-->
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                    </tr>
 
-</form>
+                    <!-- Column Values-->
+                    <tr>
+                        <td><input type="text" name="insertID" placeholder="ID" /></td>
+                        <td><input type="text" name="insertTYpe" placeholder="Type" /></td>
+                    </tr>
+                </table>
+                <br />
+                <input type="submit" value="Insert" />
+            </div>
+        }
+
+    </form>
 }
 <p>@Model.AMessage</p>
 <p>@Model.dbCommand</p>
