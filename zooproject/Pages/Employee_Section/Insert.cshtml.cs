@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace zooproject.Pages.Employee_Section
 {
@@ -21,10 +23,16 @@ namespace zooproject.Pages.Employee_Section
         public SqlDataReader reader;
         public SqlDataAdapter adapter;
 
-        public string AMessage = "";
+        public string AMessage = "Loaded";
         public string EMessage = "";
         public string whichEntity = "";
         public string dbCommand = "";
+        public List<List<string>> Results = new List<List<string>>();
+        public List<string> ColumnNames = new List<string>();
+        public List<List<string>> Results2 = new List<List<string>>();
+        public List<string> ColumnNames2 = new List<string>();
+        public int AInt { get; set; }
+        public int BInt { get; set; }
 
         public InsertModel(IConfiguration iconfiguration, Database ZooDatabase)
         {
@@ -34,15 +42,133 @@ namespace zooproject.Pages.Employee_Section
             connection_string = _config.GetSection("Data").GetSection("ConnectionString").Value;
         }
 
-        public void OnGet()
-        {   
+        public void OnGet(string we= "")
+        {
+            AMessage = "got";
+  
+            if (we != "")
+            {
+                SqlCommand cmd = new SqlCommand();
+                whichEntity = we;
+                Debug.WriteLine("Entity: " + whichEntity);
+                database.connect();
+                dbCommand = "SELECT * FROM " + whichEntity;
+                
+                cmd.Connection = database.Connection;
+                cmd.CommandText = dbCommand;
+                reader = cmd.ExecuteReader();
+                //IDataRecord record;
+                AInt = reader.FieldCount;
+                Debug.WriteLine(AInt.ToString());
+                string output = "";
+                for (int i = 0; i < AInt; i++)
+                {
+                    ColumnNames.Add(reader.GetName(i));
+                    output += reader.GetName(i);
+                }
+                Debug.WriteLine(output);
+                output = "";
+                int j = 0;
+                while (reader.Read())
+                {
+                    //Debug.WriteLine(String.Format("{0}, {1}", reader[0], reader[1]));
+                    Results.Add(new List<string>());
+                    for (int i = 0; i < AInt; i++)
+                    {
+                        output += reader[i] + ", ";
+                        Results[j].Add(reader[i].ToString());
+                    }
+                    j++;
+                    output += '\n';
+                }
+                Debug.WriteLine("Results count: " + Results.Count());
+                Debug.WriteLine(output);
+                database.disconnect();
+                cmd.Dispose();
+            }
+            if(we == "PURCHASE")
+            {
+                // load purchase_info and pay_type tables
+                //dbCommand = "SELECT * FROM PURCHASE_INFO";
+                // do some stuff
+                //dbCommand = "SELECT * FROM PAY_TYPE";
+                // do some stuff
+            }
+            else if(we == "PURCHASE_INFO")
+            {
+                SqlCommand cmd = new SqlCommand();
+                database.connect();
+                cmd.Connection = database.Connection;
+                dbCommand = "SELECT * FROM PURCHASE";
+                cmd.CommandText = dbCommand;
+                reader = cmd.ExecuteReader();
+                BInt = reader.FieldCount;
+                Debug.WriteLine("BInt: " + BInt.ToString());
+                for (int i = 0; i < BInt; i++)
+                {
+                    ColumnNames2.Add(reader.GetName(i));
+                }
+                int j = 0;
+                while (reader.Read())
+                {
+                    Results2.Add(new List<string>());
+                    for (int i = 0; i < BInt; i++)
+                    {
+                        Results2[j].Add(reader[i].ToString());
+                    }
+                    j++;
+                }
+                Debug.WriteLine("Results2 count: " + Results2.Count().ToString() + " j: " + j.ToString());
+            }
+            else if (we == "EMPLOYEE")
+            {
+                // load title type table
+                //dbCommand = "SELECT * FROM TITLE_TYPE";
+            }
+            else if(we == "STORE")
+            {
+                // load store type table
+                //dbCommand = "SELECT * FROM STORE_TYPE";
+            }
         }
 
         public void OnPost()
         {
             AMessage = "posted";
             whichEntity = Request.Form["entityType"];
-
+            database.connect();
+            dbCommand = "SELECT * FROM " + whichEntity;
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = database.Connection;
+            cmd.CommandText = dbCommand;
+            reader = cmd.ExecuteReader();
+            AInt = reader.FieldCount;
+            Debug.WriteLine(AInt.ToString());
+            string output = "";
+            for(int i = 0; i < AInt; i++)
+            {
+                ColumnNames.Add(reader.GetName(i));
+                output += reader.GetName(i);
+            }
+            Debug.WriteLine(output);
+            output = "";
+            int j = 0;
+            while (reader.Read())
+            {
+                //Debug.WriteLine(String.Format("{0}, {1}", reader[0], reader[1]));
+                Results.Add(new List<string>());
+                for (int i = 0; i < AInt; i++)
+                {
+                    output += reader[i] + ", ";
+                    Results[j].Add(reader[i].ToString());
+                }
+                j++;
+                output += '\n';
+            }
+            Debug.WriteLine("Results count: " + Results.Count());
+            Debug.WriteLine(output);
+            cmd.Dispose();
+            database.disconnect();
             if (whichEntity == "ANIMAL")
             {
                 AMessage = "controller recogznied ANIMAL";
@@ -64,7 +190,8 @@ namespace zooproject.Pages.Employee_Section
                 string insertHealth_date = Request.Form["insertHealth_date"];
                 string insertAttraction = Request.Form["insertAttraction"];
 
-                SqlCommand cmd = new SqlCommand();
+                //SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(ID, [Name], Species, Taxology, " +
                     "[Birth Location], [Birth Date], Status, Status_date, Gender, Weight, Height, " +
@@ -86,7 +213,7 @@ namespace zooproject.Pages.Employee_Section
 
                 catch (SqlException e)
                 {
-                    EMessage = "Failed to execute insert";
+                    EMessage = "Failed to execute insert: " + e.ToString();
                 }
 
                 cmd.Dispose();
@@ -107,7 +234,7 @@ namespace zooproject.Pages.Employee_Section
                 string insertManagerDate = Request.Form["insertManagerDate"];
                 string insertDescription = Request.Form["insertDescription"];
 
-                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(ID, Name, Open_closed, " +
                     "Open_closed_date, Manager, Manager_date, Description) " +
@@ -125,7 +252,7 @@ namespace zooproject.Pages.Employee_Section
 
                 catch (SqlException e)
                 {
-                    EMessage = "Failed to execute insert";
+                    EMessage = "Failed to execute insert: " + e.ToString();
                 }
 
                 cmd.Dispose();
@@ -151,7 +278,7 @@ namespace zooproject.Pages.Employee_Section
                 string insertMembershipType = Request.Form["insertMembershipType"];
                 string insertExpirationDate = Request.Form["insertExpirationDate"];
 
-                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(ID, Fname, Mname," +
                     " Lname, StreetAddress, CityAddress, ZipAddress, StateAddress, " +
@@ -172,7 +299,7 @@ namespace zooproject.Pages.Employee_Section
 
                 catch (SqlException e)
                 {
-                    EMessage = "Failed to execute insert";
+                    EMessage = "Failed to execute insert: " + e.ToString();
                 }
 
                 cmd.Dispose();
@@ -201,7 +328,7 @@ namespace zooproject.Pages.Employee_Section
                 string insertStore = Request.Form["insertStore"];
                 string insertAttraction = Request.Form["insertAttraction"];
 
-                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(ID, Fname, Mname, Lname, [Title]," +
                     " Hire_Date, Street, City, Zip, [State], Email, Phone#, Gender, Store, Attraction) " +
@@ -221,7 +348,7 @@ namespace zooproject.Pages.Employee_Section
 
                 catch (SqlException e)
                 {
-                    EMessage = "Failed to execute insert";
+                    EMessage = "Failed to execute insert: " + e.ToString();
                 }
 
                 cmd.Dispose();
@@ -237,7 +364,7 @@ namespace zooproject.Pages.Employee_Section
                 string insertID = Request.Form["insertID"];
                 string insertGender = Request.Form["insertGender"];
 
-                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(ID, Name) " +
                     "VALUES(" + insertID + ", '" + insertGender + "');";
@@ -252,7 +379,7 @@ namespace zooproject.Pages.Employee_Section
 
                 catch (SqlException e)
                 {
-                    EMessage = "Failed to execute insert";
+                    EMessage = "Failed to execute insert: " + e.ToString();
                 }
 
                 cmd.Dispose();
@@ -268,7 +395,7 @@ namespace zooproject.Pages.Employee_Section
                 string insertID = Request.Form["insertID"];
                 string insertType = Request.Form["insertType"];
 
-                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(ID, Name) " +
                     "VALUES(" + insertID + ", '" + insertType + "');";
@@ -283,7 +410,7 @@ namespace zooproject.Pages.Employee_Section
 
                 catch (SqlException e)
                 {
-                    EMessage = "Failed to execute insert";
+                    EMessage = "Failed to execute insert: " + e.ToString();
                 }
 
                 cmd.Dispose();
@@ -299,7 +426,7 @@ namespace zooproject.Pages.Employee_Section
                 string insertID = Request.Form["insertID"];
                 string insertType = Request.Form["insertPayType"];
 
-                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(ID, Name) " +
                     "VALUES(" + insertID + ", '" + insertType + "');";
@@ -314,7 +441,7 @@ namespace zooproject.Pages.Employee_Section
 
                 catch (SqlException e)
                 {
-                    EMessage = "Failed to execute insert";
+                    EMessage = "Failed to execute insert: " + e.ToString();
                 }
 
                 cmd.Dispose();
@@ -332,7 +459,7 @@ namespace zooproject.Pages.Employee_Section
                 string insertPrice = Request.Form["insertPrice"];
                 string insertDescription = Request.Form["insertDescription"];
 
-                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(ID, Name, Price, Description) " +
                     "VALUES(" + insertID + ", '" + insertType + "', " + insertPrice +
@@ -348,7 +475,7 @@ namespace zooproject.Pages.Employee_Section
 
                 catch (SqlException e)
                 {
-                    EMessage = "Failed to execute insert";
+                    EMessage = "Failed to execute insert: " + e.ToString();
                 }
 
                 cmd.Dispose();
@@ -369,7 +496,7 @@ namespace zooproject.Pages.Employee_Section
                 string insertStore = Request.Form["insertStore"];
                 string insertCustomer = Request.Form["insertCustomer"];
 
-                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(Receipt, Time, Amount, " +
                     "Pay_option, Date, Store, Customer) " +
@@ -387,7 +514,7 @@ namespace zooproject.Pages.Employee_Section
 
                 catch (SqlException e)
                 {
-                    EMessage = "Failed to execute insert";
+                    EMessage = "Failed to execute insert: " + e.ToString();
                 }
 
                 cmd.Dispose();
@@ -405,7 +532,7 @@ namespace zooproject.Pages.Employee_Section
                 string insertPrice = Request.Form["insertPrice"];
                 string insertQuantity = Request.Form["insertQuantity"];
 
-                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(Receipt, Product, Price, " +
                     "Quantity) " +
@@ -422,7 +549,7 @@ namespace zooproject.Pages.Employee_Section
 
                 catch (SqlException e)
                 {
-                    EMessage = "Failed to execute insert";
+                    EMessage = "Failed to execute insert: " + e.ToString();
                 }
 
                 cmd.Dispose();
@@ -441,7 +568,7 @@ namespace zooproject.Pages.Employee_Section
                 string insertManager = Request.Form["insertManager"];
                 string insertManager_date = Request.Form["insertManager_date"];
 
-                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(ID, Name, Type, " +
                     "Manager, Manager_date) " +
@@ -458,7 +585,7 @@ namespace zooproject.Pages.Employee_Section
 
                 catch (SqlException e)
                 {
-                    EMessage = "Failed to execute insert";
+                    EMessage = "Failed to execute insert: " + e.ToString();
                 }
 
                 cmd.Dispose();
@@ -474,7 +601,7 @@ namespace zooproject.Pages.Employee_Section
                 string insertID = Request.Form["insertID"];
                 string insertName = Request.Form["insertName"];
 
-                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(ID, Name) " +
                     "VALUES(" + insertID + ", '" + insertName + "');";
@@ -489,7 +616,7 @@ namespace zooproject.Pages.Employee_Section
 
                 catch (SqlException e)
                 {
-                    EMessage = "Failed to execute insert";
+                    EMessage = "Failed to execute insert: " + e.ToString();
                 }
 
                 cmd.Dispose();
@@ -505,7 +632,7 @@ namespace zooproject.Pages.Employee_Section
                 string insertID = Request.Form["insertID"];
                 string insertType = Request.Form["insertType"];
 
-                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(ID, Title) " +
                     "VALUES(" + insertID + ", '" + insertType + "');";
@@ -520,7 +647,7 @@ namespace zooproject.Pages.Employee_Section
 
                 catch(SqlException e)
                 {
-                    EMessage = "Failed to execute insert";
+                    EMessage = "Failed to execute insert: " + e.ToString();
                 }
                 
                 cmd.Dispose();
@@ -529,6 +656,10 @@ namespace zooproject.Pages.Employee_Section
             else { EMessage = "Could not find entity type."; }
             
         }
-        
+        private static void ReadSingleRow(IDataRecord record)
+        {
+            Console.WriteLine(String.Format("{0}, {1}", record[0], record[1]));
+        }
+
     }
 }

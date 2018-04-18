@@ -37,7 +37,8 @@ namespace zooproject.Pages
             var userPrincipal = new ClaimsPrincipal(userIdentity);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal);
-            return RedirectToPage("/Index");
+            //return RedirectToPage("/Index");
+            return Redirect("./Employee_Section/");
         }
     }
 }
