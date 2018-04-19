@@ -86,34 +86,34 @@
 
 <h2>@Model.whichEntity</h2>
 @{
-    if (Model.whichEntity != "" && Model.whichAttributes != "")
+    if (Model.whichEntity != "")
     {
         <!--if (Model.whichAttributes == "*")
         {-->
         <!-- Table for results of Title_type-->
-        <table id="results" style="width:100%; border:1px solid black; padding:15px">
-            <!-- Column Names-->
+    <table style="width:100%; border:1px solid black; padding:15px">
+
+        <tr>
+            <th></th>
+            @for (int i = 0; i < Model.AInt; i++)
+            {
+                <th>@Model.ColumnNames[i]</th>
+            }
+        </tr>
+        @for (int i = 0; i < Model.BInt; i++)
+        {
             <tr>
-                @for (int i = 0; i < Model.AInt; i++)
+                <td><a href="">Edit</a></td>
+                @for (int j = 0; j < Model.AInt; j++)
                 {
-                    <th>@Model.ColumnNames[i]</th>
+                    <td>@Model.Results[i][j]</td>
+
                 }
             </tr>
-
-            <!-- Column Values-->
-
-            @for (int i = 0; i < Model.Results[0].Count; i++)
-            {
-                <tr>
-                    @for (int j = 0; j < Model.AInt; j++)
-                    {
-                        <td>@Model.Results[j][i]</td>
-                    }
-                </tr>
-            }
-        </table>
-        <!--}-->
+        }
+    </table>
+    <!--}-->
     }
     <p>@Model.AMessage</p>
     <p>@Model.AInt</p>
-}
+    }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
 
 namespace zooproject.Pages.Employee_Section
 {
@@ -28,7 +29,8 @@ namespace zooproject.Pages.Employee_Section
         public string dbCommand = "";
 
         public string AMessage = "";
-        public int AInt = 20;
+        public int AInt = 0;
+        public int BInt = 0;
 
         public SearchModel(IConfiguration iconfiguration, Database ZooDatabase)
         {
@@ -42,9 +44,67 @@ namespace zooproject.Pages.Employee_Section
         }
 
 
-        public void OnGet()
+        public void OnGet(string we = "", string wa = "", string av = "", int id = -1)
         {
-            
+            if (we != "")
+            {
+                database.connect();
+                SqlCommand cmd = new SqlCommand();
+                if (we != "" && wa == "" && id == -1)
+                {
+                    // only entity value set
+                    whichEntity = we;
+                    dbCommand = "SELECT * FROM " + whichEntity + ";";
+                }
+                else if (we != "" && wa != "" && av != "" && id == -1)
+                {
+                    // entity and attribute value set, no id
+                    whichEntity = we;
+                    whichAttributes = wa;
+                    whichWhere = av;
+                    dbCommand = "SELECT FROM " + whichEntity + " WHERE " + wa + "=" + av + ";";
+                }
+                else if (we != "" && wa == "" && id != -1)
+                {
+                    // entity and id are set, no attributes
+                    whichEntity = we;
+                    // PURCHASE table, PURCHASE info: ID = Receipt
+                    if (whichEntity == "PURCHASE" || whichEntity == "PURCHASE_INFO")
+                    {
+                        dbCommand = "SELECT * FROM " + whichEntity + " WHERE Receipt=" + id + ";";
+                    }
+                    else
+                    {
+                        dbCommand = "SELECT * FROM " + whichEntity + " WHERE ID=" + id + ";";
+                    }
+
+                }
+                cmd.Connection = database.Connection;
+                cmd.CommandText = dbCommand;
+                reader = cmd.ExecuteReader();
+                AInt = reader.FieldCount;
+                for (int i = 0; i < AInt; i++)
+                {
+                    ColumnNames.Add(reader.GetName(i));
+                }
+
+                int j = 0;
+                while (reader.Read())
+                {
+                    Results.Add(new List<string>());
+                    Debug.WriteLine("New list appended to results list");
+                    for (int i = 0; i < AInt; i++)
+                    {
+                        Results[j].Add(reader[i].ToString());
+                    }
+                    Debug.WriteLine("List completed. Should have " + AInt + " entries: " + Results[j].Count());
+                    j++;
+                }
+                BInt = j;
+                Debug.WriteLine("Results count: " + Results.Count() + "; AInt: " + AInt);
+                database.disconnect();
+                cmd.Dispose();
+            }
         }
 
         public void OnPost()
