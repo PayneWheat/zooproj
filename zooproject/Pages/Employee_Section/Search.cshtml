@@ -135,7 +135,7 @@
                     }
                     else
                     {
-                        <input type="text" name="@Model.ColumnNames[i]" />
+                        <input type="text" class="autocomplete" name="@Model.ColumnNames[i]" />
                     }
                 </div>
                 }
@@ -153,7 +153,7 @@
         <!--if (Model.whichAttributes == "*")
         {-->
         <!-- Table for results of Title_type-->
-        <table style="width:100%; border:1px solid black; padding:15px">
+        <table id="resultsTable" style="width:100%; border:1px solid black; padding:15px">
 
             <tr>
                 <th></th>
@@ -201,5 +201,34 @@
         this.parentElement.append(timeField);
 
     });
+
+     $(".autocomplete").each(function () {
+         var fieldName = this.name;
+         var resultsTable = document.getElementById("resultsTable");
+         var resultsHeaders = resultsTable.querySelectorAll("th");
+         var nameHeaderIndex = -1;
+         //console.log(resultsHeaders);
+         for (i = 0; i < resultsHeaders.length; i++) {
+             if (fieldName == resultsHeaders[i].innerHTML) {
+                 nameHeaderIndex = i;
+                 break;
+             }
+         }
+         if (nameHeaderIndex != -1)
+             console.log(resultsHeaders[i].innerHTML)
+         else
+             console.log("Error finding name in header row")
+         console.log(resultsTable.children[0].children.length);
+         var availableTags = [];
+         for (i = 1; i < resultsTable.children[0].children.length; i++) {
+             //console.log(resultsTable.children[i].cells[nameHeaderIndex].innerHTML);
+             //console.log(resultsTable.children[0].children[i].cells[nameHeaderIndex].innerHTML);
+             availableTags.push(resultsTable.children[0].children[i].cells[nameHeaderIndex].innerHTML);
+         }
+         console.log(availableTags);
+         $(this).autocomplete({
+             source: availableTags
+         });
+     });
     </script>
 }
