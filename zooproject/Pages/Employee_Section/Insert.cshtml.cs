@@ -172,7 +172,8 @@ namespace zooproject.Pages.Employee_Section
             bool success = false;
             if (whichEntity == "ANIMAL")
             {
-                AMessage = "controller recogznied ANIMAL";
+                AMessage = "controller recognized ANIMAL";  
+               
 
                 database.connect();
                 
