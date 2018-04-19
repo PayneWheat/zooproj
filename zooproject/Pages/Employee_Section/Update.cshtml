@@ -10,10 +10,47 @@
     <a asp-page="../Login">Logout</a>
 </nav>
 <h1>Update</h1>
+<!--
 <form method="post">
     <input type="text" name="command" value="" style="width: 800px;" />
     <input type="submit" value="Submit" />
 </form>
+    -->
+<h2>@Model.whichEntity</h2>
+@{
+    if (Model.whichEntity != "")
+    {
+        <!--if (Model.whichAttributes == "*")
+        {-->
+        <!-- Table for results of Title_type-->
+<form method="post">
+    <table style="width:100%; border:1px solid black; padding:15px">
 
+        <tr>
+            <th></th>
+            @for (int i = 0; i < Model.AInt; i++)
+            {
+                <th>@Model.ColumnNames[i]</th>
+            }
+        </tr>
+
+        @for (int i = 0; i < Model.BInt; i++)
+        {
+            <tr>
+                <td><a href="./Update?we=@Model.whichEntity&id=@Model.Results[i][0]">Edit</a></td>
+                @for (int j = 0; j < Model.AInt; j++)
+                {
+                    <td><input type="text" name="@Model.ColumnNames[j]" value="@Model.Results[i][j]" /></td>
+                }
+            </tr>
+        }
+
+    </table>
+    <input type="submit" value="Submit" />
+</form>
+        <!--}-->
+    }
+    <p>@Model.AInt</p>
+}
 <p>@Model.dbCommand</p>
 <p>@Model.EMessage</p>

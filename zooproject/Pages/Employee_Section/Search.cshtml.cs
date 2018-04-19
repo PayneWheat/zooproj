@@ -25,6 +25,7 @@ namespace zooproject.Pages.Employee_Section
         public string whichAttributes = "";
         public string whichWhere = "";
         public string whichOther = "";
+        public string whichID = "";
 
         public string dbCommand = "";
 
@@ -68,6 +69,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     // entity and id are set, no attributes
                     whichEntity = we;
+                    whichID = id.ToString();
                     // PURCHASE table, PURCHASE info: ID = Receipt
                     if (whichEntity == "PURCHASE" || whichEntity == "PURCHASE_INFO")
                     {
