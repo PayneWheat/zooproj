@@ -169,26 +169,89 @@ namespace zooproject.Pages.Employee_Section
             Debug.WriteLine(output);
             cmd.Dispose();
             database.disconnect();
+            bool success = false;
             if (whichEntity == "ANIMAL")
             {
                 AMessage = "controller recogznied ANIMAL";
 
                 database.connect();
-
+                
                 string insertID = Request.Form["insertID"];
+                if (string.IsNullOrEmpty(insertID) == true)
+                {
+                    // throw error 
+                }
                 string insertName = Request.Form["insertName"];
+                if (string.IsNullOrEmpty(insertName) == true)
+                {
+                    // throw error 
+                }
                 string insertSpecies = Request.Form["insertSpecies"];
+                if (string.IsNullOrEmpty(insertSpecies) == true)
+                {
+                    // throw error 
+                }
                 string insertTaxology = Request.Form["insertTaxology"];
+                if (string.IsNullOrEmpty(insertTaxology) == true)
+                {
+                    // throw error 
+                }
                 string insertBirthLocation = Request.Form["insertBirthLocation"];
+                if (string.IsNullOrEmpty(insertBirthLocation) == true)
+                {
+                    // NULL allowed
+                    //insertBirthLocation = "NULL";
+                }
                 string insertBirthDate = Request.Form["insertBirthDate"];
+                if (string.IsNullOrEmpty(insertBirthDate) == true)
+                {
+                    // NULL allowed
+                    //insertBirthDate = "NULL";
+                }
                 string insertState = Request.Form["insertState"];
+                if (string.IsNullOrEmpty(insertState) == true)
+                {
+                    // throw error 
+                }
                 string insertStatus_date = Request.Form["insertStatus_date"];
+                if (string.IsNullOrEmpty(insertStatus_date) == true)
+                {
+                    // throw error 
+                }
                 string insertGender = Request.Form["insertGender"];
+                if (string.IsNullOrEmpty(insertGender) == true)
+                {
+                    // throw error 
+                }
                 string insertHeight = Request.Form["insertHeight"];
+                if (string.IsNullOrEmpty(insertHeight) == true)
+                {
+                    // NULL allowed
+                    insertHeight = "NULL";
+                }
                 string insertWeight = Request.Form["insertWeight"];
+                if (string.IsNullOrEmpty(insertWeight) == true)
+                {
+                    // NULL allowed
+                    insertWeight = "NULL";
+                }
                 string insertHealth = Request.Form["insertHealth"];
+                if (string.IsNullOrEmpty(insertHealth) == true)
+                {
+                    // NULL allowed
+                    //insertHealth = "NULL";
+                }
                 string insertHealth_date = Request.Form["insertHealth_date"];
+                if (string.IsNullOrEmpty(insertHealth_date) == true)
+                {
+                    // NULL allowed
+                    //insertHealth_date = "NULL";
+                }
                 string insertAttraction = Request.Form["insertAttraction"];
+                if (string.IsNullOrEmpty(insertAttraction) == true)
+                {
+                    // throw error 
+                }
 
                 //SqlCommand cmd = new SqlCommand();
                 cmd = new SqlCommand();
@@ -209,6 +272,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "Insert successful";
+                    success = true;
                 }
 
                 catch (SqlException e)
@@ -227,13 +291,41 @@ namespace zooproject.Pages.Employee_Section
                 database.connect();
 
                 string insertID = Request.Form["insertID"];
+                if(string.IsNullOrEmpty(insertID) == true)
+                {
+                    // throw error 
+                }
                 string insertType = Request.Form["insertType"];
+                if (string.IsNullOrEmpty(insertType) == true)
+                {
+                    // throw error 
+                }
                 string insertOpen = Request.Form["insertOpen"];
+                if (string.IsNullOrEmpty(insertOpen) == true)
+                {
+                    // throw error 
+                }
                 string insertOpenDate = Request.Form["insertOpenDate"];
+                if (string.IsNullOrEmpty(insertOpenDate) == true)
+                {
+                    // throw error 
+                }
                 string insertManager = Request.Form["insertManager"];
+                if (string.IsNullOrEmpty(insertManager) == true)
+                { 
+                    // throw error 
+                }
                 string insertManagerDate = Request.Form["insertManagerDate"];
+                if (string.IsNullOrEmpty(insertManagerDate) == true)
+                { 
+                    // throw error 
+                }                
                 string insertDescription = Request.Form["insertDescription"];
-
+                if (string.IsNullOrEmpty(insertDescription) == true)
+                {
+                    // NULL allowed
+                    //insertDescription = "NULL";
+                }
                 cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
                 dbCommand = "INSERT INTO " + whichEntity + "(ID, Name, Open_closed, " +
@@ -248,6 +340,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "Insert successful";
+                    success = true;
                 }
 
                 catch (SqlException e)
@@ -295,6 +388,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "Insert successful";
+                    success = true;
                 }
 
                 catch (SqlException e)
@@ -326,7 +420,15 @@ namespace zooproject.Pages.Employee_Section
                 string insertPhone = Request.Form["insertPhone#"];
                 string insertGender = Request.Form["insertGender"];
                 string insertStore = Request.Form["insertStore"];
+                if(string.IsNullOrEmpty(insertStore) == true)
+                {
+                    insertStore = "NULL";
+                }
                 string insertAttraction = Request.Form["insertAttraction"];
+                if(string.IsNullOrEmpty(insertAttraction) == true)
+                {
+                    insertAttraction = "NULL";
+                }
 
                 cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
@@ -344,6 +446,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "Insert successful";
+                    success = true;
                 }
 
                 catch (SqlException e)
@@ -375,6 +478,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "Insert successful";
+                    success = true;
                 }
 
                 catch (SqlException e)
@@ -406,6 +510,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "Insert successful";
+                    success = true;
                 }
 
                 catch (SqlException e)
@@ -437,6 +542,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "Insert successful";
+                    success = true;
                 }
 
                 catch (SqlException e)
@@ -471,6 +577,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "Insert successful";
+                    success = true;
                 }
 
                 catch (SqlException e)
@@ -495,6 +602,10 @@ namespace zooproject.Pages.Employee_Section
                 string insertDate = Request.Form["insertDate"];
                 string insertStore = Request.Form["insertStore"];
                 string insertCustomer = Request.Form["insertCustomer"];
+                if(string.IsNullOrEmpty(insertCustomer) == true)
+                {
+                    insertCustomer = "NULL";
+                }
 
                 cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
@@ -510,6 +621,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "Insert successful";
+                    success = true;
                 }
 
                 catch (SqlException e)
@@ -545,6 +657,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "Insert successful";
+                    success = true;
                 }
 
                 catch (SqlException e)
@@ -581,6 +694,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "Insert successful";
+                    success = true;
                 }
 
                 catch (SqlException e)
@@ -612,6 +726,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "Insert successful";
+                    success = true;
                 }
 
                 catch (SqlException e)
@@ -643,6 +758,7 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "Insert successful";
+                    success = true;
                 }
 
                 catch(SqlException e)
@@ -655,6 +771,10 @@ namespace zooproject.Pages.Employee_Section
             }
             else { EMessage = "Could not find entity type."; }
             
+            if(success)
+            {
+                Response.Redirect("./Search?we=" + whichEntity);
+            }
         }
         private static void ReadSingleRow(IDataRecord record)
         {
