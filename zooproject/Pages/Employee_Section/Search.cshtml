@@ -59,9 +59,11 @@
     <a asp-page="./Update">Update</a>
     <a asp-page="../Login">Logout</a>
 </nav>
+<a href="./">Back to Employee Section</a>
 <h1>Search</h1>
 
 @{
+    <!--
     <form method="post">
         <div>
             <label for="Attributes">SELECT which attributes?</label>
@@ -82,6 +84,60 @@
             Leave blank for no WHERE condition<br />
         </div>
     </form>
+        -->
+    if (Model.whichEntity != "")
+    {
+
+            <form>
+                @for (int i = 0; i < Model.AInt; i++)
+                {
+                <div>
+                    <label for="@Model.ColumnNames[i]">@Model.ColumnNames[i]</label>
+                    @if (Model.ColumnNames[i] == "Attraction" || Model.ColumnNames[i] == "MembershipType" || Model.ColumnNames[i] == "Pay_option"
+                        || Model.ColumnNames[i] == "Manager")
+                        {
+                            <select name="@Model.ColumnNames[i]">
+                        @for (int j = 0; j < Model.Results2.Count(); j++)
+                        {
+                                <option value="@Model.Results2[j][0]">@Model.Results2[j][1]</option>
+                        }
+                            </select>
+                    }
+                    else if (Model.ColumnNames[i] == "Store")
+                    {
+                            <select name="@Model.ColumnNames[i]">
+                        @for (int j = 0; j < Model.Results3.Count(); j++)
+                        {
+                                <option value="@Model.Results3[j][0]">@Model.Results3[j][1]</option>
+                        }
+                            </select>
+
+                    }
+                    else if (Model.ColumnNames[i] == "Title")
+                    {
+                            <select name="@Model.ColumnNames[i]">
+                        @for (int j = 0; j < Model.Results4.Count(); j++)
+                        {
+                                <option value="@Model.Results4[j][0]">@Model.Results4[j][1]</option>
+                        }
+                            </select>
+
+                    }
+                    else if (Model.ColumnNames[i] == "Status_date" || Model.ColumnNames[i] == "Health_date" || Model.ColumnNames[i] == "ExpirationDate"
+                    || Model.ColumnNames[i] == "Hire_Date")
+                    {
+                        <input type="text" class="dateSelection" name="@Model.ColumnNames[i]" />
+                    }
+                    else
+                    {
+                        <input type="text" name="@Model.ColumnNames[i]" />
+                    }
+                </div>
+                }
+            </form>
+
+        
+    }
 }
 
 <h2>@Model.whichEntity</h2>
@@ -91,29 +147,53 @@
         <!--if (Model.whichAttributes == "*")
         {-->
         <!-- Table for results of Title_type-->
-    <table style="width:100%; border:1px solid black; padding:15px">
+        <table style="width:100%; border:1px solid black; padding:15px">
 
-        <tr>
-            <th></th>
-            @for (int i = 0; i < Model.AInt; i++)
-            {
-                <th>@Model.ColumnNames[i]</th>
-            }
-        </tr>
-        @for (int i = 0; i < Model.BInt; i++)
-        {
             <tr>
-                <td><a href="./Update?we=@Model.whichEntity&id=@Model.Results[i][0]">Edit</a></td>
-                @for (int j = 0; j < Model.AInt; j++)
+                <th></th>
+                @for (int i = 0; i < Model.AInt; i++)
                 {
-                    <td>@Model.Results[i][j]</td>
-
+                    <th>@Model.ColumnNames[i]</th>
                 }
             </tr>
-        }
-    </table>
-    <!--}-->
+            @for (int i = 0; i < Model.BInt; i++)
+            {
+                <tr>
+                    <td><a href="./Update?we=@Model.whichEntity&id=@Model.Results[i][0]">Edit</a></td>
+                    @for (int j = 0; j < Model.AInt; j++)
+                    {
+                        <td>@Model.Results[i][j]</td>
+
+                    }
+                </tr>
+            }
+        </table>
+        <!--}-->
     }
     <p>@Model.AMessage</p>
     <p>@Model.AInt</p>
-    }
+    <script>
+
+    $(".dateSelection").each(function () {
+        $(this).datepicker({
+            dateFormat: "yy/mm/dd"
+        });
+    });
+
+    $(".dateTimeSelection").each(function () {
+        var postField = this;
+        postField.style.display = "none";
+        var dateField = document.createElement("input");
+        dateField.placeholder = "Date";
+        $(dateField).datepicker({
+            dateFormat: "mm/dd/yy"
+        });
+        var timeField = document.createElement("input");
+        timeField.placeholder = "Time";
+        timeField.addEventListener("change", function () { postField.value = dateField.value + " " + timeField.value });
+        this.parentElement.append(dateField);
+        this.parentElement.append(timeField);
+
+    });
+    </script>
+}

@@ -117,7 +117,15 @@ namespace zooproject.Pages.Employee_Section
                         setClause += ", [" + keyList[i] + "]='" + Request.Form[keyList[i]] + "'";
                 }
 
-                dbCommand = "UPDATE " + we + " SET " + setClause + " WHERE ID=" + id.ToString() + ";";
+                //dbCommand = "UPDATE " + we + " SET " + setClause + " WHERE ID=" + id.ToString() + ";";
+                if (whichEntity == "PURCHASE" || whichEntity == "PURCHASE_INFO")
+                {
+                    dbCommand = "UPDATE  " + whichEntity + " SET " + setClause + " WHERE Receipt=" + id.ToString() + ";";
+                }
+                else
+                {
+                    dbCommand = "UPDATE " + we + " SET " + setClause + " WHERE ID=" + id.ToString() + ";";
+                }
                 Debug.WriteLine(dbCommand);
                 cmd.CommandText = dbCommand;
                 cmd.Connection = database.Connection;
@@ -126,83 +134,13 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "query successful";
+                    Response.Redirect("./Search?we=" + whichEntity);
                 }
 
                 catch (SqlException e)
                 {
                     EMessage = "Failed to execute SqlQuery" + e.ToString();
                 }
-                /*
-                if(whichEntity == "ANIMAL")
-                {
-                    Request.Form[];
-                    dbCommand = "UPDATE FROM ANIMAL SET " + " WHERE ID=" + ";";
-                }
-                else if (whichEntity == "ATTRACTION")
-                {
-
-                }
-                else if (whichEntity == "CUSTOMER")
-                {
-
-                }
-                else if (whichEntity == "EMPLOYEE")
-                {
-
-                }
-                else if (whichEntity == "GENDER_TYPE")
-                {
-
-                }
-                else if (whichEntity == "MEMBERSHIP_TYPE")
-                {
-
-                }
-                else if (whichEntity == "PAY_TYPE")
-                {
-
-                }
-                else if (whichEntity == "PRODUCT")
-                {
-
-                }
-                else if (whichEntity == "PURCHASE")
-                {
-
-                }
-                else if (whichEntity == "PURCHASE_INFO")
-                {
-
-                }
-                else if (whichEntity == "STORE")
-                {
-
-                }
-                else if (whichEntity == "STORE_TYPE")
-                {
-
-                }
-                else if (whichEntity == "TITLE_TYPE")
-                {
-
-                }
-                */
-                //dbCommand = "UPDATE " + whichEntity + " SET "  + " WHERE ";
-                //dbCommand = Request.Form["command"];
-                //cmd.CommandText = dbCommand;
-                //cmd.Connection = database.Connection;
-                /*
-                try
-                {
-                    cmd.ExecuteNonQuery();
-                    EMessage = "query successful";
-                }
-
-                catch (SqlException e)
-                {
-                    EMessage = "Failed to execute SqlQuery" + e.ToString();
-                }
-                */
                 cmd.Dispose();
                 database.disconnect();
             }
