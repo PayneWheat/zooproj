@@ -3,65 +3,52 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
-<div style="background-image:url('https://nationalzoo.si.edu/sites/default/files/styles/1400x700_scale_and_crop/public/animals/sumatrantiger-001.jpg?itok=x9w4Ayrb'); background-size:cover; background-repeat:no-repeat; background-position:center center; width:100%; height:450px;"></div>
-
-<h1>Hello group 14</h1>
-<div>Now deployed through github</div>
-<h2>Adam's Header</h2>
-<p>@Model.AInt @Model.AMessage</p>
-<p>@Model.BMessage</p>
-@{
-
-    for (int i = 0; i < Model.AnimalIDs.Count - 1; i++)
-    {
-        <p>@Model.AnimalIDs[i]</p>
+<style>
+    body{
+        background-color: rgba(229, 229, 229, 0.64);
+        font-family: Arial;
+        font-size:large;
     }
-}
+</style>
 
-<h2>Printing all tuples in Title_Type</h2>
+<div style="background-image:url('https://nationalzoo.si.edu/sites/default/files/styles/1400x700_scale_and_crop/public/animals/sumatrantiger-001.jpg?itok=x9w4Ayrb');
+    background-size:cover; background-repeat:no-repeat; background-position:center -200px;
+    width:100%; height:350px; top: 200px; border: 2px solid black">
+</div>
 
-<!-- Table for results of Title_type-->
-<table style="width:100%">
-    <!-- Column Names-->
-    <tr>
-        <th>ID</th>
-        <th>Type</th>
-    </tr>
+<h1 id="greeting">Welcome to our Zoo Website!</h1>
+<div style="border:2px solid black; background-color: white; padding:10px;">
+    <h2 id="zoo news">Zoo News</h2>
+    <p>
+        Paragraph for made up zoo news
+        <br />
+        <br />
+        <br />
+        Adam did this just to give a general layout of the page
+        <br />
+        If it's ugly change it
+        <br />
+        <br />
+        <br />
+        <br />
 
-    <!-- Column Values-->
-    @for (int i = 0; i < Model.IDResults.Count; i++)
-    {
-        <tr>
-            <th>@Model.IDResults[i]</th>
-            <th>@Model.TypeResults[i]</th>
-        </tr>
-    }
-</table>
+    </p>
+</div>
+<br />
+<div style="border:2px solid black; background-color: white; padding:10px;">
+    <h3 id="nav info">Navigation Info</h3>
+    <p>
+        <ul>
+            <li>Attraction Info: Find out what attractions are in the zoo and which animals are in each.</li>
+            <li>Product Catalog: See what products we sell at our Gift Shops and Restaurants as well as what Memberhip Types we offer.</li>
+            <li>Login: Log into your zoo account to see and edit your current contact info.</li>
+        </ul>
+    </p>
+    <br />
+    </div>
 
-<br /><br />
-<p>@Model.AInt @Model.AMessage</p>
-<p>@Model.BMessage</p>
-
-<!-- trying to figure out a way to insert based on value in inputs-->
-
-<input id="iID" type="text" value="ID"><br>
-<input id="iType" type="text" value="Type"><br>
-<input type="submit" value="Submit" onclick="InsertValues()">
-
-
-<p id="myID"></p>
-<p id="myType"></p>
-
-<script>
-
-    function InsertValues() {
-        /*
-        document.getElementById("myID").innerHTML = document.getElementById("iID").value;
-        document.getElementById("myType").innerHTML = document.getElementById("iType").value;
-        */
-       @Model.AMessage;
-    }
-
-
-</script>
+    <h4 id="general info">
+        <p>Hours of Operation: 9:00 A.M. to 6:00 P.M. Every Day</p>
+        <p>Phone #: 123-456-7890</p>
+        <p>Email: ZooCustomerSupport@gmail.com</p>
+    </h4>
