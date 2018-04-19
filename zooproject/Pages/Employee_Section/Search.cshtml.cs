@@ -133,6 +133,28 @@ namespace zooproject.Pages.Employee_Section
                     database.disconnect();
 
                 }
+                if (we == "ATTRACTION")
+                {
+                    database.connect();
+                    cmd = new SqlCommand();
+                    dbCommand = "SELECT ID, LName FROM EMPLOYEE;";
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    reader = cmd.ExecuteReader();
+                    int k = 0;
+                    while (reader.Read())
+                    {
+                        Results2.Add(new List<string>());
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Debug.WriteLine(reader[i].ToString());
+                            Results2[k].Add(reader[i].ToString());
+                        }
+                        k++;
+                    }
+                    database.disconnect();
+
+                }
                 else if (we == "CUSTOMER")
                 {
                     database.connect();
@@ -227,6 +249,24 @@ namespace zooproject.Pages.Employee_Section
                         {
                             Debug.WriteLine(reader[i].ToString());
                             Results2[k].Add(reader[i].ToString());
+                        }
+                        k++;
+                    }
+                    database.disconnect();
+                    database.connect();
+                    cmd = new SqlCommand();
+                    dbCommand = "SELECT ID, Name FROM STORE;";
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    reader = cmd.ExecuteReader();
+                    k = 0;
+                    while (reader.Read())
+                    {
+                        Results3.Add(new List<string>());
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Debug.WriteLine(reader[i].ToString());
+                            Results3[k].Add(reader[i].ToString());
                         }
                         k++;
                     }

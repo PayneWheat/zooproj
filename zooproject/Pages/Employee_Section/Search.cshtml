@@ -88,7 +88,7 @@
     if (Model.whichEntity != "")
     {
 
-            <form>
+            <form class="searchFields">
                 @for (int i = 0; i < Model.AInt; i++)
                 {
                 <div>
@@ -97,6 +97,8 @@
                         || Model.ColumnNames[i] == "Manager")
                         {
                             <select name="@Model.ColumnNames[i]">
+                                <option></option>
+
                         @for (int j = 0; j < Model.Results2.Count(); j++)
                         {
                                 <option value="@Model.Results2[j][0]">@Model.Results2[j][1]</option>
@@ -106,6 +108,7 @@
                     else if (Model.ColumnNames[i] == "Store")
                     {
                             <select name="@Model.ColumnNames[i]">
+                                <option></option>
                         @for (int j = 0; j < Model.Results3.Count(); j++)
                         {
                                 <option value="@Model.Results3[j][0]">@Model.Results3[j][1]</option>
@@ -116,6 +119,7 @@
                     else if (Model.ColumnNames[i] == "Title")
                     {
                             <select name="@Model.ColumnNames[i]">
+                                <option></option>
                         @for (int j = 0; j < Model.Results4.Count(); j++)
                         {
                                 <option value="@Model.Results4[j][0]">@Model.Results4[j][1]</option>
@@ -124,7 +128,8 @@
 
                     }
                     else if (Model.ColumnNames[i] == "Status_date" || Model.ColumnNames[i] == "Health_date" || Model.ColumnNames[i] == "ExpirationDate"
-                    || Model.ColumnNames[i] == "Hire_Date")
+                    || Model.ColumnNames[i] == "Hire_Date" || Model.ColumnNames[i] == "Date" || Model.ColumnNames[i] == "Birth Date" 
+                    || Model.ColumnNames[i] == "Open_closed_date" || Model.ColumnNames[i] == "Manager_date")
                     {
                         <input type="text" class="dateSelection" name="@Model.ColumnNames[i]" />
                     }
@@ -134,6 +139,7 @@
                     }
                 </div>
                 }
+                <input type="submit" value="Search" />
             </form>
 
         
