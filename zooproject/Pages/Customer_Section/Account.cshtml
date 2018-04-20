@@ -3,7 +3,13 @@
 @{
 }
 
-<h1>Account Page for User  @HttpContext.User.Identity.Name</h1>
+<h1>Account Page for User  @HttpContext.User.Identity.Name: </h1>
+
+@if (HttpContext.User.IsInRole("Manager"))
+{
+    <h2>Manager</h2>
+}
+
 
 <style>
     #customerInfo {

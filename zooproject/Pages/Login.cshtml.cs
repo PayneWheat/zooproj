@@ -51,41 +51,117 @@ namespace zooproject.Pages
                 login_failed = true;
             }
 
+            string role = "";
+
+            if (isCustomer(userName))
+            {
+                role = "Customer";
+            }else if(isEmployee(userName))
+            {
+                role = getRole(userName);
+            }
+            else
+            {
+                login_failed = true;
+            }
+                
+
+
+            if (login_failed)
+                return Redirect("/LoginError");
+            
+
+            var claims = new List<Claim> {
+                    new Claim(ClaimTypes.Name, userName, ClaimValueTypes.String, "Manager"),
+                    new Claim(ClaimTypes.Role, role, ClaimValueTypes.String)
+            };
+
+            var userIdentity = new ClaimsIdentity(claims, "Auth");
+
+            var userPrincipal = new ClaimsPrincipal(userIdentity);
+                
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal);
+                
+            if(role == "Manager" || role == "Employee")
+            {
+                return Redirect("./Employee_Section/");
+            }
+            else
+            {
+                return Redirect("./Customer_Section/Account");
+            }
+                
+        }
+        private bool isEmployee(string username)
+        {
             database.connect();
-            SqlCommand cmd = new SqlCommand("SELECT id FROM EMPLOYEE WHERE Fname='" + userName + "'",
+            SqlCommand cmd = new SqlCommand("SELECT id FROM EMPLOYEE WHERE Fname='" + username + "'",
                 database.Connection);
             SqlDataReader reader;
-             reader = cmd.ExecuteReader();
+            reader = cmd.ExecuteReader();
 
             bool user_found = false;
             while (reader.Read())
             {
                 user_found = true;
             }
+
             cmd.Dispose();
             reader.Close();
             database.disconnect();
 
-            if (!user_found)
-                login_failed = true;
+            return user_found;
+        }
 
+        private bool isCustomer(string username)
+        {
+            database.connect();
+            SqlCommand cmd = new SqlCommand("SELECT id FROM Customer WHERE Fname='" + username + "'",
+                database.Connection);
+            SqlDataReader reader;
+            reader = cmd.ExecuteReader();
 
-            if (login_failed)
-                return Redirect("/LoginError");
+            bool user_found = false;
+            while (reader.Read())
+            {
+                user_found = true;
+            }
+
+            cmd.Dispose();
+            reader.Close();
+            database.disconnect();
+
+            return user_found;
+        }
+
+        private string getRole(string username)
+        {
+            database.connect();
+            SqlCommand cmd = new SqlCommand("SELECT Title FROM EMPLOYEE WHERE Fname='" + username + "'",
+                database.Connection);
+            SqlDataReader reader;
+            reader = cmd.ExecuteReader();
+
+            bool user_found = false;
+            int roleid = 0;
+            string role = "Employee";
+
+            while (reader.Read())
+            {
+                roleid = reader.GetInt32(0);
+                user_found = true;
+            }
+            cmd.Dispose();
+            reader.Close();
+            database.disconnect();
+            if(roleid == 3)
+            {
+                return "Manager";
+            }
             else
             {
-
-                var claims = new List<Claim> {
-                    new Claim(ClaimTypes.Name, userName, ClaimValueTypes.String, "Manager")
-                };
-
-                var userIdentity = new ClaimsIdentity(claims, "EmployeeLogin");
-
-                var userPrincipal = new ClaimsPrincipal(userIdentity);
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal);
+                return "Employee";
             }
-            return Redirect("./Employee_Section/");
         }
     }
 }
