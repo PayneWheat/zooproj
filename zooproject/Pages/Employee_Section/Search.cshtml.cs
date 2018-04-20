@@ -22,6 +22,7 @@ namespace zooproject.Pages.Employee_Section
         public List<List<string>> Results2 = new List<List<string>>();
         public List<List<string>> Results3 = new List<List<string>>();
         public List<List<string>> Results4 = new List<List<string>>();
+        public List<List<string>> ResultsHidden = new List<List<string>>();
         public List<string> ColumnNames = new List<string>();
 
         public string whichEntity = "";
@@ -35,7 +36,7 @@ namespace zooproject.Pages.Employee_Section
         public string AMessage = "";
         public int AInt = 0;
         public int BInt = 0;
-
+        public int CInt = 0;
         public SearchModel(IConfiguration iconfiguration, Database ZooDatabase)
         {
             // Get database connection string from appsettings.Development.json
@@ -302,14 +303,18 @@ namespace zooproject.Pages.Employee_Section
 
             if (we != "")
             {
-                whichEntity = we;
                 Debug.WriteLine("Posted");
+                whichEntity = we;
+
                 /*
                 whichEntity = Request.Form["entityType"];
                 whichAttributes = Request.Form["attributeType"];
                 whichWhere = Request.Form["whereType"];
                 whichOther = Request.Form["otherType"];
                 */
+
+                int j = 0;
+                SqlCommand cmd = new SqlCommand();
                 string whereClause = "";
                 List<string> keyList = Request.Form.Keys.ToList();
                 Debug.WriteLine("Beginning key traversal...");
@@ -331,13 +336,13 @@ namespace zooproject.Pages.Employee_Section
                 dbCommand = "SELECT * FROM " + whichEntity + " " + whereClause + ";";
                 Debug.WriteLine("dbCommand: " + dbCommand);
                 database.connect();
-                SqlCommand cmd = new SqlCommand();
+                cmd = new SqlCommand();
                 cmd.CommandText = dbCommand;
                 cmd.Connection = database.Connection;
                 reader = cmd.ExecuteReader();
                 AInt = reader.FieldCount;
                 Debug.WriteLine("AInt: " + AInt);
-                int j = 0;
+                j = 0;
                 for (; j < AInt; j++)
                 {
                     ColumnNames.Add(reader.GetName(j));
@@ -367,6 +372,31 @@ namespace zooproject.Pages.Employee_Section
                 reader.Close();
                 cmd.Dispose();
                 database.disconnect();
+
+                // pull in whole table to pass possible keys to autocomplete
+                dbCommand = "SELECT * FROM " + we;
+                database.connect();
+                cmd.CommandText = dbCommand;
+                cmd.Connection = database.Connection;
+                reader = cmd.ExecuteReader();
+                j = 0;
+                while (reader.Read())
+                {
+                    ResultsHidden.Add(new List<string>());
+                    for (int i = 0; i < AInt; i++)
+                    {
+                        Debug.Write(reader[i].ToString() + ", ");
+                        ResultsHidden[j].Add(reader[i].ToString());
+                    }
+                    j++;
+                }
+                CInt = j;
+                Debug.WriteLine("CInt: " + CInt);
+                // Cleanup
+                reader.Close();
+                cmd.Dispose();
+                database.disconnect();
+
                 // load secondary results for drop down menus
                 if (we == "ANIMAL")
                 {
@@ -388,8 +418,9 @@ namespace zooproject.Pages.Employee_Section
                         k++;
                     }
                     database.disconnect();
-
                 }
+
+
                 if (we == "ATTRACTION")
                 {
                     database.connect();

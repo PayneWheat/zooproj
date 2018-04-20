@@ -14,6 +14,7 @@ namespace zooproject.Pages
 {
     public class LoginModel : PageModel
     {
+        public bool login_failed = false;
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -22,14 +23,24 @@ namespace zooproject.Pages
             {
                 userName = Request.Form["Username"];
             }
+            else
+            {
+                login_failed = true;
+            }
 
             if (!string.IsNullOrEmpty(Request.Form["Password"]))
             {
                 password = Request.Form["Password"];
             }
+            else
+            {
+                login_failed = true;
+            }
+            if(login_failed)
+                return Redirect("/LoginError");
 
             var claims = new List<Claim> {
-                new Claim(ClaimTypes.Name, userName, ClaimValueTypes.String, "None")
+                new Claim(ClaimTypes.Name, userName, ClaimValueTypes.String, "Manager")
             };
 
             var userIdentity = new ClaimsIdentity(claims, "Passport");
@@ -37,7 +48,6 @@ namespace zooproject.Pages
             var userPrincipal = new ClaimsPrincipal(userIdentity);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal);
-            //return RedirectToPage("/Index");
             return Redirect("./Employee_Section/");
         }
     }

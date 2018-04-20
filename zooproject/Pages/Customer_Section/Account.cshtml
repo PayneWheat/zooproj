@@ -3,12 +3,12 @@
 @{
 }
 
-<h1>Customer Account Page</h1>
+<h1>Account Page for User  @HttpContext.User.Identity.Name</h1>
 
 <style>
     #customerInfo {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        font-size:larger;
+        font-size: larger;
         border-collapse: collapse;
         width: 100%;
     }
@@ -88,7 +88,7 @@
             </tr>
         </table>
         <br />
-        <input type="submit" value="Submit"/>
+        <input type="submit" value="Submit" />
     </form>
 </div>
 

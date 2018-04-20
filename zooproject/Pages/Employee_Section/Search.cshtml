@@ -88,47 +88,47 @@
     if (Model.whichEntity != "")
     {
 
-            <form class="searchFields" method="post">
-                @for (int i = 0; i < Model.AInt; i++)
-                {
+        <form class="searchFields" method="post">
+            @for (int i = 0; i < Model.AInt; i++)
+            {
                 <div>
                     <label for="@Model.ColumnNames[i]">@Model.ColumnNames[i]</label>
                     @if (Model.ColumnNames[i] == "Attraction" || Model.ColumnNames[i] == "MembershipType" || Model.ColumnNames[i] == "Pay_option"
-                        || Model.ColumnNames[i] == "Manager")
-                        {
-                            <select name="@Model.ColumnNames[i]">
-                                <option></option>
+                       || Model.ColumnNames[i] == "Manager")
+                    {
+                        <select name="@Model.ColumnNames[i]">
+                            <option></option>
 
-                        @for (int j = 0; j < Model.Results2.Count(); j++)
-                        {
+                            @for (int j = 0; j < Model.Results2.Count(); j++)
+                            {
                                 <option value="@Model.Results2[j][0]">@Model.Results2[j][1]</option>
-                        }
-                            </select>
+                            }
+                        </select>
                     }
                     else if (Model.ColumnNames[i] == "Store")
                     {
-                            <select name="@Model.ColumnNames[i]">
-                                <option></option>
-                        @for (int j = 0; j < Model.Results3.Count(); j++)
-                        {
+                        <select name="@Model.ColumnNames[i]">
+                            <option></option>
+                            @for (int j = 0; j < Model.Results3.Count(); j++)
+                            {
                                 <option value="@Model.Results3[j][0]">@Model.Results3[j][1]</option>
-                        }
-                            </select>
+                            }
+                        </select>
 
                     }
                     else if (Model.ColumnNames[i] == "Title")
                     {
-                            <select name="@Model.ColumnNames[i]">
-                                <option></option>
-                        @for (int j = 0; j < Model.Results4.Count(); j++)
-                        {
+                        <select name="@Model.ColumnNames[i]">
+                            <option></option>
+                            @for (int j = 0; j < Model.Results4.Count(); j++)
+                            {
                                 <option value="@Model.Results4[j][0]">@Model.Results4[j][1]</option>
-                        }
-                            </select>
+                            }
+                        </select>
 
                     }
                     else if (Model.ColumnNames[i] == "Status_date" || Model.ColumnNames[i] == "Health_date" || Model.ColumnNames[i] == "ExpirationDate"
-                    || Model.ColumnNames[i] == "Hire_Date" || Model.ColumnNames[i] == "Date" || Model.ColumnNames[i] == "Birth Date" 
+                    || Model.ColumnNames[i] == "Hire_Date" || Model.ColumnNames[i] == "Date" || Model.ColumnNames[i] == "Birth Date"
                     || Model.ColumnNames[i] == "Open_closed_date" || Model.ColumnNames[i] == "Manager_date")
                     {
                         <input type="text" class="dateSelection" name="@Model.ColumnNames[i]" />
@@ -138,11 +138,11 @@
                         <input type="text" class="autocomplete" name="@Model.ColumnNames[i]" />
                     }
                 </div>
-                }
-                <input type="submit" value="Search" />
-            </form>
-            <a href="./Insert?we=@Model.whichEntity">Add New @Model.whichEntity</a>
-        
+            }
+            <input type="submit" value="Search" />
+        </form>
+        <a href="./Insert?we=@Model.whichEntity">Add New @Model.whichEntity</a>
+
     }
 }
 
@@ -177,57 +177,87 @@
     }
     <p>@Model.AMessage</p>
     <p>@Model.AInt</p>
+
+    if (Model.ResultsHidden.Count() > 0)
+    {
+        <!--if (Model.whichAttributes == "*")
+        {-->
+        <!-- Table for results of Title_type-->
+        <table id="resultsTableHidden" style="display:none;">
+
+            <tr>
+                <th></th>
+                @for (int i = 0; i < Model.AInt; i++)
+                {
+                    <th>@Model.ColumnNames[i]</th>
+                }
+            </tr>
+            @for (int i = 0; i < Model.CInt; i++)
+            {
+                <tr>
+                    <td><a href="./Update?we=@Model.whichEntity&id=@Model.ResultsHidden[i][0]">Edit</a></td>
+                    @for (int j = 0; j < Model.AInt; j++)
+                    {
+                        <td>@Model.ResultsHidden[i][j]</td>
+                    }
+                </tr>
+            }
+        </table>
+        <!--}-->
+    }
+
     <script>
 
-    $(".dateSelection").each(function () {
-        $(this).datepicker({
-            dateFormat: "yy/mm/dd"
+        $(".dateSelection").each(function () {
+            $(this).datepicker({
+                dateFormat: "yy/mm/dd"
+            });
         });
-    });
 
-    $(".dateTimeSelection").each(function () {
-        var postField = this;
-        postField.style.display = "none";
-        var dateField = document.createElement("input");
-        dateField.placeholder = "Date";
-        $(dateField).datepicker({
-            dateFormat: "mm/dd/yy"
+        $(".dateTimeSelection").each(function () {
+            var postField = this;
+            postField.style.display = "none";
+            var dateField = document.createElement("input");
+            dateField.placeholder = "Date";
+            $(dateField).datepicker({
+                dateFormat: "mm/dd/yy"
+            });
+            var timeField = document.createElement("input");
+            timeField.placeholder = "Time";
+            timeField.addEventListener("change", function () { postField.value = dateField.value + " " + timeField.value });
+            this.parentElement.append(dateField);
+            this.parentElement.append(timeField);
+
         });
-        var timeField = document.createElement("input");
-        timeField.placeholder = "Time";
-        timeField.addEventListener("change", function () { postField.value = dateField.value + " " + timeField.value });
-        this.parentElement.append(dateField);
-        this.parentElement.append(timeField);
+        var resultsTable = document.getElementById("resultsTableHidden") || document.getElementById("resultsTable");
 
-    });
-
-     $(".autocomplete").each(function () {
-         var fieldName = this.name;
-         var resultsTable = document.getElementById("resultsTable");
-         var resultsHeaders = resultsTable.querySelectorAll("th");
-         var nameHeaderIndex = -1;
-         //console.log(resultsHeaders);
-         for (i = 0; i < resultsHeaders.length; i++) {
-             if (fieldName == resultsHeaders[i].innerHTML) {
-                 nameHeaderIndex = i;
-                 break;
-             }
-         }
-         if (nameHeaderIndex != -1)
-             console.log(resultsHeaders[i].innerHTML)
-         else
-             console.log("Error finding name in header row")
-         console.log(resultsTable.children[0].children.length);
-         var availableTags = [];
-         for (i = 1; i < resultsTable.children[0].children.length; i++) {
-             //console.log(resultsTable.children[i].cells[nameHeaderIndex].innerHTML);
-             //console.log(resultsTable.children[0].children[i].cells[nameHeaderIndex].innerHTML);
-             availableTags.push(resultsTable.children[0].children[i].cells[nameHeaderIndex].innerHTML);
-         }
-         console.log(availableTags);
-         $(this).autocomplete({
-             source: availableTags
-         });
-     });
+        $(".autocomplete").each(function () {
+            var fieldName = this.name;
+            //var resultsTable = document.getElementById("resultsTable");
+            var resultsHeaders = resultsTable.querySelectorAll("th");
+            var nameHeaderIndex = -1;
+            //console.log(resultsHeaders);
+            for (i = 0; i < resultsHeaders.length; i++) {
+                if (fieldName == resultsHeaders[i].innerHTML) {
+                    nameHeaderIndex = i;
+                    break;
+                }
+            }
+            if (nameHeaderIndex != -1)
+                console.log(resultsHeaders[i].innerHTML)
+            else
+                console.log("Error finding name in header row")
+            console.log(resultsTable.children[0].children.length);
+            var availableTags = [];
+            for (i = 1; i < resultsTable.children[0].children.length; i++) {
+                //console.log(resultsTable.children[i].cells[nameHeaderIndex].innerHTML);
+                //console.log(resultsTable.children[0].children[i].cells[nameHeaderIndex].innerHTML);
+                availableTags.push(resultsTable.children[0].children[i].cells[nameHeaderIndex].innerHTML);
+            }
+            console.log(availableTags);
+            $(this).autocomplete({
+                source: availableTags
+            });
+        });
     </script>
 }
