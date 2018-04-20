@@ -50,6 +50,7 @@ namespace zooproject.Pages.Employee_Section
 
         public void OnGet(string we = "", string wa = "", string av = "", int id = -1)
         {
+            Debug.WriteLine("Got");
             if (we != "")
             {
                 database.connect();
@@ -97,16 +98,16 @@ namespace zooproject.Pages.Employee_Section
                 while (reader.Read())
                 {
                     Results.Add(new List<string>());
-                    Debug.WriteLine("New list appended to results list");
+                    //Debug.WriteLine("New list appended to results list");
                     for (int i = 0; i < AInt; i++)
                     {
                         Results[j].Add(reader[i].ToString());
                     }
-                    Debug.WriteLine("List completed. Should have " + AInt + " entries: " + Results[j].Count());
+                    //Debug.WriteLine("List completed. Should have " + AInt + " entries: " + Results[j].Count());
                     j++;
                 }
                 BInt = j;
-                Debug.WriteLine("Results count: " + Results.Count() + "; AInt: " + AInt);
+                //Debug.WriteLine("Results count: " + Results.Count() + "; AInt: " + AInt);
                 database.disconnect();
                 cmd.Dispose();
 
@@ -125,7 +126,7 @@ namespace zooproject.Pages.Employee_Section
                         Results2.Add(new List<string>());
                         for (int i = 0; i < 2; i++)
                         {
-                            Debug.WriteLine(reader[i].ToString());
+                            //Debug.WriteLine(reader[i].ToString());
                             Results2[k].Add(reader[i].ToString());
                         }
                         k++;
@@ -296,62 +297,261 @@ namespace zooproject.Pages.Employee_Section
             }
         }
 
-        public void OnPost()
+        public void OnPost(string we = "")
         {
-            whichEntity = Request.Form["entityType"];
-            whichAttributes = Request.Form["attributeType"];
-            whichWhere = Request.Form["whereType"];
-            whichOther = Request.Form["otherType"];
 
-            if(whichEntity != "" && whichAttributes != "")
+            if (we != "")
             {
+                whichEntity = we;
+                Debug.WriteLine("Posted");
+                /*
+                whichEntity = Request.Form["entityType"];
+                whichAttributes = Request.Form["attributeType"];
+                whichWhere = Request.Form["whereType"];
+                whichOther = Request.Form["otherType"];
+                */
+                string whereClause = "";
+                List<string> keyList = Request.Form.Keys.ToList();
+                Debug.WriteLine("Beginning key traversal...");
+                int nonEmptyCount = 0;
+                for (int i = 0; i < keyList.Count() - 1; i++)
+                {
+                    Debug.Write(keyList[i] + ", ");
+
+                    if (!string.IsNullOrEmpty(Request.Form[keyList[i]]))
+                    {
+                        if (nonEmptyCount < 1)
+                            whereClause += "WHERE " + keyList[i] + "='" + Request.Form[keyList[i]] + "'";
+                        else
+                            whereClause += " AND " + keyList[i] + "='" + Request.Form[keyList[i]] + "'";
+                        nonEmptyCount++;
+                    }
+                }
+                Debug.WriteLine("whereClause: " + whereClause);
+                dbCommand = "SELECT * FROM " + whichEntity + " " + whereClause + ";";
+                Debug.WriteLine("dbCommand: " + dbCommand);
                 database.connect();
-
                 SqlCommand cmd = new SqlCommand();
-
-                if (whichWhere == "")
-                {
-                    dbCommand = "SELECT " + whichAttributes + " FROM "+
-                        whichEntity + " " + whichOther + ";";
-
-                    cmd.CommandText = dbCommand;
-                    cmd.Connection = database.Connection;
-                }
-                else
-                {
-                    dbCommand = "SELECT " + whichAttributes + " FROM [dbo].[" +
-                        whichEntity + "] WHERE " + whichWhere + ";";
-                    cmd.CommandText = dbCommand;
-                    cmd.Connection = database.Connection;
-                }
-
+                cmd.CommandText = dbCommand;
+                cmd.Connection = database.Connection;
                 reader = cmd.ExecuteReader();
-
+                AInt = reader.FieldCount;
+                Debug.WriteLine("AInt: " + AInt);
                 int j = 0;
+                for (; j < AInt; j++)
+                {
+                    ColumnNames.Add(reader.GetName(j));
+                }
+                j = 0;
                 while (reader.Read())
                 {
-                    AInt = reader.FieldCount;
-                    for(; j < AInt; j++)
-                    {
-                        ColumnNames.Add(reader.GetName(j));
-                    }
-
+                    Results.Add(new List<string>());
                     for (int i = 0; i < AInt; i++)
-                    {   
-                        if(reader.IsDBNull(i) == false)
-                            Results[i].Add(reader.GetValue(i).ToString());
-                        else
-                        {
-                            Results[i].Add("NULL");
-                        }
+                    {
+                        Debug.Write(reader[i].ToString() + " , ");
+                        Results[j].Add(reader[i].ToString());
+                    }
+                    j++;
+                }
+                Debug.Write("\n");
+                BInt = j;
+                Debug.WriteLine("Column count:" + ColumnNames.Count() + " Results count: " + Results.Count() + " BInt/j: " + BInt);
+                for (int i = 0; i < Results.Count(); i++)
+                {
+                    for (j = 0; j < Results[i].Count(); j++)
+                    {
+                        Debug.Write(Results[i][j]);
                     }
                 }
-
                 // Cleanup
                 reader.Close();
                 cmd.Dispose();
                 database.disconnect();
+                // load secondary results for drop down menus
+                if (we == "ANIMAL")
+                {
+                    database.connect();
+                    cmd = new SqlCommand();
+                    dbCommand = "SELECT ID, Name FROM ATTRACTION;";
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    reader = cmd.ExecuteReader();
+                    int k = 0;
+                    while (reader.Read())
+                    {
+                        Results2.Add(new List<string>());
+                        for (int i = 0; i < 2; i++)
+                        {
+                            //Debug.WriteLine(reader[i].ToString());
+                            Results2[k].Add(reader[i].ToString());
+                        }
+                        k++;
+                    }
+                    database.disconnect();
+
+                }
+                if (we == "ATTRACTION")
+                {
+                    database.connect();
+                    cmd = new SqlCommand();
+                    dbCommand = "SELECT ID, LName FROM EMPLOYEE;";
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    reader = cmd.ExecuteReader();
+                    int k = 0;
+                    while (reader.Read())
+                    {
+                        Results2.Add(new List<string>());
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Debug.WriteLine(reader[i].ToString());
+                            Results2[k].Add(reader[i].ToString());
+                        }
+                        k++;
+                    }
+                    database.disconnect();
+
+                }
+                else if (we == "CUSTOMER")
+                {
+                    database.connect();
+                    cmd = new SqlCommand();
+                    dbCommand = "SELECT ID, Name FROM MEMBERSHIP_TYPE;";
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    reader = cmd.ExecuteReader();
+                    int k = 0;
+                    while (reader.Read())
+                    {
+                        Results2.Add(new List<string>());
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Debug.WriteLine(reader[i].ToString());
+                            Results2[k].Add(reader[i].ToString());
+                        }
+                        k++;
+                    }
+                    database.disconnect();
+                }
+                else if (we == "EMPLOYEE")
+                {
+                    database.connect();
+                    cmd = new SqlCommand();
+                    dbCommand = "SELECT ID, Name FROM ATTRACTION;";
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    reader = cmd.ExecuteReader();
+                    int k = 0;
+                    while (reader.Read())
+                    {
+                        Results2.Add(new List<string>());
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Debug.WriteLine(reader[i].ToString());
+                            Results2[k].Add(reader[i].ToString());
+                        }
+                        k++;
+                    }
+                    database.disconnect();
+                    database.connect();
+                    cmd = new SqlCommand();
+                    dbCommand = "SELECT ID, Name FROM STORE;";
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    reader = cmd.ExecuteReader();
+                    k = 0;
+                    while (reader.Read())
+                    {
+                        Results3.Add(new List<string>());
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Debug.WriteLine(reader[i].ToString());
+                            Results3[k].Add(reader[i].ToString());
+                        }
+                        k++;
+                    }
+                    database.disconnect();
+                    database.connect();
+                    cmd = new SqlCommand();
+                    dbCommand = "SELECT ID, Title FROM TITLE_TYPE;";
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    reader = cmd.ExecuteReader();
+                    k = 0;
+                    while (reader.Read())
+                    {
+                        Results4.Add(new List<string>());
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Debug.WriteLine(reader[i].ToString());
+                            Results4[k].Add(reader[i].ToString());
+                        }
+                        k++;
+                    }
+                    database.disconnect();
+                }
+                else if (we == "PURCHASE")
+                {
+                    database.connect();
+                    cmd = new SqlCommand();
+                    dbCommand = "SELECT ID, Name FROM PAY_TYPE;";
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    reader = cmd.ExecuteReader();
+                    int k = 0;
+                    while (reader.Read())
+                    {
+                        Results2.Add(new List<string>());
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Debug.WriteLine(reader[i].ToString());
+                            Results2[k].Add(reader[i].ToString());
+                        }
+                        k++;
+                    }
+                    database.disconnect();
+                    database.connect();
+                    cmd = new SqlCommand();
+                    dbCommand = "SELECT ID, Name FROM STORE;";
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    reader = cmd.ExecuteReader();
+                    k = 0;
+                    while (reader.Read())
+                    {
+                        Results3.Add(new List<string>());
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Debug.WriteLine(reader[i].ToString());
+                            Results3[k].Add(reader[i].ToString());
+                        }
+                        k++;
+                    }
+                    database.disconnect();
+                }
+                else if (we == "STORE")
+                {
+                    database.connect();
+                    cmd = new SqlCommand();
+                    dbCommand = "SELECT ID, LName FROM EMPLOYEE;";
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    reader = cmd.ExecuteReader();
+                    int k = 0;
+                    while (reader.Read())
+                    {
+                        Results2.Add(new List<string>());
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Debug.WriteLine(reader[i].ToString());
+                            Results2[k].Add(reader[i].ToString());
+                        }
+                        k++;
+                    }
+                    database.disconnect();
+                }
             }
         }
     }
+
 }

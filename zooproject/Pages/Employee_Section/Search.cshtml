@@ -88,7 +88,7 @@
     if (Model.whichEntity != "")
     {
 
-            <form class="searchFields">
+            <form class="searchFields" method="post">
                 @for (int i = 0; i < Model.AInt; i++)
                 {
                 <div>
@@ -141,7 +141,7 @@
                 }
                 <input type="submit" value="Search" />
             </form>
-
+            <a href="./Insert?we=@Model.whichEntity">Add New @Model.whichEntity</a>
         
     }
 }
@@ -169,7 +169,6 @@
                     @for (int j = 0; j < Model.AInt; j++)
                     {
                         <td>@Model.Results[i][j]</td>
-
                     }
                 </tr>
             }

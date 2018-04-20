@@ -105,9 +105,8 @@ namespace zooproject.Pages.Employee_Section
             {
                 whichEntity = we;
                 Debug.WriteLine("we: " + we);
-                database.connect();
+                
                 string setClause = "";
-                SqlCommand cmd = new SqlCommand();
                 List<string> keyList = Request.Form.Keys.ToList();
                 for(int i = 0; i < keyList.Count() - 1; i++)
                 {
@@ -127,6 +126,8 @@ namespace zooproject.Pages.Employee_Section
                     dbCommand = "UPDATE " + we + " SET " + setClause + " WHERE ID=" + id.ToString() + ";";
                 }
                 Debug.WriteLine(dbCommand);
+                database.connect();
+                SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = dbCommand;
                 cmd.Connection = database.Connection;
 
