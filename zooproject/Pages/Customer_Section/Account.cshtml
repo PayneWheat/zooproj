@@ -44,46 +44,55 @@
             </tr>
             <tr>
                 <td>First Name</td>
-                <td><input type="text" name="Fname" value="" /></td>
+                <td><input type="text" name="Fname" value="@Model.selectFname" /></td>
             </tr>
             <tr>
                 <td>Middle Name</td>
-                <td><input type="text" name="Mname" value="" /></td>
+                <td><input type="text" name="Mname" value="@Model.selectMname" /></td>
             </tr>
             <tr>
                 <td>Last Name</td>
-                <td><input type="text" name="Lname" value="" /></td>
+                <td><input type="text" name="Lname" value="@Model.selectLname" /></td>
             </tr>
             <tr>
                 <td>Street</td>
-                <td><input type="text" name="StreetAddress" value="" /></td>
+                <td><input type="text" name="StreetAddress" value="@Model.selectStreetAddress" /></td>
             </tr>
             <tr>
                 <td>City</td>
-                <td><input type="text" name="City" value="" /></td>
+                <td><input type="text" name="CityAddress" value="@Model.selectCityAddress" /></td>
             </tr>
             <tr>
                 <td>Zip</td>
-                <td><input type="text" name="Zip" value="" /></td>
+                <td><input type="text" name="ZipAddress" value="@Model.selectZipAddress" /></td>
             </tr>
             <tr>
                 <td>State</td>
-                <td><input type="text" name="State" value="" /></td>
+                <td><input type="text" name="StateAddress" value="@Model.selectStateAddress" /></td>
             </tr>
             <tr>
                 <td>Phone #</td>
-                <td><input type="text" name="Phone" value="" /></td>
+                <td><input type="text" name="Phone" value="@Model.selectPhone" /></td>
             </tr>
             <tr>
                 <td>Email Address</td>
-                <td><input type="text" name="Email" value="" /></td>
+                <td><input type="text" name="Email" value="@Model.selectEmail" /></td>
             </tr>
             <tr>
                 <td>Membership Type</td>
+                <td>@Model.selectMembership</td>
+            </tr>
+            <tr>
                 <td>Expiration Date</td>
+                <td>@Model.selectExpiration</td>
             </tr>
         </table>
         <br />
         <input type="submit" value="Submit" />
     </form>
 </div>
+
+<p>@Model.selectFname</p>
+<p>@Model.AMessage</p>
+<p>@Model.selectCommand</p>
+<p>@Model.updateCommand</p>
