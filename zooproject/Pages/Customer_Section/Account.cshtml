@@ -1,0 +1,89 @@
+﻿@page
+@model AccountModel
+@{
+}
+
+<h1>Customer Account Page</h1>
+
+<style>
+    #customerInfo {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        font-size:larger;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customerInfo td, #customerInfo th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customerInfo tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customerInfo tr:hover {
+            background-color: #ddd;
+        }
+
+        #customerInfo th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+</style>
+
+<div>
+    <form method="post">
+        <table id="customerInfo" style="width: 100%; border:1px solid black; padding: 15px">
+            <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>First Name</td>
+                <td><input type="text" name="Fname" value="" /></td>
+            </tr>
+            <tr>
+                <td>Middle Name</td>
+                <td><input type="text" name="Mname" value="" /></td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td><input type="text" name="Lname" value="" /></td>
+            </tr>
+            <tr>
+                <td>Street</td>
+                <td><input type="text" name="StreetAddress" value="" /></td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td><input type="text" name="City" value="" /></td>
+            </tr>
+            <tr>
+                <td>Zip</td>
+                <td><input type="text" name="Zip" value="" /></td>
+            </tr>
+            <tr>
+                <td>State</td>
+                <td><input type="text" name="State" value="" /></td>
+            </tr>
+            <tr>
+                <td>Phone #</td>
+                <td><input type="text" name="Phone" value="" /></td>
+            </tr>
+            <tr>
+                <td>Email Address</td>
+                <td><input type="text" name="Email" value="" /></td>
+            </tr>
+            <tr>
+                <td>Membership Type</td>
+                <td>Expiration Date</td>
+            </tr>
+        </table>
+        <br />
+        <input type="submit" value="Submit"/>
+    </form>
+</div>
