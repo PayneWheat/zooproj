@@ -76,22 +76,26 @@
     <a asp-page="./Update">Update</a>
     <a asp-page="../Login">Logout</a>
 </nav>
+<a href="./">Back to Employee Section</a>
 <h1>Sales's Report Page</h1>
 <div>
     <form method="post">
         <div id="dateGenerator">
+            <h2>By Date</h2>
             <label for="startDate">Date</label>
-            <input type="text" name="startDate" class="dateSelection" /><span><a href="#" id="startingDate" style="display:inline-block;">Choose range of dates.</a></span>
-            <label for="endDate" style="display:none;">Ending Date</label>
-            <input type="text" name="endDate" class="dateSelection" style="display:none;" /><a href="#" id="endingDate" style="display:none;">Choose a single date.</a></span>
+            <input type="text" id="startDate" name="startDate" class="dateSelection" /><span id="rangeLinkSpan"><a href="#" id="rangeLink">Choose range of dates.</a></span>
+            <label for="endDate" id="endDateLabel" style="display:none;">Ending Date</label>
+            <input type="text" id="endDate" name="endDate" class="dateSelection" style="display:none;" /><span id="endingDateSpan" style="display:none;"><a href="#" id="singleLink">Choose a single date.</a></span>
         </div>
         <div id="timeGenerator">
+            <h2>By Time</h2>
             <label for="startTime">Time</label>
             <input type="text" name="startTime" class="timeSelection" />
             <label for="endDate">Ending Time</label>
             <input type="text" name="endTime" class="timeSelection" />
         </div>
         <div id="storeGenerator">
+            <h2>By Store</h2>
             <label for="storeSelect">Select Store</label>
             <select name="storeSelect" id="storeSelection">
                 @for (int i = 0; i < Model.SInt; i++)
@@ -101,6 +105,7 @@
             </select>
         </div>
         <div id="employeeGenerator">
+            <h2>By Employee</h2>
             <div>
                 <label for="employeeFName">Employee First Name</label>
                 <input type="text" name="employeeFName" id="eFirstName" />
@@ -121,6 +126,7 @@
             </div>
         </div>
         <div id="customerGenerator">
+            <h2>By Customer</h2>
             <div>
                 <label for="customerID">Customer ID</label>
                 <input type="text" name="customerID" id="cID" />
@@ -145,7 +151,13 @@
                 <input type="text" name="customerEmail" id="cID" />
             </div>
         </div>
-
+        <div id="productGenerator">
+            <h2>By Product</h2>
+            <label for="productID">Product ID</label>
+            <input type="text" name="productID" />
+            <label for="productName">Name</label>
+            <input type="text" name="productName" />
+        </div>
         <input type="submit" value="Generate Report" />
     </form>
 </div>
@@ -229,6 +241,33 @@
 <p>@Model.secondTableDateChoice</p>
 <p>@Model.AMessage</p>
 <script>
+    var rangeLink = document.getElementById("rangeLink");
+    var endDateLabel = document.getElementById("endDateLabel");
+    var endDate = document.getElementById("endDate");
+    var endingDateSpan = document.getElementById("endingDateSpan");
+    var singleLink = document.getElementById("singleLink");
+    var rangeLinkSpan = document.getElementById("rangeLinkSpan");
+    rangeLink.addEventListener("click", function () { 
+        rangeLinkSpan.style.display = "none";
+        endDateLabel.style.display = "";
+        endDate.style.display = "";
+        endingDateSpan.style.display = "";
+    });
+    singleLink.addEventListener("click", function () {
+        rangeLinkSpan.style.display = "";
+        endDateLabel.style.display = "none";
+        endDate.style.display = "none";
+        endingDateSpan.style.display = "none";
+
+    });
+
+    $(".dateSelection").each(function () {
+        $(this).datepicker({
+            dateFormat: "yy/mm/dd"
+        });
+    });
+
+
     var reportTable = document.getElementById("report");
     var tableData = [];
     var tableDates = [];
@@ -236,10 +275,8 @@
     for (i = 1; i < reportTable.children[0].children.length; i++) {
         var date = reportTable.children[0].children[i].children[0].innerHTML;
         var value = reportTable.children[0].children[i].children[1].innerHTML;
-        console.log(date + " " + value);
         tableData.push(value);
         date = new Date(date.replace(/-/g, "/"));
-        //date = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
         tableDates.push(date.toISOString());
     }
     console.log(tableDates);
@@ -261,9 +298,9 @@
                 xAxes: [{
                     type: 'time',
                     time: {
+                        unit: 'day',
                         displayFormats: {
                             month: 'MMM YYYY'
-
                         }
 
                     }
