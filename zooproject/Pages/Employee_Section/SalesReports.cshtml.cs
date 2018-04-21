@@ -127,10 +127,10 @@ namespace zooproject.Pages.Employee_Section
                 cmd.Connection = database.Connection;
                 cmd = new SqlCommand();
                 //dbCommand = "SELECT PUR.*, PURINFO.* FROM PURCHASE PUR LEFT JOIN PURCHASE_INFO PURINFO ON PUR.Receipt = PURINFO.Receipt";
-                //string whereAndClause = "";
+                string whereAndClause = "";
                 //string whereAndClause = "AND PURCHASE.Store=5";
                 //string whereAndClause = "AND PURCHASE_INFO.Product = 1";
-                string whereAndClause = "AND PURCHASE.Date BETWEEN '2018/04/12' AND '2018/04/19'"; 
+                //string whereAndClause = "AND PURCHASE.Date BETWEEN '2018/04/12' AND '2018/04/19'"; 
                 dbCommand = @"SELECT DISTINCT PURCHASE.Date,
 SUM(B.ReceiptTotal) AS DailyTotal
 FROM PURCHASE,
