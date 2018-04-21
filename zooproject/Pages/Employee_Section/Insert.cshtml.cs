@@ -278,7 +278,11 @@ namespace zooproject.Pages.Employee_Section
 
                 catch (SqlException e)
                 {
-                    EMessage = "Failed to execute insert: " + e.ToString();
+                    
+                    if (e.Number == 50000)
+                        AMessage = "TRIGGERED: Animal inserted or updated into a closed attraction!";
+                    else
+                        EMessage = "Failed to execute insert: " + e.ToString();
                 }
 
                 cmd.Dispose();
@@ -628,6 +632,8 @@ namespace zooproject.Pages.Employee_Section
                 catch (SqlException e)
                 {
                     EMessage = "Failed to execute insert: " + e.ToString();
+                    if (e.Number == 50000)
+                        AMessage = "TRIGGERED: Purchase time was not during zoo operating hours!";
                 }
 
                 cmd.Dispose();
