@@ -68,16 +68,34 @@ namespace zooproject.Pages.Customer_Section
             SqlCommand updatecmd = new SqlCommand();
 
             updatecmd.Connection = database.Connection;
-            updateCommand = "UPDATE CUSTOMER SET Fname = '" +
-                inputFname + "', Mname = '" + inputMname + "', Lname = '" +
-                inputLname + "', StreetAddress = '" + inputStreetAddress +
-                "', CityAddress = '" + inputCityAddress + "', ZipAddress = " +
-                inputZipAddress + ", StateAddress = '" + inputStateAddress +
-                "', Phone = " + inputPhone + ", Email = '" + inputEmail +
-                "' WHERE ID = " + custID + ";";
 
-
+            updateCommand = "UPDATE CUSTOMER SET Fname=@fname, Mname=@mname, Lname=@lname, StreetAddress=@address, CityAddress=@city, ZipAddress=@zip, StateAddress=@state, Phone=@phone, Email=@email WHERE Fname=@id";
             updatecmd.CommandText = updateCommand;
+
+            updatecmd.Parameters.Add("@fname", System.Data.SqlDbType.VarChar);
+            updatecmd.Parameters.Add("@mname", System.Data.SqlDbType.VarChar);
+            updatecmd.Parameters.Add("@lname", System.Data.SqlDbType.VarChar);
+            updatecmd.Parameters.Add("@address", System.Data.SqlDbType.VarChar);
+            updatecmd.Parameters.Add("@city", System.Data.SqlDbType.VarChar);
+            updatecmd.Parameters.Add("@zip", System.Data.SqlDbType.Int);
+            updatecmd.Parameters.Add("@state", System.Data.SqlDbType.VarChar);
+            updatecmd.Parameters.Add("@phone", System.Data.SqlDbType.BigInt);
+            updatecmd.Parameters.Add("@email", System.Data.SqlDbType.VarChar);
+            updatecmd.Parameters.Add("@id", System.Data.SqlDbType.VarChar);
+
+            updatecmd.Parameters["@fname"].Value = inputFname;
+            updatecmd.Parameters["@mname"].Value = inputMname;
+            updatecmd.Parameters["@lname"].Value = inputLname;
+            updatecmd.Parameters["@address"].Value = inputStreetAddress;
+            updatecmd.Parameters["@city"].Value = inputCityAddress;
+            updatecmd.Parameters["@zip"].Value = inputZipAddress;
+            updatecmd.Parameters["@state"].Value = inputStateAddress;
+            updatecmd.Parameters["@phone"].Value = inputPhone;
+            updatecmd.Parameters["@email"].Value = inputEmail;
+            updatecmd.Parameters["@id"].Value = custID;
+
+
+            
 
             try
             {
@@ -96,11 +114,13 @@ namespace zooproject.Pages.Customer_Section
         {
             database.connect();
 
-            selectCommand = "SELECT * FROM CUSTOMER WHERE ID = " + custID;
+            selectCommand = "SELECT * FROM CUSTOMER WHERE Fname=@name";
 
             SqlCommand selectcmd = new SqlCommand();
             selectcmd.Connection = database.Connection;
             selectcmd.CommandText = selectCommand;
+            selectcmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar);
+            selectcmd.Parameters["@name"].Value = custID;
 
             try
             {
@@ -131,6 +151,7 @@ namespace zooproject.Pages.Customer_Section
 
             selectCommand = "SELECT Name FROM MEMBERSHIP_TYPE WHERE ID = " + selectMembership;
             selectcmd.CommandText = selectCommand;
+            
 
             try
             {
