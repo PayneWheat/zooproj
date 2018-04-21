@@ -7,14 +7,29 @@
         display: flex;
         justify-content: space-between;
     }
+
     .admin-box {
         padding: 20px 0px;
     }
-    .admin-box a {
-        display: block;
-    }
+
+        .admin-box a {
+            display: block;
+        }
 </style>
 <h1>Employee Home Page for @HttpContext.User.Identity.Name</h1>
+
+@if (HttpContext.User.IsInRole("Manager"))
+{
+    <h2>You are a manager!</h2>
+}
+@if (HttpContext.User.IsInRole("Customer"))
+{
+    <h2>You are a customer!</h2>
+}
+@if (HttpContext.User.IsInRole("Employee"))
+{
+    <h2>You are a Employee!</h2>
+}
 <div>
     <nav class="employee-nav">
         <a asp-page="./Insert">Insert</a>
