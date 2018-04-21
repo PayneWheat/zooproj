@@ -127,6 +127,10 @@ namespace zooproject.Pages.Employee_Section
                 cmd.Connection = database.Connection;
                 cmd = new SqlCommand();
                 //dbCommand = "SELECT PUR.*, PURINFO.* FROM PURCHASE PUR LEFT JOIN PURCHASE_INFO PURINFO ON PUR.Receipt = PURINFO.Receipt";
+                string whereAndClause = "";
+                //string whereAndClause = "AND PURCHASE.Store=5";
+                //string whereAndClause = "AND PURCHASE_INFO.Product = 1";
+                //string whereAndClause = "AND PURCHASE.Date BETWEEN '2018/04/12' AND '2018/04/19'"; 
                 dbCommand = @"SELECT DISTINCT PURCHASE.Date,
 SUM(B.ReceiptTotal) AS DailyTotal
 FROM PURCHASE,
@@ -137,12 +141,12 @@ PURCHASE_INFO.Price,
 PURCHASE_INFO.Quantity * PURCHASE_INFO.Price AS ItemTotal,
 PURCHASE.Receipt
 FROM PURCHASE_INFO, PURCHASE
-WHERE PURCHASE_INFO.Receipt = PURCHASE.Receipt) A
+WHERE PURCHASE_INFO.Receipt = PURCHASE.Receipt " + whereAndClause + @") A
 WHERE A.Receipt = PURCHASE.Receipt
 GROUP BY PURCHASE.Date, PURCHASE.Store, A.Receipt) B
-WHERE PURCHASE.Date = B.Date
+WHERE PURCHASE.Date = B.Date 
 GROUP BY PURCHASE.Date
-ORDER BY PURCHASE.Date; ";
+ORDER BY PURCHASE.Date;";
                 cmd.Connection = database.Connection;
                 cmd.CommandText = dbCommand;
                 reader = cmd.ExecuteReader();
