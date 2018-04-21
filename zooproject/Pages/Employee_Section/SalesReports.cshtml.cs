@@ -51,9 +51,9 @@ namespace zooproject.Pages.Employee_Section
 
         }
 
-        public void OnGet(string ds = "", string de = "", string sID = "", string eID = "", string pID = "", string pt = "")
+        public void OnGet(string startDate = "", string endDate = "", string startTime = "", string endTime = "", int storeSelect = -1, string employeeFName = "", string employeeLName = "", int employeeID = -1, string employeeTitle = "", int productID = -1, string productName = "")
         {
-            
+
             /*
             SqlCommand cmd = new SqlCommand("SELECT Date, SUM(PURCHASE.Amount) AS Revenue, " +
                 "SUM(PURCHASE_INFO.Quantity) AS 'Items Purchased' FROM PURCHASE, PURCHASE_INFO " +
@@ -68,70 +68,127 @@ namespace zooproject.Pages.Employee_Section
                 PurchaseQuantityList.Add(reader.GetInt32(2));
             }
             */
-            if (ds == "" && de == "" && sID == "" && eID == "" && pID == "" && pt == "")
+
+            // no parameters set... render all sales.
+            database.connect();
+            SqlCommand cmd = new SqlCommand();
+            /*
+            dbCommand = "CREATE VIEW [CurSalesReport] AS SELECT * FROM PURCHASE;";
+            cmd.CommandText = dbCommand;
+            cmd.Connection = database.Connection;
+            cmd.ExecuteReader();
+            cmd.Dispose();
+            database.disconnect();
+            database.connect();
+            */
+            // fetch store info for drop down field
+            dbCommand = "SELECT ID, Name FROM STORE;";
+            cmd.Connection = database.Connection;
+            cmd.CommandText = dbCommand;
+            SqlDataReader reader = cmd.ExecuteReader();
+            int colCount = reader.FieldCount;
+            int j = 0;
+            while (reader.Read())
             {
-                // no parameters set... render all sales.
-                database.connect();
-                SqlCommand cmd = new SqlCommand();
-                /*
-                dbCommand = "CREATE VIEW [CurSalesReport] AS SELECT * FROM PURCHASE;";
-                cmd.CommandText = dbCommand;
-                cmd.Connection = database.Connection;
-                cmd.ExecuteReader();
-                cmd.Dispose();
-                database.disconnect();
-                database.connect();
-                */
-                // fetch store info for drop down field
-                dbCommand = "SELECT ID, Name FROM STORE;";
-                cmd.Connection = database.Connection;
-                cmd.CommandText = dbCommand;
-                SqlDataReader reader = cmd.ExecuteReader();
-                int colCount = reader.FieldCount;
-                int j = 0;
-                while (reader.Read())
+                StoreResults.Add(new List<string>());
+                for (int i = 0; i < colCount; i++)
                 {
-                    StoreResults.Add(new List<string>());
-                    for(int i = 0; i < colCount; i++)
-                    {
-                        StoreResults[j].Add(reader[i].ToString());
-                    }
-                    j++;
+                    StoreResults[j].Add(reader[i].ToString());
                 }
-                SInt = j;
-                cmd.Dispose();
-                database.disconnect();
+                j++;
+            }
+            SInt = j;
+            cmd.Dispose();
+            database.disconnect();
 
-                database.connect();
-                cmd = new SqlCommand();
-                dbCommand = "SELECT ID, Title FROM TITLE_TYPE;";
-                cmd.Connection = database.Connection;
-                cmd.CommandText = dbCommand;
-                reader = cmd.ExecuteReader();
-                colCount = reader.FieldCount;
-                j = 0;
-                while (reader.Read())
+            database.connect();
+            cmd = new SqlCommand();
+            dbCommand = "SELECT ID, Title FROM TITLE_TYPE;";
+            cmd.Connection = database.Connection;
+            cmd.CommandText = dbCommand;
+            reader = cmd.ExecuteReader();
+            colCount = reader.FieldCount;
+            j = 0;
+            while (reader.Read())
+            {
+                TitleResults.Add(new List<string>());
+                for (int i = 0; i < colCount; i++)
                 {
-                    TitleResults.Add(new List<string>());
-                    for (int i = 0; i < colCount; i++)
-                    {
-                        TitleResults[j].Add(reader[i].ToString());
-                    }
-                    j++;
+                    TitleResults[j].Add(reader[i].ToString());
                 }
-                TInt = j;
-                cmd.Dispose();
-                database.disconnect();
+                j++;
+            }
+            TInt = j;
+            cmd.Dispose();
+            database.disconnect();
 
-                database.connect();
-                cmd.Connection = database.Connection;
-                cmd = new SqlCommand();
-                //dbCommand = "SELECT PUR.*, PURINFO.* FROM PURCHASE PUR LEFT JOIN PURCHASE_INFO PURINFO ON PUR.Receipt = PURINFO.Receipt";
-                string whereAndClause = "";
-                //string whereAndClause = "AND PURCHASE.Store=5";
-                //string whereAndClause = "AND PURCHASE_INFO.Product = 1";
-                //string whereAndClause = "AND PURCHASE.Date BETWEEN '2018/04/12' AND '2018/04/19'"; 
-                dbCommand = @"SELECT DISTINCT PURCHASE.Date,
+            database.connect();
+            cmd.Connection = database.Connection;
+            cmd = new SqlCommand();
+            //dbCommand = "SELECT PUR.*, PURINFO.* FROM PURCHASE PUR LEFT JOIN PURCHASE_INFO PURINFO ON PUR.Receipt = PURINFO.Receipt";
+            string whereAndClause = "";
+            //string whereAndClause = "AND PURCHASE.Store=5";
+            //string whereAndClause = "AND PURCHASE_INFO.Product = 1";
+            //string whereAndClause = "AND PURCHASE.Date BETWEEN '2018/04/12' AND '2018/04/19'"; 
+            Debug.WriteLine("pID: " + productID);
+            if (startDate != "" && endDate == "")
+            {
+                Debug.WriteLine("only starting date set, render single day view");
+                Debug.WriteLine(startDate);
+                // only starting date set, render single day view
+                // show sales by time?
+                whereAndClause = "AND PURCHASE.Date='" + startDate + "'";
+            } else if (startDate != "" && endDate != "")
+            {
+                Debug.WriteLine("both starting and ending date set");
+                // both starting and ending date set
+                // only display graph is number of days is greater than 3 or 4?
+                whereAndClause = "AND PURCHASE.Date BETWEEN '" + startDate + "' AND '" + endDate + "'"; ;
+            }
+            if(startTime != "" && endTime != "")
+            {
+                whereAndClause = "AND PURCHASE.Time BETWEEN '" + startTime + "' AND '" + endTime + "'"; ;
+            }
+            if (storeSelect != -1)
+            {
+                Debug.WriteLine("add store id to whereAndClause");
+                // add store id to whereAndClause
+                whereAndClause += "AND PURCHASE.Store=" + storeSelect + " ";
+            }
+            /*
+            if(employeeFName != "")
+            {
+                whereAndClause += "AND EMPLOYEE.Fname='" + employeeFName + "' ";
+            }
+            if(employeeLName != "")
+            {
+                whereAndClause += "AND EMPLOYEE.Fname='" + employeeLName + "' ";
+            }
+            */
+            if (employeeID != -1)
+            {
+                Debug.WriteLine("add employee id to whereAndClause");
+                // add employee id to whereAndClause
+                whereAndClause += "AND PURCHASE.Employee=" + employeeID + " ";
+            }
+            if(employeeTitle != "")
+            {
+                //whereAndClause += "AND PURCHASE.Employee=" + employeeID + " ";
+            }
+            if (productID != -1)
+            {
+                Debug.WriteLine("add product id to whereAndClause");
+                // add product id to whereAndClause
+                whereAndClause += "AND PURCHASE_INFO.Product =" + productID + " ";
+            }
+            if(productName != "")
+            {
+                Debug.WriteLine("add payment type to whereAndClause");
+                // add payment type to whereAndClause
+            }
+
+
+            dbCommand = @"SELECT DISTINCT PURCHASE.Date,
 SUM(B.ReceiptTotal) AS DailyTotal
 FROM PURCHASE,
 (SELECT DISTINCT A.Receipt, PURCHASE.Store, PURCHASE.Date,
@@ -147,33 +204,34 @@ GROUP BY PURCHASE.Date, PURCHASE.Store, A.Receipt) B
 WHERE PURCHASE.Date = B.Date 
 GROUP BY PURCHASE.Date
 ORDER BY PURCHASE.Date;";
-                cmd.Connection = database.Connection;
-                cmd.CommandText = dbCommand;
-                reader = cmd.ExecuteReader();
-                AInt = reader.FieldCount;
-                Debug.Write("Adding columns: ");
-                for(int i = 0; i < AInt; i++)
-                {
-                    ViewColumns.Add(reader.GetName(i).ToString());
-                    Debug.Write(ViewColumns[i] + ", ");
-                }
-                Debug.WriteLine("\nAdding Results...");
-                j = 0;
-                while(reader.Read())
-                {
-                    ViewResults.Add(new List<string>());
-                    for (int i = 0; i < AInt; i++)
-                    {
-                        ViewResults[j].Add(reader[i].ToString());
-                        Debug.Write(ViewResults[j][i].ToString() + ", ");
-                    }
-                    Debug.Write("\n");
-                    j++;
-                }
-                BInt = j;
-                cmd.Dispose();
-                database.disconnect();
+            Debug.WriteLine(dbCommand);
+            cmd.Connection = database.Connection;
+            cmd.CommandText = dbCommand;
+            reader = cmd.ExecuteReader();
+            AInt = reader.FieldCount;
+            Debug.Write("Adding columns: ");
+            for(int i = 0; i < AInt; i++)
+            {
+                ViewColumns.Add(reader.GetName(i).ToString());
+                Debug.Write(ViewColumns[i] + ", ");
             }
+            Debug.WriteLine("\nAdding Results...");
+            j = 0;
+            while(reader.Read())
+            {
+                ViewResults.Add(new List<string>());
+                for (int i = 0; i < AInt; i++)
+                {
+                    ViewResults[j].Add(reader[i].ToString());
+                    Debug.Write(ViewResults[j][i].ToString() + ", ");
+                }
+                Debug.Write("\n");
+                j++;
+            }
+            BInt = j;
+            cmd.Dispose();
+            database.disconnect();
+            
         }
         public void OnPost()
         {

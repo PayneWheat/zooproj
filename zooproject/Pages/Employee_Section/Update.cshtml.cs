@@ -110,12 +110,22 @@ namespace zooproject.Pages.Employee_Section
                 List<string> keyList = Request.Form.Keys.ToList();
                 for(int i = 0; i < keyList.Count() - 1; i++)
                 {
-                    if(i == 0)
-                        setClause += keyList[i] + "='" + Request.Form[keyList[i]] + "'";
+                    string val = Request.Form[keyList[i]];
+                    Debug.WriteLine(keyList[i] + ": " + val);
+                    if(String.IsNullOrEmpty(val))
+                    {
+                        val = "NULL";
+                    }
                     else
-                        setClause += ", [" + keyList[i] + "]='" + Request.Form[keyList[i]] + "'";
+                    {
+                        val = "'" + val + "'";
+                    }
+                    if(i == 0)
+                        setClause += keyList[i] + "=" + val;
+                    else
+                        setClause += ", [" + keyList[i] + "]=" + val;
                 }
-
+                Debug.WriteLine(setClause);
                 //dbCommand = "UPDATE " + we + " SET " + setClause + " WHERE ID=" + id.ToString() + ";";
                 if (whichEntity == "PURCHASE" || whichEntity == "PURCHASE_INFO")
                 {

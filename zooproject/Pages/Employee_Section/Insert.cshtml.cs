@@ -607,18 +607,19 @@ namespace zooproject.Pages.Employee_Section
                 string insertDate = Request.Form["insertDate"];
                 string insertStore = Request.Form["insertStore"];
                 string insertCustomer = Request.Form["insertCustomer"];
-                if(string.IsNullOrEmpty(insertCustomer) == true)
+                string insertEmployee = Request.Form["insertEmployee"];
+                if (string.IsNullOrEmpty(insertCustomer) == true)
                 {
                     insertCustomer = "NULL";
                 }
 
                 cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
-                dbCommand = "INSERT INTO " + whichEntity + "(Receipt, Time, Amount, " +
-                    "Pay_option, Date, Store, Customer) " +
+                dbCommand = "INSERT INTO " + whichEntity + "(Receipt, Time, " +
+                    "Pay_option, Date, Store, Customer, Employee) " +
                     "VALUES(" + insertReceipt + ", '" + insertTime + "', " + 
-                    insertAmount + ", " + insertPay_option + ", '" + insertDate + 
-                    "', " + insertStore + ", " + insertCustomer + ");";
+                    insertPay_option + ", '" + insertDate + 
+                    "', " + insertStore + ", " + insertCustomer + ", " + insertEmployee + ");";
 
                 cmd.CommandText = dbCommand;
 
