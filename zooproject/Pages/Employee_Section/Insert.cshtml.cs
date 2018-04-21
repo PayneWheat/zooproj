@@ -263,7 +263,7 @@ namespace zooproject.Pages.Employee_Section
                     "VALUES(" + insertID + ", '" + insertName + "', '" + insertSpecies +
                      "', '" + insertTaxology + "', '" + insertBirthLocation + "', '" +
                      insertBirthDate + "', '" + insertState + "', '" + insertStatus_date +
-                     "', " + insertGender + ", " + insertHeight + ", " + insertWeight +
+                     "', " + insertGender +  ", " + insertWeight + ", " + insertHeight +
                      ", '" + insertHealth + "', '" + insertHealth_date + "', " + insertAttraction +
                      ");";
 

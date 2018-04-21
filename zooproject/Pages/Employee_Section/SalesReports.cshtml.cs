@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
 
 namespace zooproject.Pages.Employee_Section
 {
@@ -20,6 +21,16 @@ namespace zooproject.Pages.Employee_Section
         public List<DateTime> PurchaseDateList = new List<DateTime>();
         public List<decimal> PurchaseAmountList = new List<decimal>();
         public List<int> PurchaseQuantityList = new List<int>();
+
+        public List<List<string>> ViewResults = new List<List<string>>();
+        public List<string> ViewColumns = new List<string>();
+        public List<List<string>> StoreResults = new List<List<string>>();
+        public List<List<string>> TitleResults = new List<List<string>>();
+
+        public int AInt = 0;
+        public int BInt = 0;
+        public int SInt = 0;
+        public int TInt = 0;
 
         public string StorePurchaseNum;
         public decimal StoreRevenue;
@@ -40,10 +51,10 @@ namespace zooproject.Pages.Employee_Section
 
         }
 
-        public void OnGet()
+        public void OnGet(string ds = "", string de = "", string sID = "", string eID = "", string pID = "", string pt = "")
         {
-            database.connect();
             
+            /*
             SqlCommand cmd = new SqlCommand("SELECT Date, SUM(PURCHASE.Amount) AS Revenue, " +
                 "SUM(PURCHASE_INFO.Quantity) AS 'Items Purchased' FROM PURCHASE, PURCHASE_INFO " +
                 " WHERE PURCHASE_INFO.Receipt = PURCHASE.Receipt GROUP BY Date;", 
@@ -55,6 +66,103 @@ namespace zooproject.Pages.Employee_Section
                 PurchaseDateList.Add(reader.GetDateTime(0));
                 PurchaseAmountList.Add(reader.GetDecimal(1));
                 PurchaseQuantityList.Add(reader.GetInt32(2));
+            }
+            */
+            if (ds == "" && de == "" && sID == "" && eID == "" && pID == "" && pt == "")
+            {
+                // no parameters set... render all sales.
+                database.connect();
+                SqlCommand cmd = new SqlCommand();
+                /*
+                dbCommand = "CREATE VIEW [CurSalesReport] AS SELECT * FROM PURCHASE;";
+                cmd.CommandText = dbCommand;
+                cmd.Connection = database.Connection;
+                cmd.ExecuteReader();
+                cmd.Dispose();
+                database.disconnect();
+                database.connect();
+                */
+                // fetch store info for drop down field
+                dbCommand = "SELECT ID, Name FROM STORE;";
+                cmd.Connection = database.Connection;
+                cmd.CommandText = dbCommand;
+                SqlDataReader reader = cmd.ExecuteReader();
+                int colCount = reader.FieldCount;
+                int j = 0;
+                while (reader.Read())
+                {
+                    StoreResults.Add(new List<string>());
+                    for(int i = 0; i < colCount; i++)
+                    {
+                        StoreResults[j].Add(reader[i].ToString());
+                    }
+                    j++;
+                }
+                SInt = j;
+                cmd.Dispose();
+                database.disconnect();
+
+                database.connect();
+                cmd = new SqlCommand();
+                dbCommand = "SELECT ID, Title FROM TITLE_TYPE;";
+                cmd.Connection = database.Connection;
+                cmd.CommandText = dbCommand;
+                reader = cmd.ExecuteReader();
+                colCount = reader.FieldCount;
+                j = 0;
+                while (reader.Read())
+                {
+                    TitleResults.Add(new List<string>());
+                    for (int i = 0; i < colCount; i++)
+                    {
+                        TitleResults[j].Add(reader[i].ToString());
+                    }
+                    j++;
+                }
+                TInt = j;
+                cmd.Dispose();
+                database.disconnect();
+
+                database.connect();
+                cmd.Connection = database.Connection;
+                cmd = new SqlCommand();
+                //dbCommand = "SELECT PUR.*, PURINFO.* FROM PURCHASE PUR LEFT JOIN PURCHASE_INFO PURINFO ON PUR.Receipt = PURINFO.Receipt";
+                dbCommand = "SELECT DISTINCT A.Receipt, PURCHASE.Store, PURCHASE.Date, " +
+                            "SUM(A.ItemTotal) AS ReceiptTotal " +
+                            "FROM PURCHASE, (SELECT PURCHASE_INFO.Quantity, " +
+                            "PURCHASE_INFO.Price, " +
+                            "PURCHASE_INFO.Quantity * PURCHASE_INFO.Price AS ItemTotal, " +
+                            "PURCHASE.Receipt " +
+                            "FROM PURCHASE_INFO, PURCHASE " +
+                            "WHERE PURCHASE_INFO.Receipt = PURCHASE.Receipt) A " +
+                            "WHERE A.Receipt = PURCHASE.Receipt " +
+                            "GROUP BY PURCHASE.Date, PURCHASE.Store, A.Receipt;";
+                cmd.Connection = database.Connection;
+                cmd.CommandText = dbCommand;
+                reader = cmd.ExecuteReader();
+                AInt = reader.FieldCount;
+                Debug.Write("Adding columns: ");
+                for(int i = 0; i < AInt; i++)
+                {
+                    ViewColumns.Add(reader.GetName(i).ToString());
+                    Debug.Write(ViewColumns[i] + ", ");
+                }
+                Debug.WriteLine("\nAdding Results...");
+                j = 0;
+                while(reader.Read())
+                {
+                    ViewResults.Add(new List<string>());
+                    for (int i = 0; i < AInt; i++)
+                    {
+                        ViewResults[j].Add(reader[i].ToString());
+                        Debug.Write(ViewResults[j][i].ToString() + ", ");
+                    }
+                    Debug.Write("\n");
+                    j++;
+                }
+                BInt = j;
+                cmd.Dispose();
+                database.disconnect();
             }
         }
         public void OnPost()

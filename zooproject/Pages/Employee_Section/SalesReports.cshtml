@@ -4,57 +4,63 @@
 }
 
 <style>
-    #sales{
+    #sales, #report {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         width: 100%;
     }
-    #sales td, #sales th{
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
-    #sales tr:nth-child(even){
-        background-color: #f2f2f2;
-    }
-    #sales tr:hover{
-        background-color: #ddd;
-    }
-    #sales th{
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: #4CAF50;
-        color: white;
-    }
-    #sales{
+
+        #sales td, #sales th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #sales tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #sales tr:hover {
+            background-color: #ddd;
+        }
+
+        #sales th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+    #sales {
         float: left;
     }
+
     #StoreInfo {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         width: 100%;
     }
 
-    #StoreInfos, #StoreInfo th {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
+        #StoreInfos, #StoreInfo th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
 
-    #StoreInfo tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
+        #StoreInfo tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
 
-    #StoreInfo tr:hover, #StoreInfo {
-        background-color: #ddd;
-    }
+        #StoreInfo tr:hover, #StoreInfo {
+            background-color: #ddd;
+        }
 
-    #StoreInfo th{
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: #4CAF50;
-        color: white;
-    }
+            #StoreInfo th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4CAF50;
+                color: white;
+            }
 
     #StoreInfo {
         float: left;
@@ -68,9 +74,100 @@
     <a asp-page="../Login">Logout</a>
 </nav>
 <h1>Sales's Report Page</h1>
+<div>
+    <form method="post">
+        <div id="dateGenerator">
+            <label for="startDate">Date</label>
+            <input type="text" name="startDate" class="dateSelection" /><span><a href="#" id="startingDate" style="display:inline-block;">Choose range of dates.</a></span>
+            <label for="endDate" style="display:none;">Ending Date</label>
+            <input type="text" name="endDate" class="dateSelection" style="display:none;" /><a href="#" id="endingDate" style="display:none;">Choose a single date.</a></span>
+        </div>
+        <div id="timeGenerator">
+            <label for="startTime">Time</label>
+            <input type="text" name="startTime" class="timeSelection" />
+            <label for="endDate">Ending Time</label>
+            <input type="text" name="endTime" class="timeSelection" />
+        </div>
+        <div id="storeGenerator">
+            <label for="storeSelect">Select Store</label>
+            <select name="storeSelect" id="storeSelection">
+                @for (int i = 0; i < Model.SInt; i++)
+                {
+                    <option value="@Model.StoreResults[i][0]">@Model.StoreResults[i][1]</option>
+                }
+            </select>
+        </div>
+        <div id="employeeGenerator">
+            <div>
+                <label for="employeeFName">Employee First Name</label>
+                <input type="text" name="employeeFName" id="eFirstName" />
+                <label for="employeeLName">Employee Last Name</label>
+                <input type="text" name="employeeLName" id="eLastName" />
+            </div>
+            <div>
+                <label for="employeeID">Employee ID</label>
+                <input type="text" name="employeeID" id="eID" />
+                <label for="employeeTitle">Title</label>
+            </div>
+            <select name="employeeTitle">
+                @for (int i = 0; i < Model.TInt; i++)
+                {
+                    <option value="@Model.TitleResults[i][0]">@Model.TitleResults[i][1]</option>
+                }
+            </select>
+        </div>
+        <div id="customerGenerator">
+            <div>
+                <label for="customerID">Customer ID</label>
+                <input type="text" name="customerID" id="cID" />
+            </div>
+            <div>
+                <label for="customerFName">First Name</label>
+                <input type="text" name="customerFName" id="cFirstName" />
 
+                <label for="customerLName">Last Name</label>
+                <input type="text" name="customerLName" id="cLastName" />
+            </div>
+            <div>
+                <label for="customerAddress">Address</label>
+                <input type="text" name="customerAddress" id="cID" />
+                <label for="customerZip">Zip Code</label>
+                <input type="text" name="customerZip" id="cID" />
+            </div>
+            <div>
+                <label for="customerPhone">Phone Number</label>
+                <input type="text" name="customerPhone" id="cID" />
+                <label for="customerEmail">Email</label>
+                <input type="text" name="customerEmail" id="cID" />
+            </div>
+        </div>
+
+        <input type="submit" value="Generate Report" />
+    </form>
+</div>
+<table id="report">
+    <tr>
+        @for (int i = 0; i < Model.AInt; i++)
+        {
+            <th>@Model.ViewColumns[i]</th>
+        }
+    </tr>
+
+    @for (int i = 0; i < Model.BInt; i++)
+    {
+        <tr>
+            @for (int j = 0; j < Model.AInt; j++)
+            {
+                <td>@Model.ViewResults[i][j]</td>
+            }
+            
+        </tr>
+    }
+</table>
+
+<!--
 <table id="sales" style="width:50%; border:1px solid black; padding:15px">
-    <!-- Column Names-->
+
     <tr>
         <th>Date</th>
         <th>Total Revenue</th>
@@ -99,6 +196,9 @@
     }
 </table>
 
+
+
+
 @if(Model.secondTableChoice != ""){
     <table id="StoreInfo" style="width:50%; border:1px solid black; padding:15px">
 
@@ -118,6 +218,7 @@
         </tr>
     </table>
 }
+-->
 <p>@Model.secondTableChoice</p>
 <p>@Model.secondTableStoreChoice</p>
 <p>@Model.secondTableDateChoice</p>
