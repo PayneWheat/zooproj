@@ -16,7 +16,7 @@ namespace zooproject.Pages.Customer_Section
         string connection_string;
 
         public string AMessage = "";
-        public string custID = "1";
+        public string custID;
         public string updateCommand;
         public string selectCommand;
 
@@ -43,13 +43,14 @@ namespace zooproject.Pages.Customer_Section
         public void OnGet()
         {
             AMessage = "get";
+            custID = HttpContext.User.Identity.Name;
             SelectInfo();
         }
 
         public void OnPost()
         {
             AMessage = "post";
-            SelectInfo();
+            custID = HttpContext.User.Identity.Name;
 
             string inputFname = Request.Form["Fname"];
             string inputMname = Request.Form["Mname"];
@@ -72,10 +73,21 @@ namespace zooproject.Pages.Customer_Section
                 inputZipAddress + ", StateAddress = '" + inputStateAddress +
                 "', Phone = " + inputPhone + ", Email = '" + inputEmail +
                 "' WHERE ID = " + custID + ";";
-           // updatecmd.CommandText = ();
 
+
+            updatecmd.CommandText = updateCommand;
+
+            try
+            {
+                updatecmd.ExecuteNonQuery();
+            }
+            catch(Exception e){
+                AMessage = e.ToString();
+            }
             updatecmd.Dispose();
             database.disconnect();
+
+            SelectInfo();
         }
         
         public void SelectInfo()
@@ -88,33 +100,49 @@ namespace zooproject.Pages.Customer_Section
             selectcmd.Connection = database.Connection;
             selectcmd.CommandText = selectCommand;
 
-            SqlDataReader reader = selectcmd.ExecuteReader();
-
-            while (reader.Read())
+            try
             {
-                selectFname = reader.GetValue(1).ToString();
-                selectMname = reader.GetValue(2).ToString();
-                selectLname = reader.GetValue(3).ToString();
-                selectStreetAddress = reader.GetValue(4).ToString();
-                selectCityAddress = reader.GetValue(5).ToString();
-                selectZipAddress = reader.GetValue(6).ToString();
-                selectStateAddress = reader.GetValue(7).ToString();
-                selectPhone = reader.GetValue(8).ToString();
-                selectEmail = reader.GetValue(9).ToString();
-                selectMembership = reader.GetValue(10).ToString();
-                selectExpiration = reader.GetValue(11).ToString();
+                SqlDataReader reader = selectcmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    selectFname = reader.GetValue(1).ToString();
+                    selectMname = reader.GetValue(2).ToString();
+                    selectLname = reader.GetValue(3).ToString();
+                    selectStreetAddress = reader.GetValue(4).ToString();
+                    selectCityAddress = reader.GetValue(5).ToString();
+                    selectZipAddress = reader.GetValue(6).ToString();
+                    selectStateAddress = reader.GetValue(7).ToString();
+                    selectPhone = reader.GetValue(8).ToString();
+                    selectEmail = reader.GetValue(9).ToString();
+                    selectMembership = reader.GetValue(10).ToString();
+                    selectExpiration = reader.GetValue(11).ToString();
+                }
+                reader.Close();
             }
-            reader.Close();
+            catch(Exception e)
+            {
+                AMessage = e.ToString();
+            }
+
+            
 
             selectCommand = "SELECT Name FROM MEMBERSHIP_TYPE WHERE ID = " + selectMembership;
             selectcmd.CommandText = selectCommand;
 
-            SqlDataReader reader2 = selectcmd.ExecuteReader();
-            while(reader2.Read())
-                selectMembership = reader2.GetValue(0).ToString();
+            try
+            {
+                SqlDataReader reader2 = selectcmd.ExecuteReader();
+                while (reader2.Read())
+                    selectMembership = reader2.GetValue(0).ToString();
 
-            reader.Close();
-            reader2.Close();
+                reader2.Close();
+            }
+            catch(Exception e)
+            {
+                AMessage = e.ToString();
+            }
+
             selectcmd.Dispose();
             database.disconnect();
         }
