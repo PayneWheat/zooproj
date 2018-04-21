@@ -127,16 +127,22 @@ namespace zooproject.Pages.Employee_Section
                 cmd.Connection = database.Connection;
                 cmd = new SqlCommand();
                 //dbCommand = "SELECT PUR.*, PURINFO.* FROM PURCHASE PUR LEFT JOIN PURCHASE_INFO PURINFO ON PUR.Receipt = PURINFO.Receipt";
-                dbCommand = "SELECT DISTINCT A.Receipt, PURCHASE.Store, PURCHASE.Date, " +
-                            "SUM(A.ItemTotal) AS ReceiptTotal " +
-                            "FROM PURCHASE, (SELECT PURCHASE_INFO.Quantity, " +
-                            "PURCHASE_INFO.Price, " +
-                            "PURCHASE_INFO.Quantity * PURCHASE_INFO.Price AS ItemTotal, " +
-                            "PURCHASE.Receipt " +
-                            "FROM PURCHASE_INFO, PURCHASE " +
-                            "WHERE PURCHASE_INFO.Receipt = PURCHASE.Receipt) A " +
-                            "WHERE A.Receipt = PURCHASE.Receipt " +
-                            "GROUP BY PURCHASE.Date, PURCHASE.Store, A.Receipt;";
+                dbCommand = @"SELECT DISTINCT PURCHASE.Date,
+SUM(B.ReceiptTotal) AS DailyTotal
+FROM PURCHASE,
+(SELECT DISTINCT A.Receipt, PURCHASE.Store, PURCHASE.Date,
+SUM(A.ItemTotal) AS ReceiptTotal
+FROM PURCHASE, (SELECT PURCHASE_INFO.Quantity,
+PURCHASE_INFO.Price,
+PURCHASE_INFO.Quantity * PURCHASE_INFO.Price AS ItemTotal,
+PURCHASE.Receipt
+FROM PURCHASE_INFO, PURCHASE
+WHERE PURCHASE_INFO.Receipt = PURCHASE.Receipt) A
+WHERE A.Receipt = PURCHASE.Receipt
+GROUP BY PURCHASE.Date, PURCHASE.Store, A.Receipt) B
+WHERE PURCHASE.Date = B.Date
+GROUP BY PURCHASE.Date
+ORDER BY PURCHASE.Date; ";
                 cmd.Connection = database.Connection;
                 cmd.CommandText = dbCommand;
                 reader = cmd.ExecuteReader();

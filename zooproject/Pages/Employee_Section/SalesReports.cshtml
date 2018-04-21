@@ -2,6 +2,9 @@
 @model SalesReportsModel
 @{
 }
+<script src="~/js/moment.js"></script>
+<script src="~/js/Chart.js"></script>
+
 
 <style>
     #sales, #report {
@@ -108,13 +111,14 @@
                 <label for="employeeID">Employee ID</label>
                 <input type="text" name="employeeID" id="eID" />
                 <label for="employeeTitle">Title</label>
+
+                <select name="employeeTitle">
+                    @for (int i = 0; i < Model.TInt; i++)
+                    {
+                        <option value="@Model.TitleResults[i][0]">@Model.TitleResults[i][1]</option>
+                    }
+                </select>
             </div>
-            <select name="employeeTitle">
-                @for (int i = 0; i < Model.TInt; i++)
-                {
-                    <option value="@Model.TitleResults[i][0]">@Model.TitleResults[i][1]</option>
-                }
-            </select>
         </div>
         <div id="customerGenerator">
             <div>
@@ -145,6 +149,7 @@
         <input type="submit" value="Generate Report" />
     </form>
 </div>
+<canvas id="myChart" width="400" height="150"></canvas>
 <table id="report">
     <tr>
         @for (int i = 0; i < Model.AInt; i++)
@@ -160,7 +165,7 @@
             {
                 <td>@Model.ViewResults[i][j]</td>
             }
-            
+
         </tr>
     }
 </table>
@@ -223,3 +228,64 @@
 <p>@Model.secondTableStoreChoice</p>
 <p>@Model.secondTableDateChoice</p>
 <p>@Model.AMessage</p>
+<script>
+    var reportTable = document.getElementById("report");
+    var tableData = [];
+    var tableDates = [];
+    console.log(reportTable.children[0].children);
+    for (i = 1; i < reportTable.children[0].children.length; i++) {
+        var date = reportTable.children[0].children[i].children[0].innerHTML;
+        var value = reportTable.children[0].children[i].children[1].innerHTML;
+        console.log(date + " " + value);
+        tableData.push(value);
+        date = new Date(date.replace(/-/g, "/"));
+        //date = date.getYear() + "-" + date.getMonth() + "-" + date.getDay();
+        tableDates.push(date.toISOString());
+    }
+    console.log(tableDates);
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            //labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+            labels: tableDates,
+            datasets: [{
+                label: '# of Votes',
+                //data: [12, 19, 3, 5, 2, 3],
+                data: tableData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        displayFormats: {
+                            month: 'MMM YYYY'
+
+                        }
+
+                    }
+
+                }]
+            }
+        }
+    });
+</script>
