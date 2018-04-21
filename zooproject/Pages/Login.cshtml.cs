@@ -95,8 +95,12 @@ namespace zooproject.Pages
         private bool isEmployee(string username)
         {
             database.connect();
-            SqlCommand cmd = new SqlCommand("SELECT id FROM EMPLOYEE WHERE Fname='" + username + "'",
-                database.Connection);
+            string cmd_text = "SELECT id FROM EMPLOYEE WHERE Fname=@username";
+
+            SqlCommand cmd = new SqlCommand(cmd_text, database.Connection);
+            cmd.Parameters.Add("@username", System.Data.SqlDbType.VarChar);
+            cmd.Parameters["@username"].Value = username;
+
             SqlDataReader reader;
             reader = cmd.ExecuteReader();
 
@@ -116,8 +120,12 @@ namespace zooproject.Pages
         private bool isCustomer(string username)
         {
             database.connect();
-            SqlCommand cmd = new SqlCommand("SELECT id FROM Customer WHERE Fname='" + username + "'",
-                database.Connection);
+            string cmd_text = "SELECT id FROM CUSTOMER WHERE Fname=@username";
+
+            SqlCommand cmd = new SqlCommand(cmd_text, database.Connection);
+            cmd.Parameters.Add("@username", System.Data.SqlDbType.VarChar);
+            cmd.Parameters["@username"].Value = username;
+
             SqlDataReader reader;
             reader = cmd.ExecuteReader();
 
@@ -137,8 +145,12 @@ namespace zooproject.Pages
         private string getRole(string username)
         {
             database.connect();
-            SqlCommand cmd = new SqlCommand("SELECT Title FROM EMPLOYEE WHERE Fname='" + username + "'",
-                database.Connection);
+            string cmd_text = "SELECT Title FROM EMPLOYEE WHERE Fname=@username";
+
+            SqlCommand cmd = new SqlCommand(cmd_text, database.Connection);
+            cmd.Parameters.Add("@username", System.Data.SqlDbType.VarChar);
+            cmd.Parameters["@username"].Value = username;
+
             SqlDataReader reader;
             reader = cmd.ExecuteReader();
 
