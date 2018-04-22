@@ -177,27 +177,27 @@ namespace zooproject.Pages.Employee_Section
 
                 database.connect();
                 
-                string insertID = Request.Form["insertID"];
+                string insertID = Request.Form["ID"];
                 if (string.IsNullOrEmpty(insertID) == true)
                 {
                     // throw error 
                 }
-                string insertName = Request.Form["insertName"];
+                string insertName = Request.Form["Name"];
                 if (string.IsNullOrEmpty(insertName) == true)
                 {
                     // throw error 
                 }
-                string insertSpecies = Request.Form["insertSpecies"];
+                string insertSpecies = Request.Form["Species"];
                 if (string.IsNullOrEmpty(insertSpecies) == true)
                 {
                     // throw error 
                 }
-                string insertTaxology = Request.Form["insertTaxology"];
+                string insertTaxology = Request.Form["Taxology"];
                 if (string.IsNullOrEmpty(insertTaxology) == true)
                 {
                     // throw error 
                 }
-                string insertBirthLocation = Request.Form["insertBirthLocation"];
+                string insertBirthLocation = Request.Form["Birth Location"];
                 if (string.IsNullOrEmpty(insertBirthLocation) == true)
                 {
                     // NULL allowed
@@ -209,46 +209,46 @@ namespace zooproject.Pages.Employee_Section
                     // NULL allowed
                     //insertBirthDate = "NULL";
                 }
-                string insertState = Request.Form["insertState"];
+                string insertState = Request.Form["Status"];
                 if (string.IsNullOrEmpty(insertState) == true)
                 {
                     // throw error 
                 }
-                string insertStatus_date = Request.Form["insertStatus_date"];
+                string insertStatus_date = Request.Form["Status_date"];
                 if (string.IsNullOrEmpty(insertStatus_date) == true)
                 {
                     // throw error 
                 }
-                string insertGender = Request.Form["insertGender"];
+                string insertGender = Request.Form["Gender"];
                 if (string.IsNullOrEmpty(insertGender) == true)
                 {
                     // throw error 
                 }
-                string insertHeight = Request.Form["insertHeight"];
+                string insertHeight = Request.Form["Height"];
                 if (string.IsNullOrEmpty(insertHeight) == true)
                 {
                     // NULL allowed
                     insertHeight = "NULL";
                 }
-                string insertWeight = Request.Form["insertWeight"];
+                string insertWeight = Request.Form["Weight"];
                 if (string.IsNullOrEmpty(insertWeight) == true)
                 {
                     // NULL allowed
                     insertWeight = "NULL";
                 }
-                string insertHealth = Request.Form["insertHealth"];
+                string insertHealth = Request.Form["Health"];
                 if (string.IsNullOrEmpty(insertHealth) == true)
                 {
                     // NULL allowed
                     //insertHealth = "NULL";
                 }
-                string insertHealth_date = Request.Form["insertHealth_date"];
+                string insertHealth_date = Request.Form["Health_date"];
                 if (string.IsNullOrEmpty(insertHealth_date) == true)
                 {
                     // NULL allowed
                     //insertHealth_date = "NULL";
                 }
-                string insertAttraction = Request.Form["insertAttraction"];
+                string insertAttraction = Request.Form["Attraction"];
                 if (string.IsNullOrEmpty(insertAttraction) == true)
                 {
                     // throw error 
@@ -295,37 +295,37 @@ namespace zooproject.Pages.Employee_Section
 
                 database.connect();
 
-                string insertID = Request.Form["insertID"];
+                string insertID = Request.Form["ID"];
                 if(string.IsNullOrEmpty(insertID) == true)
                 {
                     // throw error 
                 }
-                string insertType = Request.Form["insertType"];
+                string insertType = Request.Form["Name"];
                 if (string.IsNullOrEmpty(insertType) == true)
                 {
                     // throw error 
                 }
-                string insertOpen = Request.Form["insertOpen"];
+                string insertOpen = Request.Form["Open_closed"];
                 if (string.IsNullOrEmpty(insertOpen) == true)
                 {
                     // throw error 
                 }
-                string insertOpenDate = Request.Form["insertOpenDate"];
+                string insertOpenDate = Request.Form["Open_closed_date"];
                 if (string.IsNullOrEmpty(insertOpenDate) == true)
                 {
                     // throw error 
                 }
-                string insertManager = Request.Form["insertManager"];
+                string insertManager = Request.Form["Manager"];
                 if (string.IsNullOrEmpty(insertManager) == true)
                 { 
                     // throw error 
                 }
-                string insertManagerDate = Request.Form["insertManagerDate"];
+                string insertManagerDate = Request.Form["Manager_date"];
                 if (string.IsNullOrEmpty(insertManagerDate) == true)
                 { 
                     // throw error 
                 }                
-                string insertDescription = Request.Form["insertDescription"];
+                string insertDescription = Request.Form["Description"];
                 if (string.IsNullOrEmpty(insertDescription) == true)
                 {
                     // NULL allowed
@@ -363,18 +363,18 @@ namespace zooproject.Pages.Employee_Section
 
                 database.connect();
 
-                string insertID = Request.Form["insertID"];
-                string insertFname = Request.Form["insertFname"];
-                string insertMname = Request.Form["insertMname"];
-                string insertLname = Request.Form["insertLname"];
-                string insertStreetAddress = Request.Form["insertStreetAddress"];
-                string insertCityAddress = Request.Form["insertCityAddress"];
-                string insertZipAddress = Request.Form["insertZipAddress"];
-                string insertStateAddress = Request.Form["insertStateAddress"];
-                string insertPhone = Request.Form["insertPhone"];
-                string insertEmail = Request.Form["insertEmail"];
-                string insertMembershipType = Request.Form["insertMembershipType"];
-                string insertExpirationDate = Request.Form["insertExpirationDate"];
+                string insertID = Request.Form["ID"];
+                string insertFname = Request.Form["Fname"];
+                string insertMname = Request.Form["Mname"];
+                string insertLname = Request.Form["Lname"];
+                string insertStreetAddress = Request.Form["StreetAddress"];
+                string insertCityAddress = Request.Form["CityAddress"];
+                string insertZipAddress = Request.Form["ZipAddress"];
+                string insertStateAddress = Request.Form["StateAddress"];
+                string insertPhone = Request.Form["Phone"];
+                string insertEmail = Request.Form["Email"];
+                string insertMembershipType = Request.Form["MembershipType"];
+                string insertExpirationDate = Request.Form["ExpirationDate"];
 
                 cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
@@ -411,25 +411,25 @@ namespace zooproject.Pages.Employee_Section
 
                 database.connect();
 
-                string insertID = Request.Form["insertID"];
-                string insertFname = Request.Form["insertFname"];
-                string insertMname = Request.Form["insertMname"];
-                string insertLname = Request.Form["insertLname"];
-                string insertTitle = Request.Form["insertTitle"];
-                string insertHire_Date = Request.Form["insertHire_Date"];
-                string insertStreet = Request.Form["insertStreet"];
-                string insertCity = Request.Form["insertCity"];
-                string insertZip = Request.Form["insertZip"];
-                string insertState = Request.Form["insertState"];
-                string insertEmail = Request.Form["insertEmail"];
-                string insertPhone = Request.Form["insertPhone#"];
-                string insertGender = Request.Form["insertGender"];
-                string insertStore = Request.Form["insertStore"];
+                string insertID = Request.Form["ID"];
+                string insertFname = Request.Form["Fname"];
+                string insertMname = Request.Form["Mname"];
+                string insertLname = Request.Form["Lname"];
+                string insertTitle = Request.Form["Title"];
+                string insertHire_Date = Request.Form["Hire_Date"];
+                string insertStreet = Request.Form["Street"];
+                string insertCity = Request.Form["City"];
+                string insertZip = Request.Form["Zip"];
+                string insertState = Request.Form["State"];
+                string insertEmail = Request.Form["Email"];
+                string insertPhone = Request.Form["Phone"];
+                string insertGender = Request.Form["Gender"];
+                string insertStore = Request.Form["Store"];
                 if(string.IsNullOrEmpty(insertStore) == true)
                 {
                     insertStore = "NULL";
                 }
-                string insertAttraction = Request.Form["insertAttraction"];
+                string insertAttraction = Request.Form["Attraction"];
                 if(string.IsNullOrEmpty(insertAttraction) == true)
                 {
                     insertAttraction = "NULL";
@@ -469,8 +469,8 @@ namespace zooproject.Pages.Employee_Section
 
                 database.connect();
 
-                string insertID = Request.Form["insertID"];
-                string insertGender = Request.Form["insertGender"];
+                string insertID = Request.Form["ID"];
+                string insertGender = Request.Form["Name"];
 
                 cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
@@ -501,8 +501,8 @@ namespace zooproject.Pages.Employee_Section
 
                 database.connect();
 
-                string insertID = Request.Form["insertID"];
-                string insertType = Request.Form["insertType"];
+                string insertID = Request.Form["ID"];
+                string insertType = Request.Form["Name"];
 
                 cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
@@ -533,8 +533,8 @@ namespace zooproject.Pages.Employee_Section
 
                 database.connect();
 
-                string insertID = Request.Form["insertID"];
-                string insertType = Request.Form["insertPayType"];
+                string insertID = Request.Form["ID"];
+                string insertType = Request.Form["Name"];
 
                 cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
@@ -565,10 +565,10 @@ namespace zooproject.Pages.Employee_Section
 
                 database.connect();
 
-                string insertID = Request.Form["insertID"];
-                string insertType = Request.Form["insertType"];
-                string insertPrice = Request.Form["insertPrice"];
-                string insertDescription = Request.Form["insertDescription"];
+                string insertID = Request.Form["ID"];
+                string insertType = Request.Form["Name"];
+                string insertPrice = Request.Form["Price"];
+                string insertDescription = Request.Form["Description"];
 
                 cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
@@ -600,14 +600,14 @@ namespace zooproject.Pages.Employee_Section
 
                 database.connect();
 
-                string insertReceipt = Request.Form["insertReceipt"];
-                string insertTime = Request.Form["insertTime"];
+                string insertReceipt = Request.Form["Receipt"];
+                string insertTime = Request.Form["Time"];
                 string insertAmount = Request.Form["insertAmount"];
-                string insertPay_option = Request.Form["insertPay_option"];
-                string insertDate = Request.Form["insertDate"];
-                string insertStore = Request.Form["insertStore"];
-                string insertCustomer = Request.Form["insertCustomer"];
-                string insertEmployee = Request.Form["insertEmployee"];
+                string insertPay_option = Request.Form["Pay_option"];
+                string insertDate = Request.Form["Date"];
+                string insertStore = Request.Form["Store"];
+                string insertCustomer = Request.Form["Customer"];
+                string insertEmployee = Request.Form["Employee"];
                 if (string.IsNullOrEmpty(insertCustomer) == true)
                 {
                     insertCustomer = "NULL";
@@ -647,7 +647,7 @@ namespace zooproject.Pages.Employee_Section
 
                 database.connect();
 
-                string insertReceipt = Request.Form["insertReceipt"];
+                string insertReceipt = Request.Form["Receipt"];
                 string insertProduct = Request.Form["insertProduct"];
                 string insertPrice = Request.Form["insertPrice"];
                 string insertQuantity = Request.Form["insertQuantity"];
@@ -683,9 +683,9 @@ namespace zooproject.Pages.Employee_Section
 
                 database.connect();
 
-                string insertID = Request.Form["insertID"];
-                string insertName = Request.Form["insertName"];
-                string insertType = Request.Form["insertType"];
+                string insertID = Request.Form["ID"];
+                string insertName = Request.Form["Name"];
+                string insertType = Request.Form["Type"];
                 string insertManager = Request.Form["insertManager"];
                 string insertManager_date = Request.Form["insertManager_date"];
 
@@ -720,8 +720,8 @@ namespace zooproject.Pages.Employee_Section
 
                 database.connect();
 
-                string insertID = Request.Form["insertID"];
-                string insertName = Request.Form["insertName"];
+                string insertID = Request.Form["ID"];
+                string insertName = Request.Form["Name"];
 
                 cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
@@ -752,8 +752,8 @@ namespace zooproject.Pages.Employee_Section
 
                 database.connect();
 
-                string insertID = Request.Form["insertID"];
-                string insertType = Request.Form["insertType"];
+                string insertID = Request.Form["ID"];
+                string insertType = Request.Form["Title"];
 
                 cmd = new SqlCommand();
                 cmd.Connection = database.Connection;
