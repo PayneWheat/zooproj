@@ -37,6 +37,17 @@ namespace zooproject.Pages.Employee_Section
         public int StoreItems;
         public decimal StoreAverage;
 
+        public string sD = ""; //start date
+        public string eD = ""; //end date
+        public string sT = ""; //start time
+        public string eT = ""; //end time
+        public int sS = -1; //store selection
+        public int eID = -1; //employee ID
+        public int pID = -1; //product ID
+
+        public int purchaseCount = 0;
+        public int ticketsSold = 0;
+
         public string dbCommand;
         IConfiguration _config;
         Database database;
@@ -53,7 +64,13 @@ namespace zooproject.Pages.Employee_Section
 
         public void OnGet(string startDate = "", string endDate = "", string startTime = "", string endTime = "", int storeSelect = -1, string employeeFName = "", string employeeLName = "", int employeeID = -1, string employeeTitle = "", int productID = -1, string productName = "")
         {
-
+            sD = startDate;
+            eD = endDate;
+            sT = startTime;
+            eT = endTime;
+            sS = storeSelect;
+            eID = employeeID;
+            pID = productID;
             /*
             SqlCommand cmd = new SqlCommand("SELECT Date, SUM(PURCHASE.Amount) AS Revenue, " +
                 "SUM(PURCHASE_INFO.Quantity) AS 'Items Purchased' FROM PURCHASE, PURCHASE_INFO " +
@@ -127,31 +144,36 @@ namespace zooproject.Pages.Employee_Section
             cmd = new SqlCommand();
             //dbCommand = "SELECT PUR.*, PURINFO.* FROM PURCHASE PUR LEFT JOIN PURCHASE_INFO PURINFO ON PUR.Receipt = PURINFO.Receipt";
             string whereAndClause = "";
+            string whereClause = "";
             //string whereAndClause = "AND PURCHASE.Store=5";
             //string whereAndClause = "AND PURCHASE_INFO.Product = 1";
             //string whereAndClause = "AND PURCHASE.Date BETWEEN '2018/04/12' AND '2018/04/19'"; 
             Debug.WriteLine("pID: " + productID);
             if (startDate != "" && endDate == "")
             {
-                Debug.WriteLine("only starting date set, render single day view");
-                Debug.WriteLine(startDate);
                 // only starting date set, render single day view
                 // show sales by time?
                 whereAndClause = "AND PURCHASE.Date='" + startDate + "'";
+                sD = startDate;
+                whereClause = " PURCHASE.Date='" + startDate + "'";
             } else if (startDate != "" && endDate != "")
             {
-                Debug.WriteLine("both starting and ending date set");
                 // both starting and ending date set
                 // only display graph is number of days is greater than 3 or 4?
-                whereAndClause = "AND PURCHASE.Date BETWEEN '" + startDate + "' AND '" + endDate + "'"; ;
+                whereAndClause = "AND PURCHASE.Date BETWEEN '" + startDate + "' AND '" + endDate + "'";
+                sD = startDate;
+                eD = endDate;
+                whereClause = " PURCHASE.Date BETWEEN '" + startDate + "' AND '" + endDate + "'";
             }
             if(startTime != "" && endTime != "")
             {
-                whereAndClause = "AND PURCHASE.Time BETWEEN '" + startTime + "' AND '" + endTime + "'"; ;
+                // validate client side both fields are filled out or neither are.
+                whereAndClause = "AND PURCHASE.Time BETWEEN '" + startTime + "' AND '" + endTime + "'";
+                sT = startTime;
+                eT = endTime;
             }
             if (storeSelect != -1)
             {
-                Debug.WriteLine("add store id to whereAndClause");
                 // add store id to whereAndClause
                 whereAndClause += "AND PURCHASE.Store=" + storeSelect + " ";
             }
@@ -167,29 +189,31 @@ namespace zooproject.Pages.Employee_Section
             */
             if (employeeID != -1)
             {
-                Debug.WriteLine("add employee id to whereAndClause");
                 // add employee id to whereAndClause
                 whereAndClause += "AND PURCHASE.Employee=" + employeeID + " ";
+                eID = employeeID;
             }
+            /*
             if(employeeTitle != "")
             {
                 //whereAndClause += "AND PURCHASE.Employee=" + employeeID + " ";
             }
+            */
             if (productID != -1)
             {
-                Debug.WriteLine("add product id to whereAndClause");
                 // add product id to whereAndClause
                 whereAndClause += "AND PURCHASE_INFO.Product =" + productID + " ";
+                pID = productID;
             }
+            /*
             if(productName != "")
             {
-                Debug.WriteLine("add payment type to whereAndClause");
                 // add payment type to whereAndClause
             }
-
+            */
 
             dbCommand = @"SELECT DISTINCT C.PurDate,
-SUM(C.RecTotal)
+SUM(C.RecTotal) DailySales
 FROM
 (SELECT PURCHASE.Date AS PurDate,
 B.ReceiptTotal AS RecTotal
@@ -235,7 +259,31 @@ ORDER BY C.PurDate;";
             BInt = j;
             cmd.Dispose();
             database.disconnect();
-            
+            database.connect();
+            cmd.Connection = database.Connection;
+            cmd = new SqlCommand();
+            string tempWhere = "";
+            if(!String.IsNullOrEmpty(whereClause))
+                tempWhere = "WHERE" + whereClause;
+            dbCommand = "SELECT COUNT(*) PurchaseCount FROM PURCHASE " + tempWhere;
+            Debug.WriteLine("dbCommand: " + dbCommand);
+            cmd.Connection = database.Connection;
+            cmd.CommandText = dbCommand;
+            purchaseCount = (int)cmd.ExecuteScalar();
+
+            database.disconnect();
+            database.connect();
+            cmd.Connection = database.Connection;
+            cmd = new SqlCommand();
+            if (!String.IsNullOrEmpty(whereClause))
+                tempWhere = "AND" + whereClause;
+            dbCommand = "SELECT SUM(Quantity) TicketsSold FROM PURCHASE_INFO, PURCHASE WHERE PURCHASE.Receipt = PURCHASE_INFO.Receipt AND PURCHASE_INFO.Product = 1 " + tempWhere;
+            Debug.WriteLine("dbCommand: " + dbCommand);
+            cmd.Connection = database.Connection;
+            cmd.CommandText = dbCommand;
+
+            //ticketsSold = (int)cmd.ExecuteScalar();
+            ticketsSold = (cmd.ExecuteScalar() == DBNull.Value) ? 0 : (int)cmd.ExecuteScalar();
         }
         public void OnPost()
         {

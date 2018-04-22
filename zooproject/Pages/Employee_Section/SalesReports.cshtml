@@ -82,17 +82,20 @@
     <form method="get">
         <div id="dateGenerator">
             <h2>By Date</h2>
-            <label for="startDate">Date</label>
-            <input type="text" id="startDate" name="startDate" class="dateSelection" /><span id="rangeLinkSpan"><a href="#" id="rangeLink">Choose range of dates.</a></span>
-            <label for="endDate" id="endDateLabel" style="display:none;">Ending Date</label>
-            <input type="text" id="endDate" name="endDate" class="dateSelection" style="display:none;" /><span id="endingDateSpan" style="display:none;"><a href="#" id="singleLink">Choose a single date.</a></span>
+            <div id="rangeDiv">
+                <label for="startDate" id="sDLbl">Starting Date</label>
+                <input type="text" id="startDate" name="startDate" class="dateSelection" value="@Model.sD" />
+                <label for="endDate" id="endDateLabel">Ending Date</label>
+                <input type="text" id="endDate" name="endDate" class="dateSelection" value="@Model.eD" style="" />
+                <div>Only select starting date for single day results.</div>
+            </div>
         </div>
         <div id="timeGenerator">
             <h2>By Time</h2>
             <label for="startTime">Time</label>
-            <input type="text" name="startTime" class="timeSelection" />
-            <label for="endDate">Ending Time</label>
-            <input type="text" name="endTime" class="timeSelection" />
+            <input type="text" name="startTime" class="timeSelection" value="@Model.sT"/>
+            <label for="endTime">Ending Time</label>
+            <input type="text" name="endTime" class="timeSelection" value="@Model.eT"/>
         </div>
         <div id="storeGenerator">
             <h2>By Store</h2>
@@ -101,7 +104,15 @@
                 <option value="none"></option>
                 @for (int i = 0; i < Model.SInt; i++)
                 {
-                    <option value="@Model.StoreResults[i][0]">@Model.StoreResults[i][1]</option>
+                    @if (Model.StoreResults[i][0] == Model.sS.ToString())
+                    {
+                        <option value="@Model.StoreResults[i][0]" selected>@Model.StoreResults[i][1]</option>
+                    }
+                    else
+                    {
+                        <option value="@Model.StoreResults[i][0]">@Model.StoreResults[i][1]</option>
+
+                    }
                 }
             </select>
         </div>
@@ -174,27 +185,45 @@
         <input type="submit" value="Generate Report" />
     </form>
 </div>
-<canvas id="myChart" width="400" height="150"></canvas>
-<table id="report">
-    <tr>
-        @for (int i = 0; i < Model.AInt; i++)
+<div id="resultsContainer">
+    @if (Model.BInt >= 4)
+    {
+        <canvas id="myChart" width="400" height="150"></canvas>
+    }
+    @if (Model.BInt == 0)
+    {
+        <span class="noResults">No results were found</span>
+    }
+    else if (Model.BInt > 0)
+    {
+        // Do an hourly result for the graph if less than 4?
+        <table id="report">
+            <tr>
+                @for (int i = 0; i < Model.AInt; i++)
         {
             <th>@Model.ViewColumns[i]</th>
-        }
-    </tr>
+}
+            </tr>
 
-    @for (int i = 0; i < Model.BInt; i++)
+            @for (int i = 0; i < Model.BInt; i++)
     {
         <tr>
             @for (int j = 0; j < Model.AInt; j++)
-            {
-                <td>@Model.ViewResults[i][j]</td>
-            }
+    {
+        <td>@Model.ViewResults[i][j]</td>
+}
 
         </tr>
-    }
-</table>
+}
+            <tr><td id="avgLabel" style="text-align:right; padding: 0 15px">Average Per Day:</td><td id="avgCell"></td></tr>
+            <tr><td id="totalPurchases" style="text-align:right; padding: 0 15px">Total Purchases:</td><td>@Model.purchaseCount</td></tr>
+            <tr><td id="ticketsSold" style="text-align:right; padding: 0 15px">Tickets sold:</td><td>@Model.ticketsSold</td></tr>
+        </table>
 
+    }
+
+
+</div>
 <!--
 <table id="sales" style="width:50%; border:1px solid black; padding:15px">
 
@@ -254,32 +283,20 @@
 <p>@Model.secondTableDateChoice</p>
 <p>@Model.AMessage</p>
 <script>
-    $(".dateSelection").each(function () {
-        $(this).datepicker({
-            dateFormat: "yy/mm/dd"
+    $(document).ready(function () {
+        $("form").submit(function () {
+            $("input").each(function (index, obj) {
+                if ($(obj).val() == "") {
+                    $(obj).remove();
+                }
+            });
+            $("select").each(function (index, obj) {
+                if ($(obj).val() == "none") {
+                    $(obj).remove();
+                }
+            });
         });
     });
-
-    var rangeLink = document.getElementById("rangeLink");
-    var endDateLabel = document.getElementById("endDateLabel");
-    var endDate = document.getElementById("endDate");
-    var endingDateSpan = document.getElementById("endingDateSpan");
-    var singleLink = document.getElementById("singleLink");
-    var rangeLinkSpan = document.getElementById("rangeLinkSpan");
-    rangeLink.addEventListener("click", function () { 
-        rangeLinkSpan.style.display = "none";
-        endDateLabel.style.display = "";
-        endDate.style.display = "";
-        endingDateSpan.style.display = "";
-    });
-    singleLink.addEventListener("click", function () {
-        rangeLinkSpan.style.display = "";
-        endDateLabel.style.display = "none";
-        endDate.style.display = "none";
-        endingDateSpan.style.display = "none";
-
-    });
-
     $(".dateSelection").each(function () {
         $(this).datepicker({
             dateFormat: "yy/mm/dd"
@@ -291,59 +308,69 @@
     var tableData = [];
     var tableDates = [];
     var avg = 0;
-    console.log(reportTable.children[0].children);
-    for (i = 1; i < reportTable.children[0].children.length; i++) {
-        var date = reportTable.children[0].children[i].children[0].innerHTML;
-        var value = reportTable.children[0].children[i].children[1].innerHTML;
-        avg += value;
-        tableData.push(value);
-        date = new Date(date.replace(/-/g, "/"));
-        tableDates.push(date.toISOString());
-    }
-    avg /= reportTable.children[0].children.length - 1;
-    console.log("avg: " + avg);
-    console.log(tableDates);
-    var ctx = document.getElementById("myChart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            //labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-            labels: tableDates,
-            datasets: [{
-                label: 'Sales',
-                //data: [12, 19, 3, 5, 2, 3],
-                data: tableData,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    type: 'time',
-                    time: {
-                        //unit: 'day',
-                        displayFormats: {
-                            month: 'MMM YYYY'
+    var bInt = @Model.BInt;
+    console.log(bInt);
+    if (bInt >= 4) {
+        for (i = 1; i <= bInt; i++) {
+            var date = reportTable.children[0].children[i].children[0].innerHTML;
+            console.log("date: " + date);
+            var value = parseInt(reportTable.children[0].children[i].children[1].innerHTML);
+
+            avg += value;
+            console.log(avg);
+            tableData.push(value);
+            date = new Date(date.replace(/-/g, "/"));
+            tableDates.push(date.toISOString());
+        }
+        avg = avg / bInt;
+        console.log("avg: " + avg)
+        document.getElementById("avgCell").innerHTML = avg.toFixed(2);
+
+        console.log(tableDates);
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: tableDates,
+                datasets: [{
+                    label: 'Sales',
+                    data: tableData,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                            //unit: 'day',
+                            displayFormats: {
+                                month: 'MMM YYYY',
+                                hour: 'MMM D'
+                            }
+
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Date"
                         }
 
-                    }
-
-                }]
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            // Include a dollar sign in the ticks
+                            callback: function (value, index, values) {
+                                return '$' + value;
+                            }
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Sales"
+                        }
+                    }]
+                }
             }
-        }
-    });
-    $(document).ready(function () {
-        $("form").submit(function () {
-            $("input").each(function (index, obj) {
-                if ($(obj).val() == "") {
-                    $(obj).remove();
-                }
-            });
-            $("select").each(function (index, obj) { 
-                if ($(obj).val() == "none") {
-                    $(obj).remove();
-                }
-            });
         });
-    });
+    }
+
 </script>
