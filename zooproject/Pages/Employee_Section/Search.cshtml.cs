@@ -22,6 +22,7 @@ namespace zooproject.Pages.Employee_Section
         public List<List<string>> Results2 = new List<List<string>>();
         public List<List<string>> Results3 = new List<List<string>>();
         public List<List<string>> Results4 = new List<List<string>>();
+        public List<List<string>> Results5 = new List<List<string>>();
         public List<List<string>> ResultsHidden = new List<List<string>>();
         public List<string> ColumnNames = new List<string>();
 
@@ -234,6 +235,24 @@ namespace zooproject.Pages.Employee_Section
                         k++;
                     }
                     database.disconnect();
+                    database.connect();
+                    cmd = new SqlCommand();
+                    dbCommand = "SELECT ID, Name FROM GENDER_TYPE;";
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    reader = cmd.ExecuteReader();
+                    k = 0;
+                    while (reader.Read())
+                    {
+                        Results5.Add(new List<string>());
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Debug.WriteLine(reader[i].ToString());
+                            Results5[k].Add(reader[i].ToString());
+                        }
+                        k++;
+                    }
+                    database.disconnect();
                 }
                 else if (we == "PURCHASE")
                 {
@@ -273,6 +292,7 @@ namespace zooproject.Pages.Employee_Section
                         k++;
                     }
                     database.disconnect();
+
                 }
                 else if (we == "STORE")
                 {
@@ -326,9 +346,9 @@ namespace zooproject.Pages.Employee_Section
                     if (!string.IsNullOrEmpty(Request.Form[keyList[i]]))
                     {
                         if (nonEmptyCount < 1)
-                            whereClause += "WHERE " + keyList[i] + "='" + Request.Form[keyList[i]] + "'";
+                            whereClause += "WHERE [" + keyList[i] + "]='" + Request.Form[keyList[i]] + "'";
                         else
-                            whereClause += " AND " + keyList[i] + "='" + Request.Form[keyList[i]] + "'";
+                            whereClause += " AND [" + keyList[i] + "]='" + Request.Form[keyList[i]] + "'";
                         nonEmptyCount++;
                     }
                 }
