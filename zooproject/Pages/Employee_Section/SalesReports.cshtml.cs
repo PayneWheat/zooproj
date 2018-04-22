@@ -188,22 +188,26 @@ namespace zooproject.Pages.Employee_Section
             }
 
 
-            dbCommand = @"SELECT DISTINCT PURCHASE.Date,
-SUM(B.ReceiptTotal) AS DailyTotal
+            dbCommand = @"SELECT DISTINCT C.PurDate,
+SUM(C.RecTotal)
+FROM
+(SELECT PURCHASE.Date AS PurDate,
+B.ReceiptTotal AS RecTotal
 FROM PURCHASE,
-(SELECT DISTINCT A.Receipt, PURCHASE.Store, PURCHASE.Date,
+(SELECT A.Receipt, PURCHASE.Store, PURCHASE.Date,
 SUM(A.ItemTotal) AS ReceiptTotal
 FROM PURCHASE, (SELECT PURCHASE_INFO.Quantity,
 PURCHASE_INFO.Price,
 PURCHASE_INFO.Quantity * PURCHASE_INFO.Price AS ItemTotal,
 PURCHASE.Receipt
 FROM PURCHASE_INFO, PURCHASE
-WHERE PURCHASE_INFO.Receipt = PURCHASE.Receipt " + whereAndClause + @") A
+WHERE PURCHASE_INFO.Receipt = PURCHASE.Receipt " + whereAndClause + @" ) A
 WHERE A.Receipt = PURCHASE.Receipt
 GROUP BY PURCHASE.Date, PURCHASE.Store, A.Receipt) B
 WHERE PURCHASE.Date = B.Date 
-GROUP BY PURCHASE.Date
-ORDER BY PURCHASE.Date;";
+GROUP BY PURCHASE.Date, B.ReceiptTotal) C
+GROUP BY C.PurDate
+ORDER BY C.PurDate;";
             Debug.WriteLine(dbCommand);
             cmd.Connection = database.Connection;
             cmd.CommandText = dbCommand;

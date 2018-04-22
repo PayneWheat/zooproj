@@ -290,14 +290,18 @@
     var reportTable = document.getElementById("report");
     var tableData = [];
     var tableDates = [];
+    var avg = 0;
     console.log(reportTable.children[0].children);
     for (i = 1; i < reportTable.children[0].children.length; i++) {
         var date = reportTable.children[0].children[i].children[0].innerHTML;
         var value = reportTable.children[0].children[i].children[1].innerHTML;
+        avg += value;
         tableData.push(value);
         date = new Date(date.replace(/-/g, "/"));
         tableDates.push(date.toISOString());
     }
+    avg /= reportTable.children[0].children.length - 1;
+    console.log("avg: " + avg);
     console.log(tableDates);
     var ctx = document.getElementById("myChart").getContext('2d');
     var myChart = new Chart(ctx, {
