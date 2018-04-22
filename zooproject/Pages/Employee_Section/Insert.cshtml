@@ -49,423 +49,706 @@
 
             <select name="entityType">
                 @if (Model.whichEntity == "ANIMAL")
-                {
-                    <option value="ANIMAL" selected>Animal</option>
-                }
-                else
-                {
-                    <option value="ANIMAL">Animal</option>
-                }
+            {
+                <option value="ANIMAL" selected>Animal</option>
+        }
+        else
+        {
+            <option value="ANIMAL">Animal</option>
+    }
                 @if (Model.whichEntity == "ATTRACTION")
-                {
-                    <option value="ATTRACTION" selected>Attraction</option>
-                }
-                else
-                {
-                    <option value="ATTRACTION">Attraction</option>
-                }
+            {
+                <option value="ATTRACTION" selected>Attraction</option>
+        }
+        else
+        {
+            <option value="ATTRACTION">Attraction</option>
+    }
                 @if (Model.whichEntity == "CUSTOMER")
-                {
-                    <option value="CUSTOMER" selected>Customer</option>
-                }
-                else
-                {
-                    <option value="CUSTOMER">Customer</option>
-                }
+            {
+                <option value="CUSTOMER" selected>Customer</option>
+        }
+        else
+        {
+            <option value="CUSTOMER">Customer</option>
+    }
                 @if (Model.whichEntity == "EMPLOYEE")
-                {
-                    <option value="EMPLOYEE" selected>Employee</option>
-                }
-                else
-                {
-                    <option value="EMPLOYEE">Employee</option>
-                }
+            {
+                <option value="EMPLOYEE" selected>Employee</option>
+        }
+        else
+        {
+            <option value="EMPLOYEE">Employee</option>
+    }
                 @if (Model.whichEntity == "GENDER_TYPE")
-                {
-                    <option value="GENDER_TYPE" selected>Gender Type</option>
-                }
-                else
-                {
-                    <option value="GENDER_TYPE">Gender Type</option>
-                }
+            {
+                <option value="GENDER_TYPE" selected>Gender Type</option>
+        }
+        else
+        {
+            <option value="GENDER_TYPE">Gender Type</option>
+    }
                 @if (Model.whichEntity == "MEMBERSHIP_TYPE")
-                {
-                    <option value="MEMBERSHIP_TYPE" selected>Membership Type</option>
-                }
-                else
-                {
-                    <option value="MEMBERSHIP_TYPE">Membership Type</option>
-                }
+            {
+                <option value="MEMBERSHIP_TYPE" selected>Membership Type</option>
+        }
+        else
+        {
+            <option value="MEMBERSHIP_TYPE">Membership Type</option>
+    }
                 @if (Model.whichEntity == "PAY_TYPE")
-                {
-                    <option value="PAY_TYPE" selected>Pay Type</option>
-                }
-                else
-                {
-                    <option value="PAY_TYPE">Pay Type</option>
-                }
+            {
+                <option value="PAY_TYPE" selected>Pay Type</option>
+        }
+        else
+        {
+            <option value="PAY_TYPE">Pay Type</option>
+    }
                 @if (Model.whichEntity == "PRODUCT")
-                {
-                    <option value="PRODUCT" selected>Product</option>
-                }
-                else
-                {
-                    <option value="PRODUCT">Product</option>
-                }
+            {
+                <option value="PRODUCT" selected>Product</option>
+        }
+        else
+        {
+            <option value="PRODUCT">Product</option>
+    }
                 @if (Model.whichEntity == "PURCHASE")
-                {
-                    <option value="PURCHASE" selected>Purchase</option>
-                }
-                else
-                {
-                    <option value="PURCHASE">Purchase</option>
-                }
+            {
+                <option value="PURCHASE" selected>Purchase</option>
+        }
+        else
+        {
+            <option value="PURCHASE">Purchase</option>
+    }
                 @if (Model.whichEntity == "PURCHASE_INFO")
-                {
-                    <option value="PURCHASE_INFO" selected>Purchase Information</option>
-                }
-                else
-                {
-                    <option value="PURCHASE_INFO">Purchase Information</option>
-                }
+            {
+                <option value="PURCHASE_INFO" selected>Purchase Information</option>
+        }
+        else
+        {
+            <option value="PURCHASE_INFO">Purchase Information</option>
+    }
                 @if (Model.whichEntity == "STORE")
-                {
-                    <option value="STORE" selected>Store</option>
-                }
-                else
-                {
-                    <option value="STORE">Store</option>
-                }
+            {
+                <option value="STORE" selected>Store</option>
+        }
+        else
+        {
+            <option value="STORE">Store</option>
+    }
                 @if (Model.whichEntity == "STORE_TYPE")
-                {
-                    <option value="STORE_TYPE" selected>Store Type</option>
-                }
-                else
-                {
-                    <option value="STORE_TYPE">Store Type</option>
-                }
+            {
+                <option value="STORE_TYPE" selected>Store Type</option>
+        }
+        else
+        {
+            <option value="STORE_TYPE">Store Type</option>
+    }
                 @if (Model.whichEntity == "TITLE_TYPE")
-                {
-                    <option value="TITLE_TYPE" selected>Title Type</option>
-                }
-                else
-                {
-                    <option value="TITLE_TYPE">Title Type</option>
-                }
+            {
+                <option value="TITLE_TYPE" selected>Title Type</option>
+        }
+        else
+        {
+            <option value="TITLE_TYPE">Title Type</option>
+    }
             </select>
 
             <input type="submit" value="Choose" /><br />
         </div>
         @if (Model.whichEntity == "ANIMAL")
+    {
+        <p>Animal Chosen</p>
+        <div class="form-group">
+            <label for="ID" class="control-label col-sm-2">ID</label>
+            <div class="col-sm-10">
+                <input type="number" name="ID" class="form-control" placeholder="ID" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Name" class="control-label col-sm-2">Name</label>
+            <div class="col-sm-10">
+                <input type="text" name="Name" class="autocomplete form-control" placeholder="Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Species" class="control-label col-sm-2">Species</label>
+            <div class="col-sm-10">
+                <input type="text" name="Species" class="autocomplete form-control" placeholder="Species" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Taxology" class="control-label col-sm-2">Taxology</label>
+            <div class="col-sm-10">
+                <input type="text" name="Taxology" class="autocomplete form-control" placeholder="Taxology" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Birth Location" class="control-label col-sm-2">Birth Location</label>
+            <div class="col-sm-10">
+                <input type="text" name="Birth Location" class="autocomplete form-control" placeholder="Birth Location" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Birth Date" class="control-label col-sm-2">Birth Date</label>
+            <div class="col-sm-10">
+                <input type="text" class="dateSelection form-control" name="Birth Date" placeholder="Birth Date" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Status" class="control-label col-sm-2">Status</label>
+            <div class="col-sm-10">
+                <input type="text" name="Status" class="autocomplete form-control" placeholder="Status" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Status_date" class="control-label col-sm-2">Status_date</label>
+            <div class="col-sm-10">
+                <input type="text" class="dateSelection form-control" name="Status_date" placeholder="Status_date" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Gender" class="control-label col-sm-2">Gender</label>
+            <div class="col-sm-10">
+                <input type="number" name="Gender" class="form-control" placeholder="Gender" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Height" class="control-label col-sm-2">Height</label>
+            <div class="col-sm-10">
+                <input type="number" name="Height" class="form-control" placeholder="Height" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Weight" class="control-label col-sm-2">Weight</label>
+            <div class="col-sm-10">
+                <input type="number" name="Weight" class="form-control" placeholder="Weight" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Health" class="control-label col-sm-2">Health</label>
+            <div class="col-sm-10">
+                <input type="text" name="Health" class="autocomplete form-control" placeholder="Health" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Health_date" class="control-label col-sm-2">Health_date</label>
+            <div class="col-sm-10">
+                <input type="text" name="Health_date" class="dateSelection form-control" placeholder="Health_date" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Attraction" class="control-label col-sm-2">Attraction</label>
+            <div class="col-sm-10">
+                <input type="number" name="Attraction" class="form-control" placeholder="Attraction" />
+            </div>
+        </div>
+        <input type="submit" value="Insert" />
+
+
+
+}
+
+        @if (Model.whichEntity == "ATTRACTION")
+    {
+        <p>Attraction Chosen</p>
+
+        <div class="form-group">
+            <label for="ID" class="control-label col-sm-2">ID</label>
+            <div class="col-sm-10">
+                <input type="number" name="ID" placeholder="ID" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Name" class="control-label col-sm-2">Name</label>
+            <div class="col-sm-10">
+                <input type="text" name="Name" class="autocomplete form-control" placeholder="Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Open_closed" class="control-label col-sm-2">Open</label>
+            <div class="col-sm-10">
+                <input type="number" name="Open_closed" class="form-control" placeholder="Open/Closed" />
+                <select name="Open_closed" class="form-control">
+                    <option value="1">True</option>
+                    <option value="0">False</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Open_closed_date" class="control-label col-sm-2">Open Date</label>
+            <div class="col-sm-10">
+                <input type="text" name="Open_closed_date" class="dateSelection form-control" placeholder="Open Date" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Manager" class="control-label col-sm-2">ManagerID</label>
+            <div class="col-sm-10">
+                <input type="number" name="Manager" class="form-control" placeholder="ManagerID" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Manager_date" class="control-label col-sm-2">Manager Start Date</label>
+            <div class="col-sm-10">
+                <input type="text" name="Manager_date" class="dateSelection form-control" placeholder="Manager Start Date" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Description" class="control-label col-sm-2">Description</label>
+            <div class="col-sm-10">
+                <input type="text" name="Description" class="autocomplete form-control" placeholder="Description" />
+            </div>
+        </div>
+        <input type="submit" value="Insert" />
+        }
+
+        @if (Model.whichEntity == "CUSTOMER")
         {
-            <p>Animal Chosen</p>
-                <div class="form-group">
-                    <label for="ID" class="control-label col-sm-2">ID</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="ID" class="form-control" placeholder="ID" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Name" class="control-label col-sm-2">Name</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="Name" class="autocomplete form-control" placeholder="Name" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Species" class="control-label col-sm-2">Species</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="Species" class="autocomplete form-control" placeholder="Species" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Taxology" class="control-label col-sm-2">Taxology</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="Taxology" class="autocomplete form-control" placeholder="Taxology" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Birth Location" class="control-label col-sm-2">Birth Location</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="Birth Location" class="autocomplete form-control" placeholder="Birth Location" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Birth Date" class="control-label col-sm-2">Birth Date</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="dateSelection form-control" name="Birth Date" placeholder="Birth Date" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Status" class="control-label col-sm-2">Status</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="Status" class="autocomplete form-control" placeholder="Status" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Status_date" class="control-label col-sm-2">Status_date</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="dateSelection form-control" name="Status_date" placeholder="Status_date" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="Gender" class="control-label col-sm-2">Gender</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="Gender" class="form-control" placeholder="Gender" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Height" class="control-label col-sm-2">Height</label>
-                    <div class="col-sm-10">
-                        <input type="number" name="Height" class="form-control" placeholder="Height" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Weight" class="control-label col-sm-2">Weight</label>
-                    <div class="col-sm-10">
-                        <input type="number" name="Weight" class="form-control" placeholder="Weight" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Health" class="control-label col-sm-2">Health</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="Health" class="autocomplete form-control" placeholder="Health" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Health_date" class="control-label col-sm-2">Health_date</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="Health_date" class="dateSelection form-control" placeholder="Health_date" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Attraction" class="control-label col-sm-2">Attraction</label>
-                    <div class="col-sm-10">
-                        <input type="number" name="Attraction" class="form-control" placeholder="Attraction" />
-                    </div>
-                </div>
-                <input type="submit" value="Insert" />
-
-
-
-                    }
-
-                    @if (Model.whichEntity == "ATTRACTION")
-    {
-                <p>Attraction Chosen</p>
-
-                <div class="form-group">
-                    <label for="ID">ID</label>
-                    <input type="text" name="ID" placeholder="ID" />
-                </div>
-                <div class="form-group">
-                    <label for="Name">Name</label>
-                    <input type="text" name="Name" class="autocomplete" placeholder="Name" />
-                </div>
-                <div class="form-group">
-                    <label for="Open_closed">Open</label>
-                    <input type="text" name="Open_closed" placeholder="Open/Closed" />
-                </div>
-                <div class="form-group">
-                    <label for="Open_closed_date">Open Date</label>
-                    <input type="text" class="dateSelection" name="Open_closed_date" placeholder="Open Date" />
-                </div>
-                <div class="form-group">
-                    <label for="Manager">ManagerID</label>
-                    <input type="text" name="Manager" placeholder="ManagerID" />
-                </div>
-                <div class="form-group">
-                    <label for="Manager_date">Manager Start Date</label>
-                    <input type="text" class="dateSelection" name="Manager_date" placeholder="Manager Start Date" />
-                </div>
-                <div class="form-group">
-                    <label for="Description">Description</label>
-                    <input type="text" name="Description" class="autocomplete" placeholder="Description" />
-                </div>
-                <input type="submit" value="Insert" />
+        <p>Customer Chosen</p>
+        <div class="form-group">
+            <label for="ID" class="control-label col-sm-2">ID</label>
+            <div class="col-sm-10">
+                <input type="number" name="ID" class="form-control" placeholder="ID" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Fname" class="control-label col-sm-2">Fname</label>
+            <div class="col-sm-10">
+                <input type="text" name="Fname" class="autocomplete form-control" placeholder="Fname" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Mname" class="control-label col-sm-2">Mname</label>
+            <div class="col-sm-10">
+                <input type="text" name="Mname" class="autocomplete form-control" placeholder="Mname" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Lname" class="control-label col-sm-2">Lname</label>
+            <div class="col-sm-10">
+                <input type="text" name="Lname" class="autocomplete form-control" placeholder="Lname" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="StreetAddress" class="control-label col-sm-2">StreetAddress</label>
+            <div class="col-sm-10">
+                <input type="text" name="StreetAddress" class="autocomplete form-control" placeholder="Street" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="CityAddress" class="control-label col-sm-2">CityAddress</label>
+            <div class="col-sm-10">
+                <input type="text" name="CityAddress" class="autocomplete form-control" placeholder="City" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ZipAddress" class="control-label col-sm-2">ZipAddress</label>
+            <div class="col-sm-10">
+                <input type="number" name="ZipAddress" class="autocomplete form-control" placeholder="Zip" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="StateAddress" class="control-label col-sm-2">StateAddress</label>
+            <div class="col-sm-10">
+                <input type="text" name="StateAddress" class="autocomplete form-control" placeholder="State" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Phone" class="control-label col-sm-2">Phone</label>
+            <div class="col-sm-10">
+                <input type="number" name="Phone" class="autocomplete form-control" placeholder="Phone" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Email" class="control-label col-sm-2">Email</label>
+            <div class="col-sm-10">
+                <input type="email" name="Email" class="autocomplete form-control" placeholder="Email" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="MembershipType" class="control-label col-sm-2">MembershipType</label>
+            <div class="col-sm-10">
+                <input type="number" name="MembershipType" class="form-control" placeholder="MembershipType" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ExpirationDate" class="control-label col-sm-2">ExpirationDate</label>
+            <div class="col-sm-10">
+                <input type="text" class="dateSelection form-control" name="ExpirationDate" placeholder="ExpirationDate" />
+            </div>
+        </div>
+        <input type="submit" value="Insert" />
 }
 
-                    @if (Model.whichEntity == "CUSTOMER")
+            @if (Model.whichEntity == "EMPLOYEE")
     {
-                <p>Customer Chosen</p>
-                <div>
+        <p>Employee Chosen</p>
+        <div class="form-group">
+            <label for="ID" class="control-label col-sm-2">ID</label>
+            <div class="col-sm-10">
+                <input type="number" name="ID" class="form-control" placeholder="ID" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Fname" class="control-label col-sm-2">Fname</label>
+            <div class="col-sm-10">
+                <input type="text" name="Fname" class="autocomplete form-control" placeholder="First Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Mname" class="control-label col-sm-2">Mname</label>
+            <div class="col-sm-10">
+                <input type="text" name="Mname" class="autocomplete form-control" placeholder="Middle Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Lname" class="control-label col-sm-2">Lname</label>
+            <div class="col-sm-10">
+                <input type="text" name="Lname" class="autocomplete form-control" placeholder="Last Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Title" class="control-label col-sm-2">Title</label>
+            <div class="col-sm-10">
+                <input type="number" name="Title" class="form-control form-control" placeholder="Title" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Hire_Date" class="control-label col-sm-2">Hire_Date</label>
+            <div class="col-sm-10">
+                <input type="text" name="Hire_Date" class="dateSelection form-control" placeholder="Hire Date" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Street" class="control-label col-sm-2">Street</label>
+            <div class="col-sm-10">
+                <input type="text" name="Street" class="autocomplete form-control" placeholder="Street" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="City" class="control-label col-sm-2">City</label>
+            <div class="col-sm-10">
+                <input type="text" name="City" class="autocomplete form-control" placeholder="City" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Zip" class="control-label col-sm-2">Zip</label>
+            <div class="col-sm-10">
+                <input type="number" name="Zip" class="autocomplete form-control" placeholder="Zip" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="State" class="control-label col-sm-2">State</label>
+            <div class="col-sm-10">
+                <input type="text" name="State" class="autocomplete form-control" placeholder="State" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Email" class="control-label col-sm-2">Email</label>
+            <div class="col-sm-10">
+                <input type="email" name="Email" class="autocomplete form-control" placeholder="Email" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Phone" class="control-label col-sm-2">Phone</label>
+            <div class="col-sm-10">
+                <input type="number" name="Phone" class="form-control" placeholder="Phone" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Gender" class="control-label col-sm-2">Gender</label>
+            <div class="col-sm-10">
+                <input type="number" name="Gender" class="form-control" placeholder="Gender" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Store" class="control-label col-sm-2">Store</label>
+            <div class="col-sm-10">
+                <input type="number" name="Store" class="form-control" placeholder="Store" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Attraction" class="control-label col-sm-2">Attraction</label>
+            <div class="col-sm-10">
+                <input type="number" name="Attraction" class="form-control" placeholder="Attraction" />
+            </div>
+        </div>
+        <input type="submit" value="Insert" />
 
-                    <label for="ID">ID</label><input type="text" name="ID" placeholder="ID" />
-                    <label for="Fname">Fname</label><input type="text" name="Fname" class="autocomplete" placeholder="Fname" />
-                    <label for="Mname">Mname</label><input type="text" name="Mname" class="autocomplete" placeholder="Mname" />
-                    <label for="Lname">Lname</label><input type="text" name="Lname" class="autocomplete" placeholder="Lname" />
-                    <label for="StreetAddress">StreetAddress</label><input type="text" name="StreetAddress" class="autocomplete" placeholder="Street" />
-                    <label for="CityAddress">CityAddress</label><input type="text" name="CityAddress" class="autocomplete" placeholder="City" />
-                    <label for="ZipAddress">ZipAddress</label><input type="text" name="ZipAddress" class="autocomplete" placeholder="Zip" />
-                    <label for="StateAddress">StateAddress</label><input type="text" name="StateAddress" class="autocomplete" placeholder="State" />
-                    <label for="Phone">Phone</label><input type="text" name="Phone" class="autocomplete" placeholder="Phone" />
-                    <label for="Email">Email</label><input type="text" name="Email" class="autocomplete" placeholder="Email" />
-                    <label for="MembershipType">MembershipType</label><input type="text" name="MembershipType" placeholder="MembershipType" />
-                    <label for="ExpirationDate">ExpirationDate</label><input type="text" class="dateSelection" name="ExpirationDate" placeholder="ExpirationDate" />
-                    <input type="submit" value="Insert" />
-                </div>
 }
 
-                    @if (Model.whichEntity == "EMPLOYEE")
+            @if (Model.whichEntity == "GENDER_TYPE")
     {
-                <p>Employee Chosen</p>
-                <div>
-                    <label for="ID">ID</label><input type="text" name="ID" placeholder="ID" />
-                    <label for="Fname">Fname</label><input type="text" name="Fname" class="autocomplete" placeholder="First Name" />
-                    <label for="Mname">Mname</label><input type="text" name="Mname" class="autocomplete" placeholder="Middle Name" />
-                    <label for="Lname">Lname</label><input type="text" name="Lname" class="autocomplete" placeholder="Last Name" />
-                    <label for="Title">Title</label><input type="text" name="Title" placeholder="Title" />
-                    <label for="Hire_Date">Hire_Date</label><input type="text" class="dateSelection" name="Hire_Date" placeholder="Hire Date" />
-                    <label for="Street">Street</label><input type="text" name="Street" class="autocomplete" placeholder="Street" />
-                    <label for="City">City</label><input type="text" name="City" class="autocomplete" placeholder="City" />
-                    <label for="Zip">Zip</label><input type="text" name="Zip" class="autocomplete" placeholder="Zip" />
-                    <label for="State">State</label><input type="text" name="State" class="autocomplete" placeholder="State" />
-                    <label for="Email">Email</label><input type="text" name="Email" class="autocomplete" placeholder="Email" />
-                    <label for="Phone">Phone</label><input type="text" name="Phone" placeholder="Phone" />
-                    <label for="Gender">Gender</label><input type="text" name="Gender" placeholder="Gender" />
-                    <label for="Store">Store</label><input type="text" name="Store" placeholder="Store" />
-                    <label for="Attraction">Attraction</label><input type="text" name="Attraction" placeholder="Attraction" />
-                    <input type="submit" value="Insert" />
-                </div>
+        <p>Gender Type</p>
+
+        <div class="form-group">
+            <label for="ID" class="control-label col-sm-2">ID</label>
+            <div class="col-sm-10">
+                <input type="number" name="ID" class="form-control" placeholder="ID" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Name" class="control-label col-sm-2">Gender</label>
+            <div class="col-sm-10">
+                <input type="text" name="Name" class="form-control" placeholder="Gender" />
+            </div>
+        </div>
+        <input type="submit" value="Insert" />
+
 }
 
-                    @if (Model.whichEntity == "GENDER_TYPE")
+            @if (Model.whichEntity == "MEMBERSHIP_TYPE")
     {
-                <p>GENDER_TYPE CHOSEN</p>
+        <p>MEMBERSHIP_TYPE CHOSEN</p>
 
-                <div>
-                    <label for="ID">ID</label><input type="text" name="ID" placeholder="ID" />
-                    <label for="Name">Gender</label><input type="text" name="Name" placeholder="Gender" />
+        <div class="form-group">
+            <label for="ID" class="control-label col-sm-2">ID</label>
+            <div class="col-sm-10">
+                <input type="number" name="ID" class="form-control" placeholder="ID" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Name" class="control-label col-sm-2">Type</label>
+            <div class="col-sm-10">
+                <input type="text" name="Name" class="form-control" placeholder="MembershipType" />
+            </div>
+        </div>
+        <input type="submit" value="Insert" />
 
-                    <input type="submit" value="Insert" />
-                </div>
 }
 
-                    @if (Model.whichEntity == "MEMBERSHIP_TYPE")
+            @if (Model.whichEntity == "PAY_TYPE")
     {
-                <p>MEMBERSHIP_TYPE CHOSEN</p>
+        <p>PAY_TYPE CHOSEN</p>
 
-                <div>
-                    <label for="ID">ID</label><input type="text" name="ID" placeholder="ID" />
-                    <label for="Name">Type</label><input type="text" name="Name" placeholder="MembershipType" />
-
-                    <input type="submit" value="Insert" />
-                </div>
+        <div class="form-group">
+            <label for="ID" class="control-label col-sm-2">ID</label>
+            <div class="col-sm-10">
+                <input type="text" name="ID" class="form-control" placeholder="ID" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Name" class="control-label col-sm-2">PayType</label>
+            <div class="col-sm-10">
+                <input type="text" name="Name" class="form-control" placeholder="PayType" />
+            </div>
+        </div>
+        <input type="submit" value="Insert" />
 }
 
-                    @if (Model.whichEntity == "PAY_TYPE")
+            @if (Model.whichEntity == "PRODUCT")
     {
-                <p>PAY_TYPE CHOSEN</p>
+        <p>Product Chosen</p>
+        <div class="form-group">
+            <label for="ID" class="control-label col-sm-2">ID</label>
+            <div class="col-sm-10">
+                <input type="number" name="ID" class="form-control" placeholder="ID" />
+            </div>
+        </div>
 
-                <div>
-                    <label for="ID">ID</label><input type="text" name="ID" placeholder="ID" />
-                    <label for="Name">PayType</label><input type="text" name="Name" placeholder="PayType" />
-
-                    <input type="submit" value="Insert" />
-                </div>
+        <div class="form-group">
+            <label for="Name" class="control-label col-sm-2">Name</label>
+            <div class="col-sm-10">
+                <input type="text" name="Name" class="autocomplete form-control" placeholder="Type" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Price" class="control-label col-sm-2">Price</label>
+            <div class="col-sm-10">
+                <input type="number" name="Price" class="form-control" placeholder="Price" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Description" class="control-label col-sm-2">Description</label>
+            <div class="col-sm-10">
+                <input type="text" name="Description" class="form-control autocomplete" placeholder="Desecription" />
+            </div>
+        </div>
+        <input type="submit" value="Insert" />
 }
 
-                    @if (Model.whichEntity == "PRODUCT")
+            @if (Model.whichEntity == "PURCHASE")
     {
-                <p>Product Chosen</p>
-                <div>
-                    <label for="ID">ID</label><input type="text" name="ID" placeholder="ID" />
-                    <label for="Name">Name</label><input type="text" name="Name" placeholder="Type" />
-                    <label for="Price">Price</label><input type="text" name="Price" placeholder="Price" />
-                    <label for="Description">Description</label><input type="text" name="Description" placeholder="Desecription" />
+        <p>Purchase Chosen</p>
 
-                    <input type="submit" value="Insert" />
-                </div>
+        <div class="form-group">
+            <label for="Receipt" class="control-label col-sm-2">Receipt</label>
+            <div class="col-sm-10">
+                <input type="number" name="Receipt" class="form-control" placeholder="Receipt" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Time" class="control-label col-sm-2">Time</label>
+            <div class="col-sm-10">
+                <input type="text" name="Time" class="timePicker form-control" placeholder="Time" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Pay_option" class="control-label col-sm-2">Pay_option</label>
+            <div class="col-sm-10">
+                <input type="number" name="Pay_option" class="form-control" placeholder="Pay_option" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Date" class="control-label col-sm-2">Date</label>
+            <div class="col-sm-10">
+                <input type="text" name="Date" class="dateSelection form-control" placeholder="Date" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Store" class="control-label col-sm-2">Store</label>
+            <div class="col-sm-10">
+                <input type="number" name="Store" class="form-control" placeholder="Store" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Customer" class="control-label col-sm-2">Customer</label>
+            <div class="col-sm-10">
+                <input type="number" name="Customer" class="form-control" placeholder="Customer" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Employee" class="control-label col-sm-2">Employee</label>
+            <div class="col-sm-10">
+                <input type="text" name="Employee" class="form-control" placeholder="Employee" />
+            </div>
+        </div>
+        <input type="submit" value="Insert" />
 }
 
-                    @if (Model.whichEntity == "PURCHASE")
+            @if (Model.whichEntity == "PURCHASE_INFO")
     {
-                <p>PURCHASE CHOSEN</p>
-
-                <div>
-                    <label for="Receipt">Receipt</label><input type="text" name="Receipt" placeholder="Receipt" />
-                    <label for="Time">Time</label><input type="text" class="timePicker" name="Time" placeholder="Time" />
-                    <label for="Pay_option">Pay_option</label><input type="text" name="Pay_option" placeholder="Pay_option" />
-                    <label for="Date">Date</label><input type="text" class="dateSelection" name="Date" placeholder="Date" />
-                    <label for="Store">Store</label><input type="text" name="Store" placeholder="Store" />
-                    <label for="Customer">Customer</label><input type="text" name="Customer" placeholder="Customer" />
-                    <label for="Employee">Employee</label><input type="text" name="Employee" placeholder="Employee" />
-                    <input type="submit" value="Insert" />
-                </div>
-}
-
-                    @if (Model.whichEntity == "PURCHASE_INFO")
-    {
-                <p>PURCHASE_INFO CHOSEN</p>
-                <h2>Current Purchases</h2>
-                <table style="width:100%; border:1px solid black; padding:15px">
-                    <!-- Column Names-->
-                    <tr>
-                        @for (int i = 0; i < Model.BInt; i++)
+        <p>Purchase Info Chosen</p>
+        <h2>Current Purchases</h2>
+        <table style="width:100%; border:1px solid black; padding:15px">
+            <!-- Column Names-->
+            <tr>
+                @for (int i = 0; i < Model.BInt; i++)
         {
-                <td>@Model.ColumnNames2[i]</td>
+            <td>@Model.ColumnNames2[i]</td>
 
 }
-                    </tr>
+            </tr>
 
-                    <!-- Column Values-->
+            <!-- Column Values-->
 
-                    @for (int i = 0; i < Model.Results2.Count(); i++)
+            @for (int i = 0; i < Model.Results2.Count(); i++)
     {
-                <tr>
-                    @for (int j = 0; j < Model.BInt; j++)
+        <tr>
+            @for (int j = 0; j < Model.BInt; j++)
     {
-                <td>@Model.Results2[i][j]</td>
+        <td>@Model.Results2[i][j]</td>
 }
-                </tr>
-}
-
-
-                </table>
-                <div>
-
-                    <label for="Receipt">Receipt</label><input type="text" name="Receipt" placeholder="Receipt" />
-                    <label for="insertProduct">Product</label><input type="text" name="insertProduct" placeholder="Product" />
-                    <label for="insertPrice">Price</label><input type="text" name="insertPrice" placeholder="Price" />
-                    <label for="insertQuantity">Quantity</label><input type="text" name="insertQuantity" placeholder="Quantity" />
-                    <input type="submit" value="Insert" />
-                </div>
+        </tr>
 }
 
-                    @if (Model.whichEntity == "STORE")
+
+        </table>
+        <div class="form-group">
+            <label for="Receipt" class="control-label col-sm-2">Receipt</label>
+            <div class="col-sm-10">
+                <input type="number" name="Receipt" class="form-control" placeholder="Receipt" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Product" class="control-label col-sm-2">Product</label>
+            <div class="col-sm-10">
+                <input type="number" name="Product" class="form-control" placeholder="Product" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Price" class="control-label col-sm-2">Price</label>
+            <div class="col-sm-10">
+                <input type="number" name="Price" class="form-control" placeholder="Price" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="insertQuantity" class="control-label col-sm-2">Quantity</label>
+            <div class="col-sm-10">
+                <input type="number" name="insertQuantity" class="form-control" placeholder="Quantity" />
+            </div>
+        </div>
+        <input type="submit" value="Insert" />
+
+            }
+
+            @if (Model.whichEntity == "STORE")
+            {
+        <p>STORE CHOSEN</p>
+
+        <div class="form-group">
+            <label for="ID" class="control-label col-sm-2">ID</label>
+            <div class="col-sm-10">
+                <input type="number" name="ID" class="form-control" placeholder="ID" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Name" class="control-label col-sm-2">Name</label>
+            <div class="col-sm-10">
+                <input type="text" name="Name" class="autocomplete form-control" placeholder="Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Type" class="control-label col-sm-2">Type</label>
+            <div class="col-sm-10">
+                <input type="number" name="Type" class="form-control" placeholder="Type" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="insertManager" class="control-label col-sm-2">Manager</label>
+            <div class="col-sm-10">
+                <input type="number" name="insertManager" class="form-control" placeholder="Manager" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="insertManager_date" class="control-label col-sm-2">Manager_date</label>
+            <div class="col-sm-10">
+                <input type="text" name="insertManager_date" class="dateSelection form-control" placeholder="Manager_date" />
+            </div>
+        </div>
+        <input type="submit" value="Insert" />
+
+}
+
+            @if (Model.whichEntity == "STORE_TYPE")
     {
-                <p>STORE CHOSEN</p>
+        <p>STORE_TYPE CHOSEN</p>
 
-                <div>
-                    <label for="ID">ID</label><input type="text" name="ID" placeholder="ID" />
-                    <label for="Name">Name</label><input type="text" name="Name" class="autocomplete" placeholder="Name" />
-                    <label for="Type">Type</label><input type="text" name="Type" placeholder="Type" />
-                    <label for="insertManager">Manager</label><input type="text" name="insertManager" placeholder="Manager" />
-                    <label for="insertManager_date">Manager_date</label><input type="text" class="dateSelection" name="insertManager_date" placeholder="Manager_date" />
-                    <input type="submit" value="Insert" />
-                </div>
+        <div class="form-group">
+            <label for="ID" class="control-label col-sm-2">ID</label>
+            <div class="col-sm-10">
+                <input type="number" name="ID" class="form-control" placeholder="ID" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Name" class="control-label col-sm-2">Type</label>
+            <div class="col-sm-10">
+                <input type="text" name="Name" class="form-control" placeholder="Type" />
+            </div>
+        </div>
+        <input type="submit" value="Insert" />
+
 }
 
-                    @if (Model.whichEntity == "STORE_TYPE")
+            @if (Model.whichEntity == "TITLE_TYPE")
     {
-                <p>STORE_TYPE CHOSEN</p>
+        <p>TITLE_TYPE CHOSEN</p>
 
-                <div>
-                    <label for="ID">ID</label><input type="text" name="ID" placeholder="ID" />
-                    <label for="Name">Type</label><input type="text" name="Name" placeholder="Type" />
-                    <input type="submit" value="Insert" />
-                </div>
-}
+        <div class="form-group">
+            <label for="ID" class="control-label col-sm-2">ID</label>
+            <div class="col-sm-10">
+                <input type="number" name="ID" class="form-control" placeholder="ID" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Title" class="control-label col-sm-2">Type</label>
+            <div class="col-sm-10">
+                <input type="text" name="Title" class="form-control" placeholder="Type" />
+            </div>
+        </div>
+        <input type="submit" value="Insert" />
 
-                    @if (Model.whichEntity == "TITLE_TYPE")
-    {
-                <p>TITLE_TYPE CHOSEN</p>
-
-                <div>
-                    <label for="ID">ID</label><input type="text" name="ID" placeholder="ID" />
-                    <label for="Title">Type</label><input type="text" name="Title" placeholder="Type" />
-                    <input type="submit" value="Insert" />
-                </div>
 }
 
 </form>

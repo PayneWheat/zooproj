@@ -648,8 +648,8 @@ namespace zooproject.Pages.Employee_Section
                 database.connect();
 
                 string insertReceipt = Request.Form["Receipt"];
-                string insertProduct = Request.Form["insertProduct"];
-                string insertPrice = Request.Form["insertPrice"];
+                string insertProduct = Request.Form["Product"];
+                string insertPrice = Request.Form["Price"];
                 string insertQuantity = Request.Form["insertQuantity"];
 
                 cmd = new SqlCommand();
