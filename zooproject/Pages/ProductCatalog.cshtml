@@ -5,6 +5,12 @@
 }
 
 <style>
+    body {
+        background-color: #355e3b;
+        font-family: Arial;
+        font-size: large;
+    }
+
     #products {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
@@ -12,12 +18,15 @@
     }
 
         #products td, #products th {
-            border: 1px solid #ddd;
-            padding: 8px;
+            border: 1px solid white;
+            padding: 15px;
         }
 
         #products tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #eeeeee;
+        }
+        #products tr:nth-child(odd) {
+            background-color: white;
         }
 
         #products tr:hover {
@@ -28,13 +37,13 @@
             padding-top: 12px;
             padding-bottom: 12px;
             text-align: left;
-            background-color: #4CAF50;
-            color: white;
+            background-color: #ede4c8;
+            color: black;
         }
 </style>
 
-<h1>Product Catalog</h1>
-
+<h1 style="border: 5px solid white; background-color: #ede4c8; padding: 10px;">Product Catalog</h1>
+<br />
 <!-- Table for results of Attraction-->
 <table id="products">
     <!-- Column Names-->

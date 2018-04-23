@@ -5,6 +5,13 @@
 }
 
 <style>
+
+    body {
+        background-color: #355e3b;
+        font-size: large;
+    }
+
+
     #attractions {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
@@ -12,12 +19,15 @@
     }
 
         #attractions td, #attractions th {
-            border: 1px solid #ddd;
-            padding: 8px;
+            border: 1px solid white;
+            padding: 15px;
         }
 
         #attractions tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #eeeeee;
+        }
+        #attractions tr:nth-child(odd) {
+            background-color: white;
         }
 
         #attractions tr:hover {
@@ -28,13 +38,13 @@
             padding-top: 12px;
             padding-bottom: 12px;
             text-align: left;
-            background-color: #4CAF50;
-            color: white;
+            background-color: #ede4c8;
+            color: black;
         }
 </style>
 
-<h1>Attraction Info</h1>
-
+<h1 style="border: 5px solid white; background-color: #ede4c8; padding: 10px;">Attraction Info</h1>
+<br />
 <!-- Table for results of Attraction-->
 <table id="attractions" style="width:100%; border:1px solid black; padding:15px">
     <!-- Column Names-->
@@ -55,14 +65,14 @@
             <td>
                 @{if (@Model.AttractionChoice != Model.IDResults[i].ToString())
                     {
-                    <form method="get">
-                        <input type="submit" name ="Animals" value="@Model.IDResults[i]" /> 
-                    </form>
-                        }
+                        <form method="get">
+                            <input type="submit" name="Animals" value="@Model.IDResults[i]" />
+                        </form>
+                    }
 
                     else
                     {
-                        for(int j = 0; j < Model.AnimalList.Count; j++)
+                        for (int j = 0; j < Model.AnimalList.Count; j++)
                         {
                             <p>@Model.AnimalList[j] </p>
                         }
