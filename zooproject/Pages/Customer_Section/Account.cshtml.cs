@@ -44,14 +44,12 @@ namespace zooproject.Pages.Customer_Section
 
         public void OnGet()
         {
-            AMessage = "get";
             custID = HttpContext.User.Identity.Name;
             SelectInfo();
         }
 
         public void OnPost()
         {
-            AMessage = "post";
             custID = HttpContext.User.Identity.Name;
 
             string inputFname = Request.Form["Fname"];
