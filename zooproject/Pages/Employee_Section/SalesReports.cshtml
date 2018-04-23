@@ -5,7 +5,7 @@
 <script src="~/js/moment.js"></script>
 <script src="~/js/Chart.js"></script>
 
-
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
 <style>
     #sales, #report {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -208,25 +208,29 @@
     else if (Model.BInt > 0)
     {
         // Do an hourly result for the graph if less than 4?
+        <div style="padding-bottom:15px; font-size:large;"><span id="avgLabel" style="text-align:right; font-weight:bolder; padding-right:15px;">Average Per Day:&nbsp;</span><span id="avgCell"></span></div>
         <table id="report" class="table table-hover">
-            <tr>
-                @for (int i = 0; i < Model.AInt; i++)
-        {
-            <th>@Model.ViewColumns[i]</th>
-}
-            </tr>
+            <thead>
+                <tr>
+                    @for (int i = 0; i < Model.AInt; i++)
+                    {
+                        <th>@Model.ViewColumns[i]</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.BInt; i++)
+                {
+                    <tr>
+                        @for (int j = 0; j < Model.AInt; j++)
+                        {
+                            <td>@Model.ViewResults[i][j]</td>
+                        }
 
-            @for (int i = 0; i < Model.BInt; i++)
-    {
-        <tr>
-            @for (int j = 0; j < Model.AInt; j++)
-    {
-        <td>@Model.ViewResults[i][j]</td>
-}
+                    </tr>
+                }
 
-        </tr>
-}
-            <tr><td id="avgLabel" style="text-align:right; font-weight:bolder; padding-right:15px;">Average Per Day:</td><td id="avgCell"></td></tr>
+            </tbody>
         </table>
 
     }
@@ -320,10 +324,11 @@
     var bInt = @Model.BInt;
     console.log(bInt);
     if (bInt >= 4) {
-        for (i = 1; i <= bInt; i++) {
-            var date = reportTable.children[0].children[i].children[0].innerHTML;
+        for (i = 0; i < bInt; i++) {
+            console.log(reportTable.children[1].children)
+            var date = reportTable.children[1].children[i].children[0].innerHTML;
             console.log("date: " + date);
-            var value = parseInt(reportTable.children[0].children[i].children[1].innerHTML);
+            var value = parseInt(reportTable.children[1].children[i].children[1].innerHTML);
 
             avg += value;
             console.log(avg);
@@ -333,7 +338,7 @@
         }
         avg = avg / bInt;
         console.log("avg: " + avg)
-        document.getElementById("avgCell").innerHTML = avg.toFixed(2);
+        document.getElementById("avgCell").innerHTML = "$" + avg.toFixed(2);
 
         console.log(tableDates);
         var ctx = document.getElementById("myChart").getContext('2d');
@@ -381,5 +386,8 @@
             }
         });
     }
+    $(document).ready(function () {
+        $('#report').DataTable();
+    });
 
 </script>

@@ -212,7 +212,7 @@ namespace zooproject.Pages.Employee_Section
             }
             */
 
-            dbCommand = @"SELECT DISTINCT C.PurDate,
+            dbCommand = @"SELECT DISTINCT CONVERT(DATE, C.PurDate, 101) PurchaseDate,
 SUM(C.RecTotal) DailySales
 FROM
 (SELECT PURCHASE.Date AS PurDate,
@@ -231,7 +231,7 @@ GROUP BY PURCHASE.Date, PURCHASE.Store, A.Receipt) B
 WHERE PURCHASE.Date = B.Date 
 GROUP BY PURCHASE.Date, B.ReceiptTotal) C
 GROUP BY C.PurDate
-ORDER BY C.PurDate;";
+ORDER BY PurchaseDate ASC;";
             Debug.WriteLine(dbCommand);
             cmd.Connection = database.Connection;
             cmd.CommandText = dbCommand;
