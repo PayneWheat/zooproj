@@ -43,7 +43,6 @@ namespace zooproject
                 options.Conventions.AuthorizeFolder("/");
                 options.Conventions.AllowAnonymousToPage("/Index");
                 options.Conventions.AllowAnonymousToPage("/Login");
-                options.Conventions.AllowAnonymousToPage("/Error");
                 options.Conventions.AllowAnonymousToPage("/LoginError");
                 options.Conventions.AllowAnonymousToPage("/AttractionInfo");
                 options.Conventions.AllowAnonymousToPage("/ProductCatalog");
