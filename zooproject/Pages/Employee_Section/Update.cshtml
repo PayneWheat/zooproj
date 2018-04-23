@@ -43,20 +43,20 @@
                     {
                         <td><input type="text" class="dateSelection" name="@Model.ColumnNames[j]" value="@Model.Results[i][j]" /></td>
                     }
-                    else if (Model.ColumnNames[i] == "Gender" || Model.ColumnNames[i] == "Height" || Model.ColumnNames[i] == "Weight"
-                    || Model.ColumnNames[i] == "Zip" || Model.ColumnNames[i] == "Phone#" || Model.ColumnNames[i] == "Phone" || Model.ColumnNames[i] == "ZipAddress"
-                    || Model.ColumnNames[i] == "Price" || Model.ColumnNames[i] == "Customer" || Model.ColumnNames[i] == "Employee" || Model.ColumnNames[i] == "Receipt"
-                    || Model.ColumnNames[i] == "Product" || Model.ColumnNames[i] == "Quantity" || Model.ColumnNames[i] == "Type" || Model.ColumnNames[i] == "Title"
-                    || Model.ColumnNames[i] == "Store" || Model.ColumnNames[i] == "Attraction" || Model.ColumnNames[i] == "MembershipType" || Model.ColumnNames[i] == "Pay_option"
-                    || Model.ColumnNames[i] == "Manager")
+                    else if (Model.ColumnNames[j] == "Gender" || Model.ColumnNames[j] == "Height" || Model.ColumnNames[j] == "Weight"
+                    || Model.ColumnNames[j] == "Zip" || Model.ColumnNames[j] == "Phone#" || Model.ColumnNames[j] == "Phone" || Model.ColumnNames[j] == "ZipAddress"
+                    || Model.ColumnNames[j] == "Price" || Model.ColumnNames[j] == "Customer" || Model.ColumnNames[j] == "Employee" || Model.ColumnNames[j] == "Receipt"
+                    || Model.ColumnNames[j] == "Product" || Model.ColumnNames[j] == "Quantity" || Model.ColumnNames[j] == "Type" || Model.ColumnNames[j] == "Title"
+                    || Model.ColumnNames[j] == "Store" || Model.ColumnNames[j] == "Attraction" || Model.ColumnNames[j] == "MembershipType" || Model.ColumnNames[j] == "Pay_option"
+                    || Model.ColumnNames[j] == "Manager")
                     {
                         <td><input type="number" name="@Model.ColumnNames[j]" value="@Model.Results[i][j]" /></td>
                     }
-                    else if (Model.ColumnNames[i] == "Email")
+                    else if (Model.ColumnNames[j] == "Email")
                     {
-                        <td><input type="email" class="form-control" name="@Model.ColumnNames[i]" /></td>
+                        <td><input type="email" class="form-control" name="@Model.ColumnNames[j]" /></td>
                     }
-                    else if(Model.ColumnNames[i] == "ID")
+                    else if(Model.ColumnNames[j] == "ID")
                     {
                         <td><input type="number" disabled name="@Model.ColumnNames[j]" value="@Model.Results[i][j]" /></td>
 
@@ -74,9 +74,7 @@
 </form>
         <!--}-->
     }
-    <p>@Model.AInt</p>
 }
-<p>@Model.dbCommand</p>
 <p>@Model.EMessage</p>
 <script>    
     $(".dateSelection").each(function () {
