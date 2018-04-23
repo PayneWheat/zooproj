@@ -2,6 +2,8 @@
 @model EmployeeIndexModel
 @{
 }
+<script src="~/js/moment.js"></script>
+<script src="~/js/Chart.js"></script>
 <style>
     .employee-nav {
         display: flex;
@@ -28,57 +30,69 @@
 }
 @if (HttpContext.User.IsInRole("Employee"))
 {
-    <h2>You are a Employee!</h2>
+    <h2>You are an Employee!</h2>
 }
 <div>
-    <nav class="employee-nav">
-        <a asp-page="./Insert">Insert</a>
-        <a asp-page="./SalesReports">Sales Reports</a>
-        <a asp-page="./Search">Search</a>
-        <a asp-page="./Update">Update</a>
-        <a asp-page="../Logout">Logout</a>
-    </nav>
-    <div id="animal-links" class="admin-box">
-        <h3>Animals</h3>
-        <a href="./Search?we=ANIMAL">View/Edit Animals</a>
-        <a href="./Insert?we=ANIMAL">Create Animal</a>
-        <a href="./Search?we=ATTRACTION">View/Edit Attractions</a>
-        <a href="./Insert?we=ATTRACTION">Create Attraction</a>
+
+    <a asp-page="../Logout">Logout</a>
+    <div class="container">
+        <h2>Sales Reports</h2>
+        <div class="row">
+            <div class="admin-box col-sm-3" style="padding:20px">
+                <a asp-page="./SalesReports" class="btn btn-primary">Sales Reports</a>
+            </div>
     </div>
-    <div id="employee-links" class="admin-box">
-        <h3>Employees</h3>
-        <a href="./Search?we=EMPLOYEE">View/Edit Employees</a>
-        <a href="./Insert?we=EMPLOYEE">Create Employee</a>
-        <a href="./Search?we=TITLE_TYPE">View/Edit Employee Title Types</a>
-        <a href="./Insert?we=TITLE_TYPE">Create Employee Title Type</a>
-    </div>
-    <div id="customer-links" class="admin-box">
-        <h3>Customers</h3>
-        <a href="./Search?we=CUSTOMER">View/Edit Customers</a>
-        <a href="./Insert?we=CUSTOMER">Create Customer</a>
-        <a href="./Search?we=MEMBERSHIP_TYPE">View/Edit Customer Membership Types</a>
-        <a href="./Insert?we=MEMBERSHIP_TYPE">Create Customer Membership Type</a>
-    </div>
-    <div id="product-links" class="admin-box">
-        <h3>Products</h3>
-        <a href="./Search?we=PRODUCT">View/Edit Products</a>
-        <a href="./Insert?we=PRODUCT">Create Product</a>
-    </div>
-    <div id="purchase-links" class="admin-box">
-        <h3>Purchases</h3>
-        <a href="./Search?we=PURCHASE">View/Edit Purchases</a>
-        <a href="./Insert?we=PURCHASE">Create Purchase</a>
-        <a href="./Search?we=PURCHASE_INFO">View/Edit Purchase Info</a>
-        <a href="./Insert?we=PURCHASE_INFO">Create Purchase Info</a>
-        <a href="./Search?we=PAY_TYPE">View/Edit Pay Types</a>
-        <a href="./Insert?we=PAY_TYPE">Create Pay Type</a>
-    </div>
-    <div id="store-links" class="admin-box">
-        <h3>Stores</h3>
-        <a href="./Search?we=STORE">View/Edit Stores</a>
-        <a href="./Insert?we=STORE">Create Store</a>
-        <a href="./Search?we=STORE_TYPE">View/Edit Store Types</a>
-        <a href="./Insert?we=STORE_TYPE">Create Store Type</a>
+    <div class="container">
+        <h2>Data Entry and Updating</h2>
+        <div class="row">
+            <div id="animal-links" class="admin-box col-sm-4">
+                <h3>Animals</h3>
+                <a href="./Search?we=ANIMAL">View/Edit Animals</a>
+                <a href="./Insert?we=ANIMAL">Create Animal</a>
+                <a href="./Search?we=ATTRACTION">View/Edit Attractions</a>
+                <a href="./Insert?we=ATTRACTION">Create Attraction</a>
+            </div>
+            <div id="employee-links" class="admin-box col-sm-4">
+                <h3>Employees</h3>
+                <a href="./Search?we=EMPLOYEE">View/Edit Employees</a>
+                <a href="./Insert?we=EMPLOYEE">Create Employee</a>
+                <a href="./Search?we=TITLE_TYPE">View/Edit Employee Title Types</a>
+                <a href="./Insert?we=TITLE_TYPE">Create Employee Title Type</a>
+            </div>
+            <div id="customer-links" class="admin-box col-sm-4">
+                <h3>Customers</h3>
+                <a href="./Search?we=CUSTOMER">View/Edit Customers</a>
+                <a href="./Insert?we=CUSTOMER">Create Customer</a>
+                <a href="./Search?we=MEMBERSHIP_TYPE">View/Edit Customer Membership Types</a>
+                <a href="./Insert?we=MEMBERSHIP_TYPE">Create Customer Membership Type</a>
+            </div>
+        </div>
+        <div class="row">
+            <div id="product-links" class="admin-box col-sm-4">
+                <h3>Products</h3>
+                <a href="./Search?we=PRODUCT">View/Edit Products</a>
+                <a href="./Insert?we=PRODUCT">Create Product</a>
+            </div>
+            <div id="purchase-links" class="admin-box col-sm-4">
+                <h3>Purchases</h3>
+                <a href="./Search?we=PURCHASE">View/Edit Purchases</a>
+                <a href="./Insert?we=PURCHASE">Create Purchase</a>
+                <a href="./Search?we=PURCHASE_INFO">View/Edit Purchase Info</a>
+                <a href="./Insert?we=PURCHASE_INFO">Create Purchase Info</a>
+                <a href="./Search?we=PAY_TYPE">View/Edit Pay Types</a>
+                <a href="./Insert?we=PAY_TYPE">Create Pay Type</a>
+            </div>
+            <div id="store-links" class="admin-box col-sm-4">
+                <h3>Stores</h3>
+                <a href="./Search?we=STORE">View/Edit Stores</a>
+                <a href="./Insert?we=STORE">Create Store</a>
+                <a href="./Search?we=STORE_TYPE">View/Edit Store Types</a>
+                <a href="./Insert?we=STORE_TYPE">Create Store Type</a>
+            </div>
+        </div>
     </div>
 </div>
+<script>
 
+
+</script>

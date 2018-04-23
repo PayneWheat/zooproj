@@ -4,32 +4,7 @@
 }
 
 <style>
-    #insertion {
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
 
-        #insertion td, #insertion th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        #insertion tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        #insertion tr:hover {
-            background-color: #ddd;
-        }
-
-        #insertion th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: #4CAF50;
-            color: white;
-        }
 </style>
 <nav class="employee-links">
     <a asp-page="./Insert">Insert</a>
@@ -154,7 +129,7 @@
     }
             </select>
 
-            <input type="submit" value="Choose" /><br />
+            <input type="submit" class="btn btn-primary" class="btn btn-primary" value="Choose" /><br />
         </div>
         @if (Model.whichEntity == "ANIMAL")
     {
@@ -244,7 +219,7 @@
                 <input type="number" name="Attraction" class="form-control" placeholder="Attraction" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" class="btn btn-primary" value="Insert" />
 
 
 
@@ -299,7 +274,7 @@
                 <input type="text" name="Description" class="autocomplete form-control" placeholder="Description" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
         }
 
         @if (Model.whichEntity == "CUSTOMER")
@@ -377,7 +352,7 @@
                 <input type="text" class="dateSelection form-control" name="ExpirationDate" placeholder="ExpirationDate" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 }
 
             @if (Model.whichEntity == "EMPLOYEE")
@@ -473,7 +448,7 @@
                 <input type="number" name="Attraction" class="form-control" placeholder="Attraction" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
 }
 
@@ -493,7 +468,7 @@
                 <input type="text" name="Name" class="form-control" placeholder="Gender" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
 }
 
@@ -513,7 +488,7 @@
                 <input type="text" name="Name" class="form-control" placeholder="MembershipType" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
 }
 
@@ -533,7 +508,7 @@
                 <input type="text" name="Name" class="form-control" placeholder="PayType" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 }
 
             @if (Model.whichEntity == "PRODUCT")
@@ -564,7 +539,7 @@
                 <input type="text" name="Description" class="form-control autocomplete" placeholder="Desecription" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 }
 
             @if (Model.whichEntity == "PURCHASE")
@@ -613,7 +588,7 @@
                 <input type="text" name="Employee" class="form-control" placeholder="Employee" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 }
 
             @if (Model.whichEntity == "PURCHASE_INFO")
@@ -668,7 +643,7 @@
                 <input type="number" name="insertQuantity" class="form-control" placeholder="Quantity" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
             }
 
@@ -706,7 +681,7 @@
                 <input type="text" name="insertManager_date" class="dateSelection form-control" placeholder="Manager_date" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
 }
 
@@ -726,7 +701,7 @@
                 <input type="text" name="Name" class="form-control" placeholder="Type" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
 }
 
@@ -746,13 +721,13 @@
                 <input type="text" name="Title" class="form-control" placeholder="Type" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
 }
 
 </form>
 </div>
-    <table id="resultsTable">
+    <table id="resultsTable" style="display:none;">
         <tr>
             @for (int i = 0; i < Model.AInt; i++)
             {
@@ -771,8 +746,6 @@
         }
     </table>
 }
-<p>@Model.AMessage</p>
-<p>@Model.dbCommand</p>
 <p>@Model.EMessage</p>
 <script>
     //var dateFields = document.querySelectorAll(".dateSelection");
