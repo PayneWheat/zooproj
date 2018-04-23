@@ -53,11 +53,10 @@
     }
 </style>
 
-<nav class="employee-links">
-    <a asp-page="./SalesReports">Sales Reports</a>
-    <a asp-page="../Logout">Logout</a>
+<nav class="employee-links" style="padding-top:15px;">
+    <a class="btn btn-default" stlye="margin:10px;" href="./">Back to Employee Section</a>
+    <a class="btn btn-default" stlye="margin:10px;" asp-page="../Logout">Logout</a>
 </nav>
-<a href="./">Back to Employee Section</a>
 <h1>Search</h1>
 
 @{
@@ -160,18 +159,18 @@
                         </div>
                     </div>
                 }
-                <div>
+                <div style="text-align:center;">
                     <input type="submit" class="btn btn-primary" value="Search" />
                 </div>
             </form>
         </div>
-        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#search-fields">Show/Hide Search Fields</button>
+        <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#search-fields">Show/Hide Search Fields</button>
 
     }
 }
 
-<h2>@Model.whichEntity</h2>
-<a class="btn btn-default" href="./Insert?we=@Model.whichEntity">Add New @Model.whichEntity</a>
+<h2 style="text-transform: capitalize;">@Model.whichEntity</h2>
+<a class="btn btn-default" style="margin-bottom:15px;" href="./Insert?we=@Model.whichEntity">Add New @Model.whichEntity</a>
 @{
     if (Model.whichEntity != "")
     {

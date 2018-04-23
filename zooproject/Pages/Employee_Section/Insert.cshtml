@@ -6,12 +6,9 @@
 <style>
 
 </style>
-<nav class="employee-links">
-    <a asp-page="./Insert">Insert</a>
-    <a asp-page="./SalesReports">Sales Reports</a>
-    <a asp-page="./Search">Search</a>
-    <a asp-page="./Update">Update</a>
-    <a asp-page="../Logout">Logout</a>
+<nav class="employee-links" style="padding-top:15px;">
+    <a class="btn btn-default" stlye="margin:10px;" href="./">Back to Employee Section</a>
+    <a class="btn btn-default" stlye="margin:10px;" asp-page="../Logout">Logout</a>
 </nav>
 <h1>Insert into database</h1>
 @{
@@ -134,10 +131,10 @@
         @if (Model.whichEntity == "ANIMAL")
     {
         <p>Animal Chosen</p>
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -229,10 +226,10 @@
     {
         <p>Attraction Chosen</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" placeholder="ID" class="form-control" />
+                <input type="hidden" name="ID" placeholder="ID" class="form-control" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -280,10 +277,10 @@
         @if (Model.whichEntity == "CUSTOMER")
         {
         <p>Customer Chosen</p>
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -358,10 +355,10 @@
             @if (Model.whichEntity == "EMPLOYEE")
     {
         <p>Employee Chosen</p>
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -456,10 +453,10 @@
     {
         <p>Gender Type</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -476,10 +473,10 @@
     {
         <p>MEMBERSHIP_TYPE CHOSEN</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -496,10 +493,10 @@
     {
         <p>PAY_TYPE CHOSEN</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="text" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -514,10 +511,10 @@
             @if (Model.whichEntity == "PRODUCT")
     {
         <p>Product Chosen</p>
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
 
@@ -651,10 +648,10 @@
             {
         <p>STORE CHOSEN</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -689,10 +686,10 @@
     {
         <p>STORE_TYPE CHOSEN</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -709,10 +706,10 @@
     {
         <p>TITLE_TYPE CHOSEN</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">

@@ -2,14 +2,10 @@
 @model UpdateModel
 @{
 }
-<nav class="employee-links">
-    <a asp-page="./Insert">Insert</a>
-    <a asp-page="./SalesReports">Sales Reports</a>
-    <a asp-page="./Search">Search</a>
-    <a asp-page="./Update">Update</a>
-    <a asp-page="../Logout">Logout</a>
+<nav class="employee-links" style="padding-top:15px;">
+    <a class="btn btn-default" stlye="margin:10px;" href="./">Back to Employee Section</a>
+    <a class="btn btn-default" stlye="margin:10px;" asp-page="../Logout">Logout</a>
 </nav>
-<a href="./">Back to Employee Section</a>
 <h1>Update</h1>
 <!--
 <form method="post">
@@ -41,11 +37,29 @@
                 <td><a href="./Update?we=@Model.whichEntity&id=@Model.Results[i][0]">Edit</a></td>
                 @for (int j = 0; j < Model.AInt; j++)
                 {
-                    if (Model.ColumnNames[j] == "Birth Date" || Model.ColumnNames[j] == "Status_date" || Model.ColumnNames[j] == "Open_closed_date" 
+                    if (Model.ColumnNames[j] == "Birth Date" || Model.ColumnNames[j] == "Status_date" || Model.ColumnNames[j] == "Open_closed_date"
                         || Model.ColumnNames[j] == "Manager_date" || Model.ColumnNames[j] == "Hire_Date" || Model.ColumnNames[j] == "ExpirationDate"
                         || Model.ColumnNames[j] == "Date" || Model.ColumnNames[j] == "Health_date")
                     {
                         <td><input type="text" class="dateSelection" name="@Model.ColumnNames[j]" value="@Model.Results[i][j]" /></td>
+                    }
+                    else if (Model.ColumnNames[j] == "Gender" || Model.ColumnNames[j] == "Height" || Model.ColumnNames[j] == "Weight"
+                    || Model.ColumnNames[j] == "Zip" || Model.ColumnNames[j] == "Phone#" || Model.ColumnNames[j] == "Phone" || Model.ColumnNames[j] == "ZipAddress"
+                    || Model.ColumnNames[j] == "Price" || Model.ColumnNames[j] == "Customer" || Model.ColumnNames[j] == "Employee" || Model.ColumnNames[j] == "Receipt"
+                    || Model.ColumnNames[j] == "Product" || Model.ColumnNames[j] == "Quantity" || Model.ColumnNames[j] == "Type" || Model.ColumnNames[j] == "Title"
+                    || Model.ColumnNames[j] == "Store" || Model.ColumnNames[j] == "Attraction" || Model.ColumnNames[j] == "MembershipType" || Model.ColumnNames[j] == "Pay_option"
+                    || Model.ColumnNames[j] == "Manager")
+                    {
+                        <td><input type="number" name="@Model.ColumnNames[j]" value="@Model.Results[i][j]" /></td>
+                    }
+                    else if (Model.ColumnNames[j] == "Email")
+                    {
+                        <td><input type="email" class="form-control" name="@Model.ColumnNames[j]" /></td>
+                    }
+                    else if(Model.ColumnNames[j] == "ID")
+                    {
+                        <td><input type="number" disabled name="@Model.ColumnNames[j]" value="@Model.Results[i][j]" /></td>
+
                     }
                     else
                     {
@@ -60,9 +74,7 @@
 </form>
         <!--}-->
     }
-    <p>@Model.AInt</p>
 }
-<p>@Model.dbCommand</p>
 <p>@Model.EMessage</p>
 <script>    
     $(".dateSelection").each(function () {

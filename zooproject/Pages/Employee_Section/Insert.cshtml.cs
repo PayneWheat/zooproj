@@ -33,6 +33,7 @@ namespace zooproject.Pages.Employee_Section
         public List<string> ColumnNames2 = new List<string>();
         public int AInt { get; set; }
         public int BInt { get; set; }
+        public int newID { get; set; }
 
         public InsertModel(IConfiguration iconfiguration, Database ZooDatabase)
         {
@@ -59,7 +60,6 @@ namespace zooproject.Pages.Employee_Section
                 reader = cmd.ExecuteReader();
                 //IDataRecord record;
                 AInt = reader.FieldCount;
-                Debug.WriteLine(AInt.ToString());
                 string output = "";
                 for (int i = 0; i < AInt; i++)
                 {
@@ -71,20 +71,28 @@ namespace zooproject.Pages.Employee_Section
                 int j = 0;
                 while (reader.Read())
                 {
-                    //Debug.WriteLine(String.Format("{0}, {1}", reader[0], reader[1]));
                     Results.Add(new List<string>());
                     for (int i = 0; i < AInt; i++)
                     {
-                        output += reader[i] + ", ";
                         Results[j].Add(reader[i].ToString());
                     }
                     j++;
                     output += '\n';
                 }
                 Debug.WriteLine("Results count: " + Results.Count());
-                Debug.WriteLine(output);
                 database.disconnect();
                 cmd.Dispose();
+                if (whichEntity != "PURCHASE" || whichEntity != "PURCHASE_INFO")
+                {
+                    database.connect();
+                    dbCommand = "SELECT MAX(ID) FROM " + whichEntity;
+                    cmd = new SqlCommand();
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    newID = (int)cmd.ExecuteScalar() + 1;
+                    Debug.WriteLine(newID.ToString());
+                    database.disconnect();
+                }
             }
             if(we == "PURCHASE")
             {
