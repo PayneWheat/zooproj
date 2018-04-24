@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -55,9 +58,30 @@
                     <!--<li><a asp-page="/Index">Home</a></li>  Seems kind of extra because we already have Group 14 Zoo-->
                     <li><a asp-page="/AttractionInfo">Attraction Info</a></li>
                     <li><a asp-page="/ProductCatalog">Product Catalog</a></li>
-                    <li><a asp-page="/Login">Login</a></li>
-                    <li><a asp-page="/Logout">Logout</a></li>
-                    <li><a asp-page="/Customer_Section/Account">Account</a></li>
+
+                    @if (HttpContextAccessor.HttpContext.User.IsInRole("Customer"))
+    {
+                <li><a asp-page="/Customer_Section/Account">Account</a></li>
+                <li><a asp-page="/Logout">Logout</a></li>
+}
+                    @if (HttpContextAccessor.HttpContext.User.IsInRole("Employee") || HttpContextAccessor.HttpContext.User.IsInRole("Manager"))
+    {
+                <li><a asp-page="/Employee_Section/Index">Employee Home</a></li>
+                <li><a asp-page="/Logout">Logout</a></li>
+}
+else
+{
+                <li><a asp-page="/Login">Login</a></li>
+
+}
+
+
+
+
+
+
+
+
                 </ul>
             </div>
         </div>
