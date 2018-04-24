@@ -2,6 +2,8 @@
 @model EmployeeIndexModel
 @{
 }
+<script src="~/js/moment.js"></script>
+<script src="~/js/Chart.js"></script>
 <style>
     .employee-nav {
         display: flex;
@@ -16,6 +18,9 @@
             display: block;
         }
 </style>
+<nav class="employee-links" style="padding-top:15px;">
+    <a class="btn btn-default" stlye="margin:10px;" asp-page="../Logout">Logout</a>
+</nav>
 <h1>Employee Home Page for @HttpContext.User.Identity.Name</h1>
 
 @if (HttpContext.User.IsInRole("Manager"))
@@ -31,6 +36,7 @@
     <h2>You are an Employee!</h2>
 }
 <div>
+<<<<<<< HEAD
     <nav class="employee-nav">
         <a asp-page="/Employee_Section/Insert">Insert</a>
         <a asp-page="/Employee_Section/SalesReports">Sales Reports</a>
@@ -80,5 +86,7 @@
         <a href="/Employee_Section/Search?we=STORE_TYPE">View/Edit Store Types</a>
         <a href="/Employee_Section/Insert?we=STORE_TYPE">Create Store Type</a>
     </div>
-</div>
+    <script>
 
+
+    </script>

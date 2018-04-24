@@ -3,6 +3,7 @@
 @{
 }
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
 <style>
     #results {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -51,15 +52,16 @@
         font-size: 12pt;
     }
 </style>
-
-<nav class="employee-links">
-    <a asp-page="./Insert">Insert</a>
-    <a asp-page="./SalesReports">Sales Reports</a>
-    <a asp-page="./Search">Search</a>
-    <a asp-page="./Update">Update</a>
-    <a asp-page="../Logout">Logout</a>
+@if (!String.IsNullOrEmpty(@Model.successMessage))
+{
+    <div class="alert alert-success">
+        <strong>Success!</strong> @Model.successMessage
+    </div>
+}
+<nav class="employee-links" style="padding-top:15px;">
+    <a class="btn btn-default" stlye="margin:10px;" href="./">Back to Employee Section</a>
+    <a class="btn btn-default" stlye="margin:10px;" asp-page="../Logout">Logout</a>
 </nav>
-<a href="./">Back to Employee Section</a>
 <h1>Search</h1>
 
 @{
@@ -87,117 +89,119 @@
         -->
     if (Model.whichEntity != "")
     {
-        <div class="container">
+        <div id="search-fields" class="container collapse">
             <form class="form-horizontal" method="post">
                 @for (int i = 0; i < Model.AInt; i++)
                 {
                     <div class="form-group">
                         <label for="@Model.ColumnNames[i]" class="control-label col-sm-2">@Model.ColumnNames[i]</label>
                         <div class="col-sm-10">
-                        @if (Model.ColumnNames[i] == "Attraction" || Model.ColumnNames[i] == "MembershipType" || Model.ColumnNames[i] == "Pay_option"
-                           || Model.ColumnNames[i] == "Manager")
-                        {
-                            <select name="@Model.ColumnNames[i]" class="form-control">
-                                <option></option>
+                            @if (Model.ColumnNames[i] == "Attraction" || Model.ColumnNames[i] == "MembershipType" || Model.ColumnNames[i] == "Pay_option"
+                         || Model.ColumnNames[i] == "Manager")
+                            {
+                                <select name="@Model.ColumnNames[i]" class="form-control">
+                                    <option></option>
 
-                                @for (int j = 0; j < Model.Results2.Count(); j++)
-                                {
-                                    <option value="@Model.Results2[j][0]">@Model.Results2[j][1]</option>
-                                }
-                            </select>
-                        }
-                        else if (Model.ColumnNames[i] == "Store")
-                        {
-                            <select name="@Model.ColumnNames[i]" class="form-control">
-                                <option></option>
-                                @for (int j = 0; j < Model.Results3.Count(); j++)
-                                {
-                                    <option value="@Model.Results3[j][0]">@Model.Results3[j][1]</option>
-                                }
-                            </select>
+                                    @for (int j = 0; j < Model.Results2.Count(); j++)
+                                    {
+                                        <option value="@Model.Results2[j][0]">@Model.Results2[j][1]</option>
+                                    }
+                                </select>
+                            }
+                            else if (Model.ColumnNames[i] == "Store")
+                            {
+                                <select name="@Model.ColumnNames[i]" class="form-control">
+                                    <option></option>
+                                    @for (int j = 0; j < Model.Results3.Count(); j++)
+                                    {
+                                        <option value="@Model.Results3[j][0]">@Model.Results3[j][1]</option>
+                                    }
+                                </select>
 
-                        }
-                        else if (Model.ColumnNames[i] == "Title")
-                        {
-                            <select name="@Model.ColumnNames[i]" class="form-control">
-                                <option></option>
-                                @for (int j = 0; j < Model.Results4.Count(); j++)
-                                {
-                                    <option value="@Model.Results4[j][0]">@Model.Results4[j][1]</option>
-                                }
-                            </select>
+                            }
+                            else if (Model.ColumnNames[i] == "Title")
+                            {
+                                <select name="@Model.ColumnNames[i]" class="form-control">
+                                    <option></option>
+                                    @for (int j = 0; j < Model.Results4.Count(); j++)
+                                    {
+                                        <option value="@Model.Results4[j][0]">@Model.Results4[j][1]</option>
+                                    }
+                                </select>
 
-                        }
-                        else if(Model.ColumnNames[i] == "Gender")
-                        { 
-                            <select name="@Model.ColumnNames[i]" class="form-control">
-                                <option></option>
-                                @for (int j = 0; j < Model.Results5.Count(); j++)
-                                {
-                                    <option value="@Model.Results5[j][0]">@Model.Results5[j][1]</option>
-                                }
-                            </select>
-                        }
-                        else if (Model.ColumnNames[i] == "Status_date" || Model.ColumnNames[i] == "Health_date" || Model.ColumnNames[i] == "ExpirationDate"
-                        || Model.ColumnNames[i] == "Hire_Date" || Model.ColumnNames[i] == "Date" || Model.ColumnNames[i] == "Birth Date"
-                        || Model.ColumnNames[i] == "Open_closed_date" || Model.ColumnNames[i] == "Manager_date")
-                        {
-                            <input type="text" class="dateSelection form-control" name="@Model.ColumnNames[i]" />
-                        }
-                        else if(Model.ColumnNames[i] == "ID" || Model.ColumnNames[i] == "Gender" || Model.ColumnNames[i] == "Height" || Model.ColumnNames[i] == "Weight"
-                        || Model.ColumnNames[i] == "Zip" || Model.ColumnNames[i] == "Phone#" || Model.ColumnNames[i] == "Phone" || Model.ColumnNames[i] == "ZipAddress"
-                        || Model.ColumnNames[i] == "Price" || Model.ColumnNames[i] == "Customer" || Model.ColumnNames[i] == "Employee" || Model.ColumnNames[i] == "Receipt"
-                        || Model.ColumnNames[i] == "Product" || Model.ColumnNames[i] == "Quantity" || Model.ColumnNames[i] == "Type")
-                        {
-                            <input type="number" class="form-control" name="@Model.ColumnNames[i]" />
-                        }
-                        else if(Model.ColumnNames[i] == "Email")
-                        {
-                            <input type="email" class="form-control" name="@Model.ColumnNames[i]" />
-                        }
-                        else
-                        {
-                            <input type="text" class="autocomplete form-control" name="@Model.ColumnNames[i]" />
-                        }
+                            }
+                            else if (Model.ColumnNames[i] == "Gender")
+                            {
+                                <select name="@Model.ColumnNames[i]" class="form-control">
+                                    <option></option>
+                                    @for (int j = 0; j < Model.Results5.Count(); j++)
+                                    {
+                                        <option value="@Model.Results5[j][0]">@Model.Results5[j][1]</option>
+                                    }
+                                </select>
+                            }
+                            else if (Model.ColumnNames[i] == "Status_date" || Model.ColumnNames[i] == "Health_date" || Model.ColumnNames[i] == "ExpirationDate"
+                            || Model.ColumnNames[i] == "Hire_Date" || Model.ColumnNames[i] == "Date" || Model.ColumnNames[i] == "Birth Date"
+                            || Model.ColumnNames[i] == "Open_closed_date" || Model.ColumnNames[i] == "Manager_date")
+                            {
+                                <input type="text" class="dateSelection form-control" name="@Model.ColumnNames[i]" />
+                            }
+                            else if (Model.ColumnNames[i] == "ID" || Model.ColumnNames[i] == "Gender" || Model.ColumnNames[i] == "Height" || Model.ColumnNames[i] == "Weight"
+                            || Model.ColumnNames[i] == "Zip" || Model.ColumnNames[i] == "Phone#" || Model.ColumnNames[i] == "Phone" || Model.ColumnNames[i] == "ZipAddress"
+                            || Model.ColumnNames[i] == "Price" || Model.ColumnNames[i] == "Customer" || Model.ColumnNames[i] == "Employee" || Model.ColumnNames[i] == "Receipt"
+                            || Model.ColumnNames[i] == "Product" || Model.ColumnNames[i] == "Quantity" || Model.ColumnNames[i] == "Type")
+                            {
+                                <input type="number" class="form-control" name="@Model.ColumnNames[i]" />
+                            }
+                            else if (Model.ColumnNames[i] == "Email")
+                            {
+                                <input type="email" class="form-control" name="@Model.ColumnNames[i]" />
+                            }
+                            else
+                            {
+                                <input type="text" class="autocomplete form-control" name="@Model.ColumnNames[i]" />
+                            }
                         </div>
                     </div>
                 }
-                <input type="submit" value="Search" />
+                <div style="text-align:center;">
+                    <input type="submit" class="btn btn-primary" value="Search" />
+                </div>
             </form>
         </div>
-        <a href="./Insert?we=@Model.whichEntity">Add New @Model.whichEntity</a>
+        <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#search-fields">Show/Hide Search Fields</button>
 
     }
 }
 
-<h2>@Model.whichEntity</h2>
+<h2 style="text-transform: capitalize;">@Model.whichEntity</h2>
+<a class="btn btn-default" style="margin-bottom:15px;" href="./Insert?we=@Model.whichEntity">Add New @Model.whichEntity</a>
 @{
     if (Model.whichEntity != "")
     {
-        <!--if (Model.whichAttributes == "*")
-        {-->
-        <!-- Table for results of Title_type-->
-        <table id="resultsTable" style="width:100%; border:1px solid black; padding:15px">
-
-            <tr>
-                <th></th>
-                @for (int i = 0; i < Model.AInt; i++)
-                {
-                    <th>@Model.ColumnNames[i]</th>
-                }
-            </tr>
-            @for (int i = 0; i < Model.BInt; i++)
-            {
+        <table id="resultsTable" class="table table-hover">
+            <thead>
                 <tr>
-                    <td><a href="./Update?we=@Model.whichEntity&id=@Model.Results[i][0]">Edit</a></td>
-                    @for (int j = 0; j < Model.AInt; j++)
+                    <th></th>
+                    @for (int i = 0; i < Model.AInt; i++)
                     {
-                        <td>@Model.Results[i][j]</td>
+                        <th>@Model.ColumnNames[i]</th>
                     }
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.BInt; i++)
+                {
+                    <tr>
+                        <td><a href="./Update?we=@Model.whichEntity&id=@Model.Results[i][0]">Edit</a></td>
+                        @for (int j = 0; j < Model.AInt; j++)
+                        {
+                            <td>@Model.Results[i][j]</td>
+                        }
+                    </tr>
+                }
+            </tbody>
         </table>
-        <!--}-->
     }
     <p>@Model.AMessage</p>
     <p>@Model.AInt</p>
@@ -282,6 +286,10 @@
             $(this).autocomplete({
                 source: availableTags
             });
+        });
+
+        $(document).ready(function () {
+            $('#resultsTable').DataTable();
         });
     </script>
 }

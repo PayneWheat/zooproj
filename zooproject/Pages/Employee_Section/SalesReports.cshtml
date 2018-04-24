@@ -5,7 +5,7 @@
 <script src="~/js/moment.js"></script>
 <script src="~/js/Chart.js"></script>
 
-
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
 <style>
     #sales, #report {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -69,58 +69,64 @@
         float: left;
     }
 </style>
-<nav class="employee-links">
-    <a asp-page="./Insert">Insert</a>
-    <a asp-page="./SalesReports">Sales Reports</a>
-    <a asp-page="./Search">Search</a>
-    <a asp-page="./Update">Update</a>
-    <a asp-page="../Logout">Logout</a>
+<nav class="employee-links" style="padding-top:15px;">
+    <a class="btn btn-default" stlye="margin:10px;" href="./">Back to Employee Section</a>
+    <a class="btn btn-default" stlye="margin:10px;" asp-page="../Logout">Logout</a>
 </nav>
-<a href="./">Back to Employee Section</a>
-<h1>Sales's Report Page</h1>
-<div>
+<h1 style="text-align:center;">Sales Report Page</h1>
+<div class="container">
     <form method="get">
-        <div id="dateGenerator">
-            <h2>By Date</h2>
-            <div id="rangeDiv">
-                <label for="startDate" id="sDLbl">Starting Date</label>
-                <input type="text" id="startDate" name="startDate" class="dateSelection" value="@Model.sD" />
-                <label for="endDate" id="endDateLabel">Ending Date</label>
-                <input type="text" id="endDate" name="endDate" class="dateSelection" value="@Model.eD" style="" />
-                <div>Only select starting date for single day results.</div>
+        <div class="row">
+            <div id="rangeDiv" class="col-sm-4 form-group">
+                <h2>By Date</h2>
+                <div class="form-group">
+                    <label for="startDate" id="sDLbl">Starting Date</label>
+                    <input type="text" id="startDate" name="startDate" class="dateSelection form-control" value="@Model.sD" />
+                </div>
+                <div class="form-group">
+                    <label for="endDate" id="endDateLabel">Ending Date</label>
+                    <input type="text" id="endDate" name="endDate" class="dateSelection form-control" value="@Model.eD" style="" />
+                </div>
+                <p>Only select starting date for single day results.</p>
             </div>
-        </div>
-        <div id="timeGenerator">
-            <h2>By Time</h2>
-            <label for="startTime">Time</label>
-            <input type="text" name="startTime" class="timeSelection" value="@Model.sT"/>
-            <label for="endTime">Ending Time</label>
-            <input type="text" name="endTime" class="timeSelection" value="@Model.eT"/>
-        </div>
-        <div id="storeGenerator">
-            <h2>By Store</h2>
-            <label for="storeSelect">Select Store</label>
-            <select name="storeSelect" id="storeSelection">
-                <option value="none"></option>
-                @for (int i = 0; i < Model.SInt; i++)
+
+            <div id="timeGenerator" class="form-group col-sm-4">
+                <h2>By Time</h2>
+                <div>
+                    <label for="startTime">Time</label>
+                    <input type="text" name="startTime" class="timeSelection form-control" value="@Model.sT" />
+                </div>
+                <div>
+                    <label for="endTime">Ending Time</label>
+                    <input type="text" name="endTime" class="timeSelection form-control" value="@Model.eT" />
+                </div>
+            </div>
+
+            <div id="storeGenerator" class="form-group col-sm-4">
+                <h2>By Store</h2>
+                <label for="storeSelect">Select Store</label>
+                <select name="storeSelect" id="storeSelection" class="form-control">
+                    <option value="none"></option>
+                    @for (int i = 0; i < Model.SInt; i++)
                 {
                     @if (Model.StoreResults[i][0] == Model.sS.ToString())
-                    {
-                        <option value="@Model.StoreResults[i][0]" selected>@Model.StoreResults[i][1]</option>
-                    }
-                    else
-                    {
-                        <option value="@Model.StoreResults[i][0]">@Model.StoreResults[i][1]</option>
+                {
+                    <option value="@Model.StoreResults[i][0]" selected>@Model.StoreResults[i][1]</option>
+            }
+            else
+            {
+                <option value="@Model.StoreResults[i][0]">@Model.StoreResults[i][1]</option>
 
-                    }
-                }
-            </select>
+        }
+            }
+                </select>
+            </div>
         </div>
-        <div id="employeeGenerator">
-            <h2>By Employee</h2>
-            <!--
+        <div class="row">
+            <div id="employeeGenerator" class="form-group col-sm-4">
+                <h2>By Employee</h2>
+                <!--
         <div>
-
             <label for="employeeFName">Employee First Name</label>
             <input type="text" name="employeeFName" id="eFirstName" />
             <label for="employeeLName">Employee Last Name</label>
@@ -128,61 +134,73 @@
 
         </div>
             -->
-            <div>
-                <label for="employeeID">Employee ID</label>
-                <input type="text" name="employeeID" id="eID" />
-                <!--
-                <label for="employeeTitle">Title</label>
+                <div>
+                    <label for="employeeID">Employee ID</label>
+                    <input type="number" name="employeeID" class="form-control" id="eID" />
+                    <label for="employeeTitle">Title</label>
 
-                <select name="employeeTitle">
-                    <option value="none"></option>
-                @for (int i = 0; i < Model.TInt; i++)
-                {
-                    <option value="@Model.TitleResults[i][0]">@Model.TitleResults[i][1]</option>
-                }
+                    <select name="employeeTitle" class="form-control">
+                        <option value="none"></option>
+                    @for (int i = 0; i < Model.TInt; i++)
+                    {
+                        <option value="@Model.TitleResults[i][0]">@Model.TitleResults[i][1]</option>
+                    }
 
-                </select>
-                    -->
+                    </select>
+                </div>
             </div>
-        </div>
-        <!--
-        <div id="customerGenerator">
-            <h2>By Customer</h2>
-            <div>
-                <label for="customerID">Customer ID</label>
-                <input type="text" name="customerID" id="cID" />
-            </div>
-            <div>
-                <label for="customerFName">First Name</label>
-                <input type="text" name="customerFName" id="cFirstName" />
-
-                <label for="customerLName">Last Name</label>
-                <input type="text" name="customerLName" id="cLastName" />
-            </div>
-            <div>
-                <label for="customerAddress">Address</label>
-                <input type="text" name="customerAddress" id="cID" />
-                <label for="customerZip">Zip Code</label>
-                <input type="text" name="customerZip" id="cID" />
-            </div>
-            <div>
-                <label for="customerPhone">Phone Number</label>
-                <input type="text" name="customerPhone" id="cID" />
-                <label for="customerEmail">Email</label>
-                <input type="text" name="customerEmail" id="cID" />
-            </div>
-        </div>
-            -->
-        <div id="productGenerator">
-            <h2>By Product</h2>
-            <label for="productID">Product ID</label>
-            <input type="text" name="productID" />
             <!--
-            <label for="productName">Name</label>
-            <input type="text" name="productName" />
-                -->
+    <div id="customerGenerator">
+        <h2>By Customer</h2>
+        <div>
+            <label for="customerID">Customer ID</label>
+            <input type="text" name="customerID" id="cID" />
         </div>
-        <input type="submit" value="Generate Report" />
+        <div>
+            <label for="customerFName">First Name</label>
+            <input type="text" name="customerFName" id="cFirstName" />
+
+            <label for="customerLName">Last Name</label>
+            <input type="text" name="customerLName" id="cLastName" />
+        </div>
+        <div>
+            <label for="customerAddress">Address</label>
+            <input type="text" name="customerAddress" id="cID" />
+            <label for="customerZip">Zip Code</label>
+            <input type="text" name="customerZip" id="cID" />
+        </div>
+        <div>
+            <label for="customerPhone">Phone Number</label>
+            <input type="text" name="customerPhone" id="cID" />
+            <label for="customerEmail">Email</label>
+            <input type="text" name="customerEmail" id="cID" />
+        </div>
+    </div>
+        -->
+            <div id="productGenerator" class="form-group col-sm-4">
+                <h2>By Product</h2>
+                <label for="productID">Product ID</label>
+                <input type="number" name="productID" id="productID" class="form-control" />
+                <label for="productName">Product Name</label>
+                <select name="productName" id="productName" class="form-control">
+                    <option value="none"></option>
+                    @for(int i = 0; i < Model.ProductResults.Count(); i++)
+                    {
+                        <option value="@Model.ProductResults[i][0]">@Model.ProductResults[i][1]</option>
+
+                    }
+                </select>
+                <!--
+        <label for="productName">Name</label>
+        <input type="text" name="productName" />
+            -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col" style="text-align:center;">
+                <input type="submit" class="btn btn-primary" value="Generate Report" />
+            </div>
+        </div>
     </form>
 </div>
 <div id="resultsContainer">
@@ -197,27 +215,31 @@
     else if (Model.BInt > 0)
     {
         // Do an hourly result for the graph if less than 4?
-        <table id="report">
-            <tr>
-                @for (int i = 0; i < Model.AInt; i++)
+        <div style="padding-bottom:15px; font-size:large;"><span id="avgLabel" style="text-align:right; font-weight:bolder; padding-right:15px;">Average Per Day:&nbsp;</span><span id="avgCell"></span></div>
+        if (Model.pID == -1)
         {
-            <th>@Model.ViewColumns[i]</th>
-}
-            </tr>
+        <div style="padding-bottom:15px; font-size:large;"><span id="tixSold" style="text-align:right; font-weight:bolder; padding-right:15px;">Tickets Sold:&nbsp;</span><span id="tixTotal">@Model.ticketsSold</span></div>
+        }
+        <table id="report" class="table table-hover">
+            <thead>
+                <tr>
+                    @for (int i = 0; i < Model.AInt; i++)
+                    {
+                        <th>@Model.ViewColumns[i]</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.BInt; i++)
+                {
+                <tr>
+                    <td>@DateTime.Parse(Model.ViewResults[i][0]).ToShortDateString()</td>
+                    <td>@Model.ViewResults[i][1]</td>
 
-            @for (int i = 0; i < Model.BInt; i++)
-    {
-        <tr>
-            @for (int j = 0; j < Model.AInt; j++)
-    {
-        <td>@Model.ViewResults[i][j]</td>
-}
+                </tr>
+                }
 
-        </tr>
-}
-            <tr><td id="avgLabel" style="text-align:right; padding: 0 15px">Average Per Day:</td><td id="avgCell"></td></tr>
-            <tr><td id="totalPurchases" style="text-align:right; padding: 0 15px">Total Purchases:</td><td>@Model.purchaseCount</td></tr>
-            <tr><td id="ticketsSold" style="text-align:right; padding: 0 15px">Tickets sold:</td><td>@Model.ticketsSold</td></tr>
+            </tbody>
         </table>
 
     }
@@ -303,6 +325,14 @@
         });
     });
 
+    var productId = document.getElementById("productID");
+    var productName = document.getElementById("productName");
+    productName.addEventListener("change", function () {
+        if (productName.value == "none")
+            productId.value = "";
+        else
+            productId.value = productName.value;
+    });
 
     var reportTable = document.getElementById("report");
     var tableData = [];
@@ -311,20 +341,23 @@
     var bInt = @Model.BInt;
     console.log(bInt);
     if (bInt >= 4) {
-        for (i = 1; i <= bInt; i++) {
-            var date = reportTable.children[0].children[i].children[0].innerHTML;
+        for (i = 0; i < bInt; i++) {
+            console.log(reportTable.children[1].children)
+            var date = reportTable.children[1].children[i].children[0].innerHTML;
             console.log("date: " + date);
-            var value = parseInt(reportTable.children[0].children[i].children[1].innerHTML);
+            var value = parseInt(reportTable.children[1].children[i].children[1].innerHTML);
 
             avg += value;
             console.log(avg);
             tableData.push(value);
             date = new Date(date.replace(/-/g, "/"));
-            tableDates.push(date.toISOString());
+            date = new Date(date.toDateString());
+            console.log(date);
+            tableDates.push(date);
         }
         avg = avg / bInt;
-        console.log("avg: " + avg)
-        document.getElementById("avgCell").innerHTML = avg.toFixed(2);
+        console.log("avg: " + avg);
+        document.getElementById("avgCell").innerHTML = "$" + avg.toFixed(2);
 
         console.log(tableDates);
         var ctx = document.getElementById("myChart").getContext('2d');
@@ -372,5 +405,10 @@
             }
         });
     }
+    $(document).ready(function () {
+        $('#report').DataTable({
+            "order": []
+        });
+    });
 
 </script>

@@ -4,39 +4,11 @@
 }
 
 <style>
-    #insertion {
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
 
-        #insertion td, #insertion th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        #insertion tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        #insertion tr:hover {
-            background-color: #ddd;
-        }
-
-        #insertion th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: #4CAF50;
-            color: white;
-        }
 </style>
-<nav class="employee-links">
-    <a asp-page="./Insert">Insert</a>
-    <a asp-page="./SalesReports">Sales Reports</a>
-    <a asp-page="./Search">Search</a>
-    <a asp-page="./Update">Update</a>
-    <a asp-page="../Logout">Logout</a>
+<nav class="employee-links" style="padding-top:15px;">
+    <a class="btn btn-default" stlye="margin:10px;" href="./">Back to Employee Section</a>
+    <a class="btn btn-default" stlye="margin:10px;" asp-page="../Logout">Logout</a>
 </nav>
 <h1>Insert into database</h1>
 @{
@@ -154,15 +126,15 @@
     }
             </select>
 
-            <input type="submit" value="Choose" /><br />
+            <input type="submit" class="btn btn-primary" class="btn btn-primary" value="Choose" /><br />
         </div>
         @if (Model.whichEntity == "ANIMAL")
     {
         <p>Animal Chosen</p>
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -244,7 +216,7 @@
                 <input type="number" name="Attraction" class="form-control" placeholder="Attraction" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" class="btn btn-primary" value="Insert" />
 
 
 
@@ -254,10 +226,10 @@
     {
         <p>Attraction Chosen</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" placeholder="ID" class="form-control" />
+                <input type="hidden" name="ID" placeholder="ID" class="form-control" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -299,16 +271,16 @@
                 <input type="text" name="Description" class="autocomplete form-control" placeholder="Description" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
         }
 
         @if (Model.whichEntity == "CUSTOMER")
         {
         <p>Customer Chosen</p>
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -377,16 +349,16 @@
                 <input type="text" class="dateSelection form-control" name="ExpirationDate" placeholder="ExpirationDate" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 }
 
             @if (Model.whichEntity == "EMPLOYEE")
     {
         <p>Employee Chosen</p>
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -473,7 +445,7 @@
                 <input type="number" name="Attraction" class="form-control" placeholder="Attraction" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
 }
 
@@ -481,10 +453,10 @@
     {
         <p>Gender Type</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -493,7 +465,7 @@
                 <input type="text" name="Name" class="form-control" placeholder="Gender" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
 }
 
@@ -501,10 +473,10 @@
     {
         <p>MEMBERSHIP_TYPE CHOSEN</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -513,7 +485,7 @@
                 <input type="text" name="Name" class="form-control" placeholder="MembershipType" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
 }
 
@@ -521,10 +493,10 @@
     {
         <p>PAY_TYPE CHOSEN</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="text" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -533,16 +505,16 @@
                 <input type="text" name="Name" class="form-control" placeholder="PayType" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 }
 
             @if (Model.whichEntity == "PRODUCT")
     {
         <p>Product Chosen</p>
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
 
@@ -564,7 +536,7 @@
                 <input type="text" name="Description" class="form-control autocomplete" placeholder="Desecription" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 }
 
             @if (Model.whichEntity == "PURCHASE")
@@ -574,7 +546,7 @@
         <div class="form-group">
             <label for="Receipt" class="control-label col-sm-2">Receipt</label>
             <div class="col-sm-10">
-                <input type="number" name="Receipt" class="form-control" placeholder="Receipt" />
+                <input type="number" name="Receipt" class="form-control" placeholder="Receipt" disabled value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -613,7 +585,7 @@
                 <input type="text" name="Employee" class="form-control" placeholder="Employee" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 }
 
             @if (Model.whichEntity == "PURCHASE_INFO")
@@ -668,7 +640,7 @@
                 <input type="number" name="insertQuantity" class="form-control" placeholder="Quantity" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
             }
 
@@ -676,10 +648,10 @@
             {
         <p>STORE CHOSEN</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -706,7 +678,7 @@
                 <input type="text" name="insertManager_date" class="dateSelection form-control" placeholder="Manager_date" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
 }
 
@@ -714,10 +686,10 @@
     {
         <p>STORE_TYPE CHOSEN</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -726,7 +698,7 @@
                 <input type="text" name="Name" class="form-control" placeholder="Type" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
 }
 
@@ -734,10 +706,10 @@
     {
         <p>TITLE_TYPE CHOSEN</p>
 
-        <div class="form-group">
+        <div class="form-group" style="display:none;">
             <label for="ID" class="control-label col-sm-2">ID</label>
             <div class="col-sm-10">
-                <input type="number" name="ID" class="form-control" placeholder="ID" />
+                <input type="hidden" name="ID" class="form-control" placeholder="ID" value="@Model.newID" />
             </div>
         </div>
         <div class="form-group">
@@ -746,13 +718,13 @@
                 <input type="text" name="Title" class="form-control" placeholder="Type" />
             </div>
         </div>
-        <input type="submit" value="Insert" />
+        <input type="submit" class="btn btn-primary" value="Insert" />
 
 }
 
 </form>
 </div>
-    <table id="resultsTable">
+    <table id="resultsTable" style="display:none;">
         <tr>
             @for (int i = 0; i < Model.AInt; i++)
             {
@@ -771,8 +743,6 @@
         }
     </table>
 }
-<p>@Model.AMessage</p>
-<p>@Model.dbCommand</p>
 <p>@Model.EMessage</p>
 <script>
     //var dateFields = document.querySelectorAll(".dateSelection");

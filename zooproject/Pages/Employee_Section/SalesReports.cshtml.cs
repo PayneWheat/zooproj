@@ -26,16 +26,19 @@ namespace zooproject.Pages.Employee_Section
         public List<string> ViewColumns = new List<string>();
         public List<List<string>> StoreResults = new List<List<string>>();
         public List<List<string>> TitleResults = new List<List<string>>();
+        public List<List<string>> ProductResults = new List<List<string>>();
 
         public int AInt = 0;
         public int BInt = 0;
         public int SInt = 0;
         public int TInt = 0;
+        public int PInt = 0;
 
         public string StorePurchaseNum;
         public decimal StoreRevenue;
         public int StoreItems;
         public decimal StoreAverage;
+
 
         public string sD = ""; //start date
         public string eD = ""; //end date
@@ -44,6 +47,7 @@ namespace zooproject.Pages.Employee_Section
         public int sS = -1; //store selection
         public int eID = -1; //employee ID
         public int pID = -1; //product ID
+        public int pName = -1;
 
         public int purchaseCount = 0;
         public int ticketsSold = 0;
@@ -62,7 +66,8 @@ namespace zooproject.Pages.Employee_Section
 
         }
 
-        public void OnGet(string startDate = "", string endDate = "", string startTime = "", string endTime = "", int storeSelect = -1, string employeeFName = "", string employeeLName = "", int employeeID = -1, string employeeTitle = "", int productID = -1, string productName = "")
+        public void OnGet(string startDate = "", string endDate = "", string startTime = "", string endTime = "", int storeSelect = -1, string employeeFName = "", 
+            string employeeLName = "", int employeeID = -1, string employeeTitle = "", int productID = -1, int productName = -1)
         {
             sD = startDate;
             eD = endDate;
@@ -71,6 +76,7 @@ namespace zooproject.Pages.Employee_Section
             sS = storeSelect;
             eID = employeeID;
             pID = productID;
+            pName = productName;
             /*
             SqlCommand cmd = new SqlCommand("SELECT Date, SUM(PURCHASE.Amount) AS Revenue, " +
                 "SUM(PURCHASE_INFO.Quantity) AS 'Items Purchased' FROM PURCHASE, PURCHASE_INFO " +
@@ -140,6 +146,27 @@ namespace zooproject.Pages.Employee_Section
             database.disconnect();
 
             database.connect();
+            cmd = new SqlCommand();
+            dbCommand = "SELECT ID, Name FROM PRODUCT;";
+            cmd.Connection = database.Connection;
+            cmd.CommandText = dbCommand;
+            reader = cmd.ExecuteReader();
+            colCount = reader.FieldCount;
+            j = 0;
+            while (reader.Read())
+            {
+                ProductResults.Add(new List<string>());
+                for (int i = 0; i < colCount; i++)
+                {
+                    ProductResults[j].Add(reader[i].ToString());
+                }
+                j++;
+            }
+            PInt = j;
+            cmd.Dispose();
+            database.disconnect();
+
+            database.connect();
             cmd.Connection = database.Connection;
             cmd = new SqlCommand();
             //dbCommand = "SELECT PUR.*, PURINFO.* FROM PURCHASE PUR LEFT JOIN PURCHASE_INFO PURINFO ON PUR.Receipt = PURINFO.Receipt";
@@ -205,14 +232,9 @@ namespace zooproject.Pages.Employee_Section
                 whereAndClause += "AND PURCHASE_INFO.Product =" + productID + " ";
                 pID = productID;
             }
-            /*
-            if(productName != "")
-            {
-                // add payment type to whereAndClause
-            }
-            */
+            
 
-            dbCommand = @"SELECT DISTINCT C.PurDate,
+            dbCommand = @"SELECT DISTINCT CONVERT(DATE, C.PurDate, 101) PurchaseDate,
 SUM(C.RecTotal) DailySales
 FROM
 (SELECT PURCHASE.Date AS PurDate,
@@ -231,7 +253,7 @@ GROUP BY PURCHASE.Date, PURCHASE.Store, A.Receipt) B
 WHERE PURCHASE.Date = B.Date 
 GROUP BY PURCHASE.Date, B.ReceiptTotal) C
 GROUP BY C.PurDate
-ORDER BY C.PurDate;";
+ORDER BY PurchaseDate ASC;";
             Debug.WriteLine(dbCommand);
             cmd.Connection = database.Connection;
             cmd.CommandText = dbCommand;
