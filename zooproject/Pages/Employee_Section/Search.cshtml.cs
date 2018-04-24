@@ -64,11 +64,54 @@ namespace zooproject.Pages.Employee_Section
             {
                 database.connect();
                 SqlCommand cmd = new SqlCommand();
+                string joinClause = " LEFT JOIN";
+                // entities that need joins:
+                // Animal (attraction), Attraction (manager), 
                 if (we != "" && wa == "" && id == -1)
                 {
                     // only entity value set
                     whichEntity = we;
-                    dbCommand = "SELECT * FROM " + whichEntity + ";";
+                    if (whichEntity == "ANIMAL")
+                    {
+                        dbCommand = "SELECT ANIMAL.*, ATTRACTION.Name AttractionName FROM ANIMAL LEFT JOIN ATTRACTION ON Animal.Attraction = ATTRACTION.ID";
+                    }
+                    else if (whichEntity == "ATTRACTION")
+                    {
+                        dbCommand = "SELECT ATTRACTION.*, EMPLOYEE.LName ManagerLastName FROM ATTRACTION LEFT JOIN EMPLOYEE ON ATTRACTION.Manager = EMPLOYEE.ID";
+                    }
+                    else if (whichEntity == "EMPLOYEE")
+                    {
+                        dbCommand = @"SELECT EMPLOYEE.*, GENDER_TYPE.Name 'Employee Gender', STORE.Name 'Store', ATTRACTION.Name 'Attraction' 
+FROM EMPLOYEE
+LEFT JOIN GENDER_TYPE ON EMPLOYEE.Gender = GENDER_TYPE.ID
+LEFT JOIN STORE ON EMPLOYEE.Store = STORE.ID
+LEFT JOIN ATTRACTION ON EMPLOYEE.Attraction = ATTRACTION.ID";
+                    }
+                    else if (whichEntity == "CUSTOMER")
+                    {
+                        dbCommand = "SELECT CUSTOMER.*, MEMBERSHIP_TYPE.Name MembershipTypeName FROM CUSTOMER LEFT JOIN MEMBERSHIP_TYPE ON CUSTOMER.MembershipType= MEMBERSHIP_TYPE.ID";
+                    }
+                    else if (whichEntity == "PURCHASE")
+                    {
+                        dbCommand = @"SELECT PURCHASE.*, PAY_TYPE.Name 'Payment Type', STORE.Name 'Store Name', CUSTOMER.Lname 'Customer Last Name', EMPLOYEE.Lname 'Employee Last Name'
+FROM PURCHASE
+LEFT JOIN PAY_TYPE ON PURCHASE.Pay_option = PAY_TYPE.ID
+LEFT JOIN STORE ON PURCHASE.Store = STORE.ID
+LEFT JOIN CUSTOMER ON PURCHASE.Customer = CUSTOMER.ID
+LEFT JOIN EMPLOYEE ON PURCHASE.Employee = EMPLOYEE.ID";
+                    }
+                    else if (whichEntity == "PURCHASE_INFO")
+                    {
+                        dbCommand = "SELECT PURCHASE_INFO.*, PRODUCT.Name ProductName FROM PURCHASE_INFO LEFT JOIN PRODUCT ON PURCHASE_INFO.Product = PRODUCT.ID";
+                    }
+                    else if (whichEntity == "STORE")
+                    {
+                        dbCommand = "SELECT STORE.*, EMPLOYEE.LName Manager FROM STORE LEFT JOIN EMPLOYEE ON STORE.Manager = EMPLOYEE.ID";
+                    }
+                    else
+                    {
+                        dbCommand = "SELECT * FROM " + whichEntity + ";";
+                    }
                 }
                 else if (we != "" && wa != "" && av != "" && id == -1)
                 {
@@ -94,6 +137,7 @@ namespace zooproject.Pages.Employee_Section
                     }
 
                 }
+                
                 cmd.Connection = database.Connection;
                 cmd.CommandText = dbCommand;
                 reader = cmd.ExecuteReader();
