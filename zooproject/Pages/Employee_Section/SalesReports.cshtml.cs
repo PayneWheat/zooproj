@@ -27,12 +27,14 @@ namespace zooproject.Pages.Employee_Section
         public List<List<string>> StoreResults = new List<List<string>>();
         public List<List<string>> TitleResults = new List<List<string>>();
         public List<List<string>> ProductResults = new List<List<string>>();
+        public List<List<string>> EmployeeResults = new List<List<string>>();
 
         public int AInt = 0;
         public int BInt = 0;
         public int SInt = 0;
         public int TInt = 0;
         public int PInt = 0;
+        public int EInt = 0;
 
         public string StorePurchaseNum;
         public decimal StoreRevenue;
@@ -163,6 +165,27 @@ namespace zooproject.Pages.Employee_Section
                 j++;
             }
             PInt = j;
+            cmd.Dispose();
+            database.disconnect();
+
+            database.connect();
+            cmd = new SqlCommand();
+            dbCommand = "SELECT ID, Lname, Fname FROM EMPLOYEE ORDER BY Lname";
+            cmd.Connection = database.Connection;
+            cmd.CommandText = dbCommand;
+            reader = cmd.ExecuteReader();
+            colCount = reader.FieldCount;
+            j = 0;
+            while (reader.Read())
+            {
+                EmployeeResults.Add(new List<string>());
+                for (int i = 0; i < colCount; i++)
+                {
+                    EmployeeResults[j].Add(reader[i].ToString());
+                }
+                j++;
+            }
+            EInt = j;
             cmd.Dispose();
             database.disconnect();
 

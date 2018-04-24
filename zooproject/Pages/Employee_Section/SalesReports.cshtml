@@ -4,6 +4,8 @@
 }
 <script src="~/js/moment.js"></script>
 <script src="~/js/Chart.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
 <style>
@@ -108,32 +110,35 @@
                 <select name="storeSelect" id="storeSelection" class="form-control">
                     <option value="none"></option>
                     @for (int i = 0; i < Model.SInt; i++)
-                {
-                    @if (Model.StoreResults[i][0] == Model.sS.ToString())
-                {
-                    <option value="@Model.StoreResults[i][0]" selected>@Model.StoreResults[i][1]</option>
-            }
-            else
-            {
-                <option value="@Model.StoreResults[i][0]">@Model.StoreResults[i][1]</option>
+                    {
+                        @if (Model.StoreResults[i][0] == Model.sS.ToString())
+                        {
+                            <option value="@Model.StoreResults[i][0]" selected>@Model.StoreResults[i][1]</option>
+                        }
+                        else
+                        {
+                            <option value="@Model.StoreResults[i][0]">@Model.StoreResults[i][1]</option>
 
-        }
-            }
+                        }
+                    }
                 </select>
             </div>
         </div>
         <div class="row">
             <div id="employeeGenerator" class="form-group col-sm-4">
                 <h2>By Employee</h2>
-                <!--
-        <div>
-            <label for="employeeFName">Employee First Name</label>
-            <input type="text" name="employeeFName" id="eFirstName" />
-            <label for="employeeLName">Employee Last Name</label>
-            <input type="text" name="employeeLName" id="eLastName" />
+                <div>
+                    <label for="employeeSearch">Employee</label>
+                    <select name="employeeSearch" id="employeeSearch" class="form-control">
+                        <option value="none"></option>
+                        @for(int i = 0; i < Model.EInt; i ++)
+                        {
+                            <option value="@Model.EmployeeResults[i][0]">@Model.EmployeeResults[i][1], @Model.EmployeeResults[i][2]</option>
 
-        </div>
-            -->
+                        }
+                    </select>
+
+                </div>
                 <div>
                     <label for="employeeID">Employee ID</label>
                     <input type="number" name="employeeID" class="form-control" id="eID" />
@@ -141,42 +146,42 @@
 
                     <select name="employeeTitle" class="form-control">
                         <option value="none"></option>
-                    @for (int i = 0; i < Model.TInt; i++)
-                    {
-                        <option value="@Model.TitleResults[i][0]">@Model.TitleResults[i][1]</option>
-                    }
+                        @for (int i = 0; i < Model.TInt; i++)
+                        {
+                            <option value="@Model.TitleResults[i][0]">@Model.TitleResults[i][1]</option>
+                        }
 
                     </select>
                 </div>
             </div>
             <!--
-    <div id="customerGenerator">
-        <h2>By Customer</h2>
-        <div>
-            <label for="customerID">Customer ID</label>
-            <input type="text" name="customerID" id="cID" />
-        </div>
-        <div>
-            <label for="customerFName">First Name</label>
-            <input type="text" name="customerFName" id="cFirstName" />
+            <div id="customerGenerator">
+                <h2>By Customer</h2>
+                <div>
+                    <label for="customerID">Customer ID</label>
+                    <input type="text" name="customerID" id="cID" />
+                </div>
+                <div>
+                    <label for="customerFName">First Name</label>
+                    <input type="text" name="customerFName" id="cFirstName" />
 
-            <label for="customerLName">Last Name</label>
-            <input type="text" name="customerLName" id="cLastName" />
-        </div>
-        <div>
-            <label for="customerAddress">Address</label>
-            <input type="text" name="customerAddress" id="cID" />
-            <label for="customerZip">Zip Code</label>
-            <input type="text" name="customerZip" id="cID" />
-        </div>
-        <div>
-            <label for="customerPhone">Phone Number</label>
-            <input type="text" name="customerPhone" id="cID" />
-            <label for="customerEmail">Email</label>
-            <input type="text" name="customerEmail" id="cID" />
-        </div>
-    </div>
-        -->
+                    <label for="customerLName">Last Name</label>
+                    <input type="text" name="customerLName" id="cLastName" />
+                </div>
+                <div>
+                    <label for="customerAddress">Address</label>
+                    <input type="text" name="customerAddress" id="cID" />
+                    <label for="customerZip">Zip Code</label>
+                    <input type="text" name="customerZip" id="cID" />
+                </div>
+                <div>
+                    <label for="customerPhone">Phone Number</label>
+                    <input type="text" name="customerPhone" id="cID" />
+                    <label for="customerEmail">Email</label>
+                    <input type="text" name="customerEmail" id="cID" />
+                </div>
+            </div>
+                -->
             <div id="productGenerator" class="form-group col-sm-4">
                 <h2>By Product</h2>
                 <label for="productID">Product ID</label>
@@ -184,16 +189,16 @@
                 <label for="productName">Product Name</label>
                 <select name="productName" id="productName" class="form-control">
                     <option value="none"></option>
-                    @for(int i = 0; i < Model.ProductResults.Count(); i++)
+                    @for (int i = 0; i < Model.ProductResults.Count(); i++)
                     {
                         <option value="@Model.ProductResults[i][0]">@Model.ProductResults[i][1]</option>
 
                     }
                 </select>
                 <!--
-        <label for="productName">Name</label>
-        <input type="text" name="productName" />
-            -->
+                <label for="productName">Name</label>
+                <input type="text" name="productName" />
+                    -->
             </div>
         </div>
         <div class="row">
@@ -218,7 +223,7 @@
         <div style="padding-bottom:15px; font-size:large;"><span id="avgLabel" style="text-align:right; font-weight:bolder; padding-right:15px;">Average Per Day:&nbsp;</span><span id="avgCell"></span></div>
         if (Model.pID == -1)
         {
-        <div style="padding-bottom:15px; font-size:large;"><span id="tixSold" style="text-align:right; font-weight:bolder; padding-right:15px;">Tickets Sold:&nbsp;</span><span id="tixTotal">@Model.ticketsSold</span></div>
+            <div style="padding-bottom:15px; font-size:large;"><span id="tixSold" style="text-align:right; font-weight:bolder; padding-right:15px;">Tickets Sold:&nbsp;</span><span id="tixTotal">@Model.ticketsSold</span></div>
         }
         <table id="report" class="table table-hover">
             <thead>
@@ -232,11 +237,11 @@
             <tbody>
                 @for (int i = 0; i < Model.BInt; i++)
                 {
-                <tr>
-                    <td>@DateTime.Parse(Model.ViewResults[i][0]).ToShortDateString()</td>
-                    <td>@Model.ViewResults[i][1]</td>
+                    <tr>
+                        <td>@DateTime.Parse(Model.ViewResults[i][0]).ToString("yyyy/MM/dd", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</td>
+                        <td>@Model.ViewResults[i][1]</td>
 
-                </tr>
+                    </tr>
                 }
 
             </tbody>
@@ -410,5 +415,16 @@
             "order": []
         });
     });
+    
+    $(document).ready(function () {
+        $('#employeeSearch').select2();
+    });
 
+    $('#employeeSearch').on('select2:select', function (e) {
+        console.log("triggered")
+        // Do something
+        var data = e.params.data;
+        console.log(data);
+        document.getElementById("eID").value = data.id;
+    });
 </script>
