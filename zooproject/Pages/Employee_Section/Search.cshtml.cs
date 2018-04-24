@@ -64,64 +64,87 @@ namespace zooproject.Pages.Employee_Section
             {
                 database.connect();
                 SqlCommand cmd = new SqlCommand();
-                string joinClause = " LEFT JOIN";
-                // entities that need joins:
-                // Animal (attraction), Attraction (manager), 
-                if (we != "" && wa == "" && id == -1)
-                {
+                string joinClause = "";
+                string selectClause = "";
+                string fromClause = "";
                     // only entity value set
-                    whichEntity = we;
-                    if (whichEntity == "ANIMAL")
-                    {
-                        dbCommand = "SELECT ANIMAL.*, ATTRACTION.Name AttractionName FROM ANIMAL LEFT JOIN ATTRACTION ON Animal.Attraction = ATTRACTION.ID";
-                    }
-                    else if (whichEntity == "ATTRACTION")
-                    {
-                        dbCommand = "SELECT ATTRACTION.*, EMPLOYEE.LName ManagerLastName FROM ATTRACTION LEFT JOIN EMPLOYEE ON ATTRACTION.Manager = EMPLOYEE.ID";
-                    }
-                    else if (whichEntity == "EMPLOYEE")
-                    {
-                        dbCommand = @"SELECT EMPLOYEE.*, GENDER_TYPE.Name 'Employee Gender', STORE.Name 'Store', ATTRACTION.Name 'Attraction' 
+                whichEntity = we;
+                if (whichEntity == "ANIMAL")
+                {
+                    //dbCommand = "SELECT ANIMAL.*, ATTRACTION.Name AttractionName FROM ANIMAL LEFT JOIN ATTRACTION ON Animal.Attraction = ATTRACTION.ID";
+                    selectClause = "SELECT ANIMAL.*, ATTRACTION.Name AttractionName ";
+                    fromClause = "FROM ANIMAL ";
+                    joinClause = "LEFT JOIN ATTRACTION ON Animal.Attraction = ATTRACTION.ID";
+                }
+                else if (whichEntity == "ATTRACTION")
+                {
+                    //dbCommand = "SELECT ATTRACTION.*, EMPLOYEE.LName ManagerLastName FROM ATTRACTION LEFT JOIN EMPLOYEE ON ATTRACTION.Manager = EMPLOYEE.ID";
+                    selectClause = "SELECT ATTRACTION.*, EMPLOYEE.LName ManagerLastName ";
+                    fromClause = "FROM ATTRACTION ";
+                    joinClause = "LEFT JOIN EMPLOYEE ON ATTRACTION.Manager = EMPLOYEE.ID";
+                }
+                else if (whichEntity == "EMPLOYEE")
+                {
+                    /*
+                   dbCommand = @"SELECT EMPLOYEE.*, GENDER_TYPE.Name 'Employee Gender', STORE.Name 'Store', ATTRACTION.Name 'Attraction' 
 FROM EMPLOYEE
 LEFT JOIN GENDER_TYPE ON EMPLOYEE.Gender = GENDER_TYPE.ID
 LEFT JOIN STORE ON EMPLOYEE.Store = STORE.ID
 LEFT JOIN ATTRACTION ON EMPLOYEE.Attraction = ATTRACTION.ID";
-                    }
-                    else if (whichEntity == "CUSTOMER")
-                    {
-                        dbCommand = "SELECT CUSTOMER.*, MEMBERSHIP_TYPE.Name MembershipTypeName FROM CUSTOMER LEFT JOIN MEMBERSHIP_TYPE ON CUSTOMER.MembershipType= MEMBERSHIP_TYPE.ID";
-                    }
-                    else if (whichEntity == "PURCHASE")
-                    {
-                        dbCommand = @"SELECT PURCHASE.*, PAY_TYPE.Name 'Payment Type', STORE.Name 'Store Name', CUSTOMER.Lname 'Customer Last Name', EMPLOYEE.Lname 'Employee Last Name'
+                    */
+                    selectClause = "SELECT EMPLOYEE.*, GENDER_TYPE.Name 'Employee Gender', STORE.Name 'Store', ATTRACTION.Name 'Attraction' ";
+                    fromClause = "FROM EMPLOYEE ";
+                    joinClause = "LEFT JOIN GENDER_TYPE ON EMPLOYEE.Gender = GENDER_TYPE.ID";
+                    joinClause += " LEFT JOIN STORE ON EMPLOYEE.Store = STORE.ID";
+                    joinClause += " LEFT JOIN ATTRACTION ON EMPLOYEE.Attraction = ATTRACTION.ID"; 
+                }
+                else if (whichEntity == "CUSTOMER")
+                {
+                    //dbCommand = "SELECT CUSTOMER.*, MEMBERSHIP_TYPE.Name MembershipTypeName FROM CUSTOMER LEFT JOIN MEMBERSHIP_TYPE ON CUSTOMER.MembershipType= MEMBERSHIP_TYPE.ID";
+                    selectClause = "SELECT CUSTOMER.*, MEMBERSHIP_TYPE.Name MembershipTypeName ";
+                    fromClause = "FROM CUSTOMER ";
+                    joinClause = "LEFT JOIN MEMBERSHIP_TYPE ON CUSTOMER.MembershipType= MEMBERSHIP_TYPE.ID";
+                }
+                else if (whichEntity == "PURCHASE")
+                {
+                    /*
+                    dbCommand = @"SELECT PURCHASE.*, PAY_TYPE.Name 'Payment Type', STORE.Name 'Store Name', CUSTOMER.Lname 'Customer Last Name', EMPLOYEE.Lname 'Employee Last Name'
 FROM PURCHASE
 LEFT JOIN PAY_TYPE ON PURCHASE.Pay_option = PAY_TYPE.ID
 LEFT JOIN STORE ON PURCHASE.Store = STORE.ID
 LEFT JOIN CUSTOMER ON PURCHASE.Customer = CUSTOMER.ID
 LEFT JOIN EMPLOYEE ON PURCHASE.Employee = EMPLOYEE.ID";
-                    }
-                    else if (whichEntity == "PURCHASE_INFO")
-                    {
-                        dbCommand = "SELECT PURCHASE_INFO.*, PRODUCT.Name ProductName FROM PURCHASE_INFO LEFT JOIN PRODUCT ON PURCHASE_INFO.Product = PRODUCT.ID";
-                    }
-                    else if (whichEntity == "STORE")
-                    {
-                        dbCommand = "SELECT STORE.*, EMPLOYEE.LName Manager FROM STORE LEFT JOIN EMPLOYEE ON STORE.Manager = EMPLOYEE.ID";
-                    }
-                    else
-                    {
-                        dbCommand = "SELECT * FROM " + whichEntity + ";";
-                    }
+*/
+                    selectClause = "SELECT PURCHASE.*, PAY_TYPE.Name 'Payment Type', STORE.Name 'Store Name', CUSTOMER.Lname 'Customer Last Name', EMPLOYEE.Lname 'Employee Last Name' ";
+                    fromClause = "FROM PURCHASE ";
+                    joinClause = "LEFT JOIN PAY_TYPE ON PURCHASE.Pay_option = PAY_TYPE.ID";
+                    joinClause += " LEFT JOIN STORE ON PURCHASE.Store = STORE.ID";
+                    joinClause += " LEFT JOIN CUSTOMER ON PURCHASE.Customer = CUSTOMER.ID";
+                    joinClause += " LEFT JOIN EMPLOYEE ON PURCHASE.Employee = EMPLOYEE.ID";
                 }
-                else if (we != "" && wa != "" && av != "" && id == -1)
+                else if (whichEntity == "PURCHASE_INFO")
                 {
-                    // entity and attribute value set, no id
-                    whichEntity = we;
-                    whichAttributes = wa;
-                    whichWhere = av;
-                    dbCommand = "SELECT FROM " + whichEntity + " WHERE " + wa + "=" + av + ";";
+                    //dbCommand = "SELECT PURCHASE_INFO.*, PRODUCT.Name ProductName FROM PURCHASE_INFO LEFT JOIN PRODUCT ON PURCHASE_INFO.Product = PRODUCT.ID";
+                    selectClause = "SELECT PURCHASE_INFO.*, PRODUCT.Name ProductName ";
+                    fromClause = "FROM PURCHASE_INFO ";
+                    joinClause = "LEFT JOIN PRODUCT ON PURCHASE_INFO.Product = PRODUCT.ID";
                 }
-                else if (we != "" && wa == "" && id != -1)
+                else if (whichEntity == "STORE")
+                {
+                    //dbCommand = "SELECT STORE.*, EMPLOYEE.LName Manager FROM STORE LEFT JOIN EMPLOYEE ON STORE.Manager = EMPLOYEE.ID";
+                    selectClause = "SELECT STORE.*, EMPLOYEE.LName Manager ";
+                    fromClause = "FROM STORE ";
+                    joinClause = "LEFT JOIN EMPLOYEE ON STORE.Manager = EMPLOYEE.ID";
+                }
+                else
+                {
+                    //dbCommand = "SELECT * FROM " + whichEntity + ";";
+                    selectClause = "SELECT * ";
+                    fromClause = "FROM " + whichEntity;
+                }
+
+                string whereClause = "";
+                if (wa == "" && id != -1)
                 {
                     // entity and id are set, no attributes
                     whichEntity = we;
@@ -129,15 +152,27 @@ LEFT JOIN EMPLOYEE ON PURCHASE.Employee = EMPLOYEE.ID";
                     // PURCHASE table, PURCHASE info: ID = Receipt
                     if (whichEntity == "PURCHASE" || whichEntity == "PURCHASE_INFO")
                     {
-                        dbCommand = "SELECT * FROM " + whichEntity + " WHERE Receipt=" + id + ";";
+                        //dbCommand = "SELECT * FROM " + whichEntity + " WHERE Receipt=" + id + ";";
+                        whereClause = "WHERE Receipt=" + id + " ";
                     }
                     else
                     {
-                        dbCommand = "SELECT * FROM " + whichEntity + " WHERE ID=" + id + ";";
+                        //dbCommand = "SELECT * FROM " + whichEntity + " WHERE ID=" + id + ";";
+                        whereClause = "WHERE ID=" + id + " ";
                     }
 
                 }
-                
+                else if (wa != "" && av != "" && id == -1)
+                {
+                    // entity and attribute value set, no id
+                    whichEntity = we;
+                    whichAttributes = wa;
+                    whichWhere = av;
+                    //dbCommand = "SELECT FROM " + whichEntity + " WHERE " + wa + "=" + av + ";";
+                    whereClause = "WHERE " + wa + "=" + av + " ";
+                }
+                dbCommand = selectClause + fromClause + whereClause + joinClause + ";";
+                Debug.WriteLine(dbCommand);
                 cmd.Connection = database.Connection;
                 cmd.CommandText = dbCommand;
                 reader = cmd.ExecuteReader();
