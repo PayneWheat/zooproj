@@ -82,17 +82,25 @@ namespace zooproject.Pages.Employee_Section
                 Debug.WriteLine("Results count: " + Results.Count());
                 database.disconnect();
                 cmd.Dispose();
-                if (whichEntity != "PURCHASE" || whichEntity != "PURCHASE_INFO")
+                database.connect();
+                if (whichEntity != "PURCHASE")
                 {
-                    database.connect();
+                    
                     dbCommand = "SELECT MAX(ID) FROM " + whichEntity;
-                    cmd = new SqlCommand();
-                    cmd.Connection = database.Connection;
-                    cmd.CommandText = dbCommand;
-                    newID = (int)cmd.ExecuteScalar() + 1;
-                    Debug.WriteLine(newID.ToString());
-                    database.disconnect();
+
                 }
+                else
+                {
+                    dbCommand = "SELECT MAX(Receipt) FROM " + whichEntity;
+
+                }
+                cmd = new SqlCommand();
+                cmd.Connection = database.Connection;
+                cmd.CommandText = dbCommand;
+                Debug.WriteLine(dbCommand);
+                newID = (int)cmd.ExecuteScalar() + 1;
+                Debug.WriteLine(newID.ToString());
+                database.disconnect();
             }
             if(we == "PURCHASE")
             {

@@ -38,20 +38,27 @@ namespace zooproject.Pages.Employee_Section
         public int AInt = 0;
         public int BInt = 0;
         public int CInt = 0;
+
+        public string successMessage = "";
         public SearchModel(IConfiguration iconfiguration, Database ZooDatabase)
         {
             // Get database connection string from appsettings.Development.json
             _config = iconfiguration;
             database = ZooDatabase;
             connection_string = _config.GetSection("Data").GetSection("ConnectionString").Value;
-
-            for (int i = 0; i < 30; i++)
-                Results.Add(new List<string>());
         }
 
 
-        public void OnGet(string we = "", string wa = "", string av = "", int id = -1)
+        public void OnGet(string we = "", string wa = "", string av = "", int id = -1, bool update = false, bool insert = false)
         {
+            if (update)
+            {
+                successMessage = "Entry successfully updated.";
+            }
+            else if(insert)
+            {
+                successMessage = "New entry created.";
+            }
             Debug.WriteLine("Got");
             if (we != "")
             {
@@ -100,16 +107,13 @@ namespace zooproject.Pages.Employee_Section
                 while (reader.Read())
                 {
                     Results.Add(new List<string>());
-                    //Debug.WriteLine("New list appended to results list");
                     for (int i = 0; i < AInt; i++)
                     {
                         Results[j].Add(reader[i].ToString());
                     }
-                    //Debug.WriteLine("List completed. Should have " + AInt + " entries: " + Results[j].Count());
                     j++;
                 }
                 BInt = j;
-                //Debug.WriteLine("Results count: " + Results.Count() + "; AInt: " + AInt);
                 database.disconnect();
                 cmd.Dispose();
 
@@ -325,13 +329,6 @@ namespace zooproject.Pages.Employee_Section
             {
                 Debug.WriteLine("Posted");
                 whichEntity = we;
-
-                /*
-                whichEntity = Request.Form["entityType"];
-                whichAttributes = Request.Form["attributeType"];
-                whichWhere = Request.Form["whereType"];
-                whichOther = Request.Form["otherType"];
-                */
 
                 int j = 0;
                 SqlCommand cmd = new SqlCommand();

@@ -25,6 +25,7 @@ namespace zooproject.Pages.Employee_Section
         public int BInt = 0;
         public List<List<string>> Results = new List<List<string>>();
         public List<string> ColumnNames = new List<string>();
+        public string successMessage = "";
 
         public UpdateModel(IConfiguration iconfiguration, Database ZooDatabase)
         {
@@ -34,8 +35,12 @@ namespace zooproject.Pages.Employee_Section
             connection_string = _config.GetSection("Data").GetSection("ConnectionString").Value;
         }
 
-        public void OnGet(string we = "", string wa = "", string av = "", int id = -1)
+        public void OnGet(string we = "", string wa = "", string av = "", int id = -1, bool success = true)
         {
+            if (!success)
+            {
+                successMessage = "Failed to update entry!";
+            }
             if(we != "" && id != -1)
             {
                 whichEntity = we;
@@ -120,8 +125,10 @@ namespace zooproject.Pages.Employee_Section
                     {
                         val = "'" + val + "'";
                     }
-                    if(i == 0)
+                    if (i == 0)
                         setClause += keyList[i] + "=" + val;
+                    else if (keyList[i] == "GENDER_TYPE")
+                        setClause += ", [" + keyList[i] + "]=" + int.Parse(val);
                     else
                         setClause += ", [" + keyList[i] + "]=" + val;
                 }
@@ -145,36 +152,14 @@ namespace zooproject.Pages.Employee_Section
                 {
                     cmd.ExecuteNonQuery();
                     EMessage = "query successful";
-                    Response.Redirect("./Search?we=" + whichEntity);
+                    Response.Redirect("./Search?we=" + whichEntity + "&update=true");
                 }
 
                 catch (SqlException e)
                 {
                     EMessage = "Failed to execute SqlQuery" + e.ToString();
+                    Response.Redirect("./Update?we=" + whichEntity + "&success=false");
                 }
-                cmd.Dispose();
-                database.disconnect();
-            }
-            else
-            {
-                database.connect();
-                SqlCommand cmd = new SqlCommand();
-
-                dbCommand = Request.Form["command"];
-                cmd.CommandText = dbCommand;
-                cmd.Connection = database.Connection;
-
-                try
-                {
-                    cmd.ExecuteNonQuery();
-                    EMessage = "query successful";
-                }
-
-                catch (SqlException e)
-                {
-                    EMessage = "Failed to execute SqlQuery" + e.ToString();
-                }
-
                 cmd.Dispose();
                 database.disconnect();
             }

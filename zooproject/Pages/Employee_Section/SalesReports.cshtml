@@ -137,18 +137,16 @@
                 <div>
                     <label for="employeeID">Employee ID</label>
                     <input type="number" name="employeeID" class="form-control" id="eID" />
-                    <!--
-            <label for="employeeTitle">Title</label>
+                    <label for="employeeTitle">Title</label>
 
-            <select name="employeeTitle">
-                <option value="none"></option>
-            @for (int i = 0; i < Model.TInt; i++)
-            {
-                <option value="@Model.TitleResults[i][0]">@Model.TitleResults[i][1]</option>
-            }
+                    <select name="employeeTitle" class="form-control">
+                        <option value="none"></option>
+                    @for (int i = 0; i < Model.TInt; i++)
+                    {
+                        <option value="@Model.TitleResults[i][0]">@Model.TitleResults[i][1]</option>
+                    }
 
-            </select>
-                -->
+                    </select>
                 </div>
             </div>
             <!--
@@ -182,7 +180,16 @@
             <div id="productGenerator" class="form-group col-sm-4">
                 <h2>By Product</h2>
                 <label for="productID">Product ID</label>
-                <input type="number" name="productID" class="form-control" />
+                <input type="number" name="productID" id="productID" class="form-control" />
+                <label for="productName">Product Name</label>
+                <select name="productName" id="productName" class="form-control">
+                    <option value="none"></option>
+                    @for(int i = 0; i < Model.ProductResults.Count(); i++)
+                    {
+                        <option value="@Model.ProductResults[i][0]">@Model.ProductResults[i][1]</option>
+
+                    }
+                </select>
                 <!--
         <label for="productName">Name</label>
         <input type="text" name="productName" />
@@ -209,6 +216,10 @@
     {
         // Do an hourly result for the graph if less than 4?
         <div style="padding-bottom:15px; font-size:large;"><span id="avgLabel" style="text-align:right; font-weight:bolder; padding-right:15px;">Average Per Day:&nbsp;</span><span id="avgCell"></span></div>
+        if (Model.pID == -1)
+        {
+        <div style="padding-bottom:15px; font-size:large;"><span id="tixSold" style="text-align:right; font-weight:bolder; padding-right:15px;">Tickets Sold:&nbsp;</span><span id="tixTotal">@Model.ticketsSold</span></div>
+        }
         <table id="report" class="table table-hover">
             <thead>
                 <tr>
@@ -221,13 +232,11 @@
             <tbody>
                 @for (int i = 0; i < Model.BInt; i++)
                 {
-                    <tr>
-                        @for (int j = 0; j < Model.AInt; j++)
-                        {
-                            <td>@Model.ViewResults[i][j]</td>
-                        }
+                <tr>
+                    <td>@DateTime.Parse(Model.ViewResults[i][0]).ToShortDateString()</td>
+                    <td>@Model.ViewResults[i][1]</td>
 
-                    </tr>
+                </tr>
                 }
 
             </tbody>
@@ -316,6 +325,14 @@
         });
     });
 
+    var productId = document.getElementById("productID");
+    var productName = document.getElementById("productName");
+    productName.addEventListener("change", function () {
+        if (productName.value == "none")
+            productId.value = "";
+        else
+            productId.value = productName.value;
+    });
 
     var reportTable = document.getElementById("report");
     var tableData = [];
@@ -334,10 +351,12 @@
             console.log(avg);
             tableData.push(value);
             date = new Date(date.replace(/-/g, "/"));
-            tableDates.push(date.toISOString());
+            date = new Date(date.toDateString());
+            console.log(date);
+            tableDates.push(date);
         }
         avg = avg / bInt;
-        console.log("avg: " + avg)
+        console.log("avg: " + avg);
         document.getElementById("avgCell").innerHTML = "$" + avg.toFixed(2);
 
         console.log(tableDates);
@@ -387,7 +406,9 @@
         });
     }
     $(document).ready(function () {
-        $('#report').DataTable();
+        $('#report').DataTable({
+            "order": []
+        });
     });
 
 </script>

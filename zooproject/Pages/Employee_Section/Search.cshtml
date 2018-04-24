@@ -52,7 +52,12 @@
         font-size: 12pt;
     }
 </style>
-
+@if (!String.IsNullOrEmpty(@Model.successMessage))
+{
+    <div class="alert alert-success">
+        <strong>Success!</strong> @Model.successMessage
+    </div>
+}
 <nav class="employee-links" style="padding-top:15px;">
     <a class="btn btn-default" stlye="margin:10px;" href="./">Back to Employee Section</a>
     <a class="btn btn-default" stlye="margin:10px;" asp-page="../Logout">Logout</a>
@@ -92,7 +97,7 @@
                         <label for="@Model.ColumnNames[i]" class="control-label col-sm-2">@Model.ColumnNames[i]</label>
                         <div class="col-sm-10">
                             @if (Model.ColumnNames[i] == "Attraction" || Model.ColumnNames[i] == "MembershipType" || Model.ColumnNames[i] == "Pay_option"
-                           || Model.ColumnNames[i] == "Manager")
+                         || Model.ColumnNames[i] == "Manager")
                             {
                                 <select name="@Model.ColumnNames[i]" class="form-control">
                                     <option></option>
@@ -174,9 +179,6 @@
 @{
     if (Model.whichEntity != "")
     {
-        <!--if (Model.whichAttributes == "*")
-        {-->
-        <!-- Table for results of Title_type-->
         <table id="resultsTable" class="table table-hover">
             <thead>
                 <tr>
@@ -200,7 +202,6 @@
                 }
             </tbody>
         </table>
-        <!--}-->
     }
     <p>@Model.AMessage</p>
     <p>@Model.AInt</p>
