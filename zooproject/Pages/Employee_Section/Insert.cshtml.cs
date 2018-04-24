@@ -82,25 +82,28 @@ namespace zooproject.Pages.Employee_Section
                 Debug.WriteLine("Results count: " + Results.Count());
                 database.disconnect();
                 cmd.Dispose();
-                database.connect();
-                if (whichEntity != "PURCHASE")
+                if (whichEntity != "PURCHASE_INFO")
                 {
-                    
-                    dbCommand = "SELECT MAX(ID) FROM " + whichEntity;
+                    database.connect();
+                    if (whichEntity != "PURCHASE")
+                    {
 
-                }
-                else
-                {
-                    dbCommand = "SELECT MAX(Receipt) FROM " + whichEntity;
+                        dbCommand = "SELECT MAX(ID) FROM " + whichEntity;
 
-                }
-                cmd = new SqlCommand();
-                cmd.Connection = database.Connection;
-                cmd.CommandText = dbCommand;
-                Debug.WriteLine(dbCommand);
-                newID = (int)cmd.ExecuteScalar() + 1;
-                Debug.WriteLine(newID.ToString());
-                database.disconnect();
+                    }
+                    else
+                    {
+                        dbCommand = "SELECT MAX(Receipt) FROM " + whichEntity;
+
+                    }
+                    cmd = new SqlCommand();
+                    cmd.Connection = database.Connection;
+                    cmd.CommandText = dbCommand;
+                    Debug.WriteLine(dbCommand);
+                    newID = (int)cmd.ExecuteScalar() + 1;
+                    Debug.WriteLine(newID.ToString());
+                    database.disconnect();
+                }  
             }
             if(we == "PURCHASE")
             {
@@ -617,6 +620,7 @@ namespace zooproject.Pages.Employee_Section
                 database.connect();
 
                 string insertReceipt = Request.Form["Receipt"];
+                Debug.WriteLine("Receipt: " + insertReceipt);
                 string insertTime = Request.Form["Time"];
                 string insertAmount = Request.Form["insertAmount"];
                 string insertPay_option = Request.Form["Pay_option"];
@@ -636,6 +640,7 @@ namespace zooproject.Pages.Employee_Section
                     "VALUES(" + insertReceipt + ", '" + insertTime + "', " + 
                     insertPay_option + ", '" + insertDate + 
                     "', " + insertStore + ", " + insertCustomer + ", " + insertEmployee + ");";
+                Debug.Write(dbCommand);
 
                 cmd.CommandText = dbCommand;
 
