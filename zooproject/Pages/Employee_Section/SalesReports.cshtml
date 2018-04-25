@@ -76,7 +76,20 @@
     <a class="btn btn-default" stlye="margin:10px;" asp-page="../Logout">Logout</a>
 </nav>
 <h1 style="text-align:center;">Sales Report Page</h1>
-<div class="container">
+@if (!String.IsNullOrEmpty(Model.sD) && !String.IsNullOrEmpty(Model.eD))
+{
+    <h3 style="text-align:center;">Between @Model.sD and @Model.eD</h3>
+}
+else if (!String.IsNullOrEmpty(Model.sD) && String.IsNullOrEmpty(Model.eD))
+{
+    <h3 style="text-align:center;">@Model.sD</h3>
+}
+@if(!String.IsNullOrEmpty(Model.sT) && !String.IsNullOrEmpty(Model.eT))
+{
+    <h3 style="text-align:center;">Between @Model.sT and @Model.eT</h3>
+
+}
+<div class="container collapse" id="reportSearchFields">
     <form method="get">
         <div class="row">
             <div id="rangeDiv" class="col-sm-4 form-group">
@@ -129,9 +142,9 @@
                 <h2>By Employee</h2>
                 <div>
                     <label for="employeeSearch">Employee</label>
-                    <select name="employeeSearch" id="employeeSearch" class="form-control">
+                    <select name="employeeSearch" id="employeeSearch" class="form-control" style="width:100%; display:block;">
                         <option value="none"></option>
-                        @for(int i = 0; i < Model.EInt; i ++)
+                        @for (int i = 0; i < Model.EInt; i++)
                         {
                             <option value="@Model.EmployeeResults[i][0]">@Model.EmployeeResults[i][1], @Model.EmployeeResults[i][2]</option>
 
@@ -142,50 +155,11 @@
                 <div>
                     <label for="employeeID">Employee ID</label>
                     <input type="number" name="employeeID" class="form-control" id="eID" />
-                    <label for="employeeTitle">Title</label>
 
-                    <select name="employeeTitle" class="form-control">
-                        <option value="none"></option>
-                        @for (int i = 0; i < Model.TInt; i++)
-                        {
-                            <option value="@Model.TitleResults[i][0]">@Model.TitleResults[i][1]</option>
-                        }
-
-                    </select>
                 </div>
             </div>
-            <!--
-            <div id="customerGenerator">
-                <h2>By Customer</h2>
-                <div>
-                    <label for="customerID">Customer ID</label>
-                    <input type="text" name="customerID" id="cID" />
-                </div>
-                <div>
-                    <label for="customerFName">First Name</label>
-                    <input type="text" name="customerFName" id="cFirstName" />
-
-                    <label for="customerLName">Last Name</label>
-                    <input type="text" name="customerLName" id="cLastName" />
-                </div>
-                <div>
-                    <label for="customerAddress">Address</label>
-                    <input type="text" name="customerAddress" id="cID" />
-                    <label for="customerZip">Zip Code</label>
-                    <input type="text" name="customerZip" id="cID" />
-                </div>
-                <div>
-                    <label for="customerPhone">Phone Number</label>
-                    <input type="text" name="customerPhone" id="cID" />
-                    <label for="customerEmail">Email</label>
-                    <input type="text" name="customerEmail" id="cID" />
-                </div>
-            </div>
-                -->
             <div id="productGenerator" class="form-group col-sm-4">
                 <h2>By Product</h2>
-                <label for="productID">Product ID</label>
-                <input type="number" name="productID" id="productID" class="form-control" />
                 <label for="productName">Product Name</label>
                 <select name="productName" id="productName" class="form-control">
                     <option value="none"></option>
@@ -195,10 +169,9 @@
 
                     }
                 </select>
-                <!--
-                <label for="productName">Name</label>
-                <input type="text" name="productName" />
-                    -->
+                <label for="productID">Product ID</label>
+                <input type="number" name="productID" id="productID" class="form-control" />
+
             </div>
         </div>
         <div class="row">
@@ -208,6 +181,7 @@
         </div>
     </form>
 </div>
+<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#reportSearchFields">Show/Hide Search Fields</button>
 <div id="resultsContainer">
     @if (Model.BInt >= 4)
     {
@@ -220,10 +194,11 @@
     else if (Model.BInt > 0)
     {
         // Do an hourly result for the graph if less than 4?
-        <div style="padding-bottom:15px; font-size:large;"><span id="avgLabel" style="text-align:right; font-weight:bolder; padding-right:15px;">Average Per Day:&nbsp;</span><span id="avgCell"></span></div>
+        <div style="padding-bottom:15px; font-size:large;"><span id="totalLabel" class="col-sm-3" style="text-align:right; font-weight:bolder; padding-right:15px;">Total Sales for timespan:&nbsp;</span><span id="totalCell" class="col-sm-9">&nbsp;</span></div>
+        <div style="padding-bottom:15px; font-size:large; display:none;"><span id="avgLabel" class="col-sm-3" style="text-align:right; font-weight:bolder; padding-right:15px;">Average Per Day:&nbsp;</span><span id="avgCell" class="col-sm-9">&nbsp;</span></div>
         if (Model.pID == -1)
         {
-            <div style="padding-bottom:15px; font-size:large;"><span id="tixSold" style="text-align:right; font-weight:bolder; padding-right:15px;">Tickets Sold:&nbsp;</span><span id="tixTotal">@Model.ticketsSold</span></div>
+            <div style="padding-bottom:15px; font-size:large;"><span id="tixSold" class="col-sm-3" style="text-align:right; font-weight:bolder; padding-right:15px;">Tickets Sold:&nbsp;</span><span id="tixTotal" class="col-sm-9">@Model.ticketsSold</span></div>
         }
         <table id="report" class="table table-hover">
             <thead>
@@ -251,64 +226,7 @@
 
 
 </div>
-<!--
-<table id="sales" style="width:50%; border:1px solid black; padding:15px">
 
-    <tr>
-        <th>Date</th>
-        <th>Total Revenue</th>
-        <th># of Purchases</th>
-        <th>Aggregate Store Info</th>
-    </tr>
-
-    @for (int i = 0; i < Model.PurchaseDateList.Count; i++)
-    {
-        <form method="post">
-            <tr>
-                <td>@Model.PurchaseDateList[i].Month/@Model.PurchaseDateList[i].Day/@Model.PurchaseDateList[i].Year</td>
-                <td>$@decimal.Round(Model.PurchaseAmountList[i], 2, MidpointRounding.AwayFromZero)</td>
-                <td>@Model.PurchaseQuantityList[i]</td>
-                <td>
-                    <select name="storeChoice">
-                        <option value="Ticket Booths, @Model.PurchaseDateList[i]">Ticket Booths</option>
-                        <option value="Restaurants, @Model.PurchaseDateList[i]">Restaurants</option>
-                        <option value="Gift Shops, @Model.PurchaseDateList[i]">Gift Shops</option>
-                    </select>
-                    <input type="submit" value="Select" />
-
-                </td>
-            </tr>
-        </form>
-    }
-</table>
-
-
-
-
-@if(Model.secondTableChoice != ""){
-    <table id="StoreInfo" style="width:50%; border:1px solid black; padding:15px">
-
-        <tr>
-            <th>@Model.secondTableStoreChoice</th>
-            <th>#Purchases</th>
-            <th>Total Revenue</th>
-            <th>#Items</th>
-            <th>$Average Purchase</th>
-        </tr>
-        <tr>
-            <td>@Model.secondTableDateChoice</td>
-            <td>@Model.StorePurchaseNum</td>
-            <td>$@decimal.Round(Model.StoreRevenue, 2, MidpointRounding.AwayFromZero)</td>
-            <td>@Model.StoreItems</td>
-            <td>$@decimal.Round(Model.StoreAverage, 2, MidpointRounding.AwayFromZero)</td>
-        </tr>
-    </table>
-}
--->
-<p>@Model.secondTableChoice</p>
-<p>@Model.secondTableStoreChoice</p>
-<p>@Model.secondTableDateChoice</p>
-<p>@Model.AMessage</p>
 <script>
     $(document).ready(function () {
         $("form").submit(function () {
@@ -345,25 +263,32 @@
     var avg = 0;
     var bInt = @Model.BInt;
     console.log(bInt);
-    if (bInt >= 4) {
-        for (i = 0; i < bInt; i++) {
-            console.log(reportTable.children[1].children)
-            var date = reportTable.children[1].children[i].children[0].innerHTML;
-            console.log("date: " + date);
-            var value = parseInt(reportTable.children[1].children[i].children[1].innerHTML);
 
-            avg += value;
-            console.log(avg);
-            tableData.push(value);
-            date = new Date(date.replace(/-/g, "/"));
-            date = new Date(date.toDateString());
-            console.log(date);
-            tableDates.push(date);
-        }
-        avg = avg / bInt;
+    for (i = 0; i < bInt; i++) {
+        console.log(reportTable.children[1].children)
+        var date = reportTable.children[1].children[i].children[0].innerHTML;
+        console.log("date: " + date);
+        var value = parseInt(reportTable.children[1].children[i].children[1].innerHTML);
+
+        avg += value;
+        console.log(avg);
+        tableData.push(value);
+        date = new Date(date.replace(/-/g, "/"));
+        date = new Date(date.toDateString());
+        console.log(date);
+        tableDates.push(date);
+    }
+    document.getElementById("totalCell").innerHTML = "$" + avg.toFixed(2);
+    avg = avg / bInt;
+    if (bInt >= 2) {
         console.log("avg: " + avg);
-        document.getElementById("avgCell").innerHTML = "$" + avg.toFixed(2);
+        var avgCell = document.getElementById("avgCell");
+        avgCell.innerHTML = "$" + avg.toFixed(2);
+        avgCell.parentElement.style.display = "";
 
+    }
+
+    if (bInt >= 4) {
         console.log(tableDates);
         var ctx = document.getElementById("myChart").getContext('2d');
         var myChart = new Chart(ctx, {
@@ -415,14 +340,13 @@
             "order": []
         });
     });
-    
+
     $(document).ready(function () {
         $('#employeeSearch').select2();
     });
 
     $('#employeeSearch').on('select2:select', function (e) {
         console.log("triggered")
-        // Do something
         var data = e.params.data;
         console.log(data);
         document.getElementById("eID").value = data.id;

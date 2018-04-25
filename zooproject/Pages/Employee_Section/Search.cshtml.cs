@@ -51,6 +51,7 @@ namespace zooproject.Pages.Employee_Section
 
         public void OnGet(string we = "", string wa = "", string av = "", int id = -1, bool update = false, bool insert = false)
         {
+
             if (update)
             {
                 successMessage = "Entry successfully updated.";
@@ -72,14 +73,14 @@ namespace zooproject.Pages.Employee_Section
                 if (whichEntity == "ANIMAL")
                 {
                     //dbCommand = "SELECT ANIMAL.*, ATTRACTION.Name AttractionName FROM ANIMAL LEFT JOIN ATTRACTION ON Animal.Attraction = ATTRACTION.ID";
-                    selectClause = "SELECT ANIMAL.*, ATTRACTION.Name AttractionName ";
+                    selectClause = "SELECT ANIMAL.ID, ANIMAL.Name, ANIMAL.Species, ANIMAL.Taxology, ATTRACTION.Name 'Attraction', ANIMAL.[Birth Location], ANIMAL.[Birth Date], ANIMAL.Gender, ANIMAL.Health, ANIMAL.Health_date 'Health status set' ";
                     fromClause = "FROM ANIMAL ";
                     joinClause = "LEFT JOIN ATTRACTION ON Animal.Attraction = ATTRACTION.ID";
                 }
                 else if (whichEntity == "ATTRACTION")
                 {
                     //dbCommand = "SELECT ATTRACTION.*, EMPLOYEE.LName ManagerLastName FROM ATTRACTION LEFT JOIN EMPLOYEE ON ATTRACTION.Manager = EMPLOYEE.ID";
-                    selectClause = "SELECT ATTRACTION.*, EMPLOYEE.LName ManagerLastName ";
+                    selectClause = "SELECT ATTRACTION.ID, ATTRACTION.Name, ATTRACTION.Open_closed 'Open status', ATTRACTION.Open_closed_date 'Date open/closed', EMPLOYEE.LName 'Manager Last Name', ATTRACTION.Manager_date 'Manager Date', ATTRACTION.Description ";
                     fromClause = "FROM ATTRACTION ";
                     joinClause = "LEFT JOIN EMPLOYEE ON ATTRACTION.Manager = EMPLOYEE.ID";
                 }
@@ -92,16 +93,17 @@ LEFT JOIN GENDER_TYPE ON EMPLOYEE.Gender = GENDER_TYPE.ID
 LEFT JOIN STORE ON EMPLOYEE.Store = STORE.ID
 LEFT JOIN ATTRACTION ON EMPLOYEE.Attraction = ATTRACTION.ID";
                     */
-                    selectClause = "SELECT EMPLOYEE.*, GENDER_TYPE.Name 'Employee Gender', STORE.Name 'Store', ATTRACTION.Name 'Attraction' ";
+                    selectClause = "SELECT EMPLOYEE.ID, EMPLOYEE.Fname 'First Name', EMPLOYEE.Lname 'Last Name', TITLE_TYPE.Title 'Title', GENDER_TYPE.Name 'Gender', EMPLOYEE.Email, EMPLOYEE.Phone# 'Phone', EMPLOYEE.Hire_Date 'Date Hired', STORE.Name 'Store', ATTRACTION.Name 'Attraction', EMPLOYEE.Street, EMPLOYEE.City, EMPLOYEE.Zip, EMPLOYEE.State ";
                     fromClause = "FROM EMPLOYEE ";
                     joinClause = "LEFT JOIN GENDER_TYPE ON EMPLOYEE.Gender = GENDER_TYPE.ID";
                     joinClause += " LEFT JOIN STORE ON EMPLOYEE.Store = STORE.ID";
-                    joinClause += " LEFT JOIN ATTRACTION ON EMPLOYEE.Attraction = ATTRACTION.ID"; 
+                    joinClause += " LEFT JOIN ATTRACTION ON EMPLOYEE.Attraction = ATTRACTION.ID";
+                    joinClause += " LEFT JOIN TITLE_TYPE ON EMPLOYEE.Title = TITLE_TYPE.ID";
                 }
                 else if (whichEntity == "CUSTOMER")
                 {
                     //dbCommand = "SELECT CUSTOMER.*, MEMBERSHIP_TYPE.Name MembershipTypeName FROM CUSTOMER LEFT JOIN MEMBERSHIP_TYPE ON CUSTOMER.MembershipType= MEMBERSHIP_TYPE.ID";
-                    selectClause = "SELECT CUSTOMER.*, MEMBERSHIP_TYPE.Name MembershipTypeName ";
+                    selectClause = "SELECT CUSTOMER.ID, CUSTOMER.Fname 'First Name', CUSTOMER.Lname 'Last Name', CUSTOMER.StreetAddress 'Address', CUSTOMER.CityAddress 'City', CUSTOMER.StateAddress 'State', CUSTOMER.Phone, CUSTOMER.Email, MEMBERSHIP_TYPE.Name 'Membership Type', CUSTOMER.ExpirationDate 'Membership Expiration' ";
                     fromClause = "FROM CUSTOMER ";
                     joinClause = "LEFT JOIN MEMBERSHIP_TYPE ON CUSTOMER.MembershipType= MEMBERSHIP_TYPE.ID";
                 }
@@ -115,7 +117,7 @@ LEFT JOIN STORE ON PURCHASE.Store = STORE.ID
 LEFT JOIN CUSTOMER ON PURCHASE.Customer = CUSTOMER.ID
 LEFT JOIN EMPLOYEE ON PURCHASE.Employee = EMPLOYEE.ID";
 */
-                    selectClause = "SELECT PURCHASE.*, PAY_TYPE.Name 'Payment Type', STORE.Name 'Store Name', CUSTOMER.Lname 'Customer Last Name', EMPLOYEE.Lname 'Employee Last Name' ";
+                    selectClause = "SELECT PURCHASE.Receipt, PURCHASE.Date, PURCHASE.Time, PAY_TYPE.Name 'Payment Type', STORE.Name 'Store Name', CUSTOMER.Lname 'Customer Last Name', EMPLOYEE.Lname 'Employee Last Name' ";
                     fromClause = "FROM PURCHASE ";
                     joinClause = "LEFT JOIN PAY_TYPE ON PURCHASE.Pay_option = PAY_TYPE.ID";
                     joinClause += " LEFT JOIN STORE ON PURCHASE.Store = STORE.ID";
@@ -125,16 +127,17 @@ LEFT JOIN EMPLOYEE ON PURCHASE.Employee = EMPLOYEE.ID";
                 else if (whichEntity == "PURCHASE_INFO")
                 {
                     //dbCommand = "SELECT PURCHASE_INFO.*, PRODUCT.Name ProductName FROM PURCHASE_INFO LEFT JOIN PRODUCT ON PURCHASE_INFO.Product = PRODUCT.ID";
-                    selectClause = "SELECT PURCHASE_INFO.*, PRODUCT.Name ProductName ";
+                    selectClause = "SELECT PURCHASE_INFO.Receipt, PRODUCT.Name 'Product', PURCHASE_INFO.Price, PURCHASE_INFO.Quantity ";
                     fromClause = "FROM PURCHASE_INFO ";
                     joinClause = "LEFT JOIN PRODUCT ON PURCHASE_INFO.Product = PRODUCT.ID";
                 }
                 else if (whichEntity == "STORE")
                 {
                     //dbCommand = "SELECT STORE.*, EMPLOYEE.LName Manager FROM STORE LEFT JOIN EMPLOYEE ON STORE.Manager = EMPLOYEE.ID";
-                    selectClause = "SELECT STORE.*, EMPLOYEE.LName Manager ";
+                    selectClause = "SELECT STORE.ID, STORE.Name, STORE_TYPE.Name 'Store Type', EMPLOYEE.LName Manager, STORE.Manager_date 'Manager Date' ";
                     fromClause = "FROM STORE ";
                     joinClause = "LEFT JOIN EMPLOYEE ON STORE.Manager = EMPLOYEE.ID";
+                    joinClause += " LEFT JOIN STORE_TYPE ON STORE.Type = STORE_TYPE.ID";
                 }
                 else
                 {

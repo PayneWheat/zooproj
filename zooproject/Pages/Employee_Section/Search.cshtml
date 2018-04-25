@@ -169,7 +169,7 @@
                 </div>
             </form>
         </div>
-        <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#search-fields">Show/Hide Search Fields</button>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#search-fields">Show/Hide Search Fields</button>
 
     }
 }
@@ -179,29 +179,31 @@
 @{
     if (Model.whichEntity != "")
     {
-        <table id="resultsTable" class="table table-hover">
-            <thead>
+<div style="overflow-x:scroll !important;">
+    <table id="resultsTable" class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                @for (int i = 0; i < Model.AInt; i++)
+                {
+                    <th>@Model.ColumnNames[i]</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.BInt; i++)
+            {
                 <tr>
-                    <th></th>
-                    @for (int i = 0; i < Model.AInt; i++)
+                    <td><a href="./Update?we=@Model.whichEntity&id=@Model.Results[i][0]" class="btn btn-default" style="padding:3px 10px 3px 10px;">Edit</a></td>
+                    @for (int j = 0; j < Model.AInt; j++)
                     {
-                        <th>@Model.ColumnNames[i]</th>
+                        <td>@Model.Results[i][j]</td>
                     }
                 </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.BInt; i++)
-                {
-                    <tr>
-                        <td><a href="./Update?we=@Model.whichEntity&id=@Model.Results[i][0]" class="btn btn-default" style="padding:3px 10px 3px 10px;">Edit</a></td>
-                        @for (int j = 0; j < Model.AInt; j++)
-                        {
-                            <td>@Model.Results[i][j]</td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
+</div>
     }
     <p>@Model.AMessage</p>
     <p>@Model.AInt</p>
