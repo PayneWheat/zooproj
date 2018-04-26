@@ -63,7 +63,7 @@ namespace zooproject
             {
                 app.UseExceptionHandler("/Error");
             }
-            app.UseExceptionHandler("/Error");
+
 
             app.UseStaticFiles();
             app.UseIdentity();
